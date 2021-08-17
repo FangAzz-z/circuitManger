@@ -22,7 +22,7 @@ public class Main extends Application {
 
         new StartUp().init();
         List<ProductType> list = new ProductTypeDao().queryAll();
-        list.forEach(a->System.out.println(a.getCategory()+"-"+a.getModel()+"-"+a.getBrand()));
+        list.forEach(a->System.out.println(a.getId()+"-"+a.getCategory()+"-"+a.getModel()+"-"+a.getBrand()));
     }
 
 

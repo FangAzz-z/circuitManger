@@ -14,7 +14,7 @@ public class StartUp {
             if (!isExist(statement,"CM_PRODECT_TYPE")){
                 System.out.println("--->CM_PRODECT_TYPE init");
                 String sql = "create table CM_PRODECT_TYPE(" +
-                        "id int(11) primary key auto_increment, " +
+                        "id bigint(11) primary key auto_increment, " +
                         "category varchar(20)," +
                         "model varchar(20)," +
                         "brand varchar(20))";
