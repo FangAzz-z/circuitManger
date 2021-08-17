@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zzl
+ */
 public class BaseDao {
     protected List<Map<String, Object>> queryForList(String sql, Object[] obj) {
         List<Map<String, Object>> returnList = new ArrayList<>();
@@ -16,18 +19,17 @@ public class BaseDao {
             ResultSet resultSet;
             if(obj == null) {
                 statement = DBUtil.getConnection().createStatement();
-                resultSet = statement.executeQuery(sql);
             }else{
                 statement = DBUtil.getConnection().prepareStatement(sql);
                 for (int i = 0; i < obj.length; i++) {
                     ((PreparedStatement) statement).setObject(i,obj[i]);
                 }
-                resultSet = statement.executeQuery(sql);
             }
+            resultSet = statement.executeQuery(sql);
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
             while (resultSet.next()) {
-                Map rowData = new HashMap<>();
+                Map rowData = new HashMap<>(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }
@@ -44,7 +46,7 @@ public class BaseDao {
     }
 
     protected Map<String, Object> queryForMap(String sql, Object[] obj) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = null;
         try {
             Statement statement = DBUtil.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -52,7 +54,7 @@ public class BaseDao {
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
             while (resultSet.next()) {
-                Map rowData = new HashMap<>();
+                Map rowData = new HashMap<>(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }
