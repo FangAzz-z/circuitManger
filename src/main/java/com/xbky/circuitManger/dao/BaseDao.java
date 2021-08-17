@@ -71,4 +71,49 @@ public class BaseDao {
         }
         return result;
     }
+
+    protected int insert(String sql, Object[] obj) {
+        int result=0;
+        try {
+            Statement statement;
+            ResultSet resultSet;
+            if(obj == null) {
+                statement = DBUtil.getConnection().createStatement();
+            }else{
+                statement = DBUtil.getConnection().prepareStatement(sql);
+                for (int i = 0; i < obj.length; i++) {
+                    ((PreparedStatement) statement).setObject(i,obj[i]);
+                }
+            }
+            boolean bool = statement.execute(sql);
+            result = bool?1:0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    protected int insertBatch(String sql){
+        return 0;
+    }
+
+    protected int update(String sql,Object[] obj){
+        int result=0;
+        try {
+            Statement statement;
+            ResultSet resultSet;
+            if(obj == null) {
+                statement = DBUtil.getConnection().createStatement();
+            }else{
+                statement = DBUtil.getConnection().prepareStatement(sql);
+                for (int i = 0; i < obj.length; i++) {
+                    ((PreparedStatement) statement).setObject(i,obj[i]);
+                }
+            }
+            result = statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
