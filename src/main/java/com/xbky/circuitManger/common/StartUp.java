@@ -1,18 +1,21 @@
 package com.xbky.circuitManger.common;
 
 import com.xbky.circuitManger.utils.DBUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StartUp {
+    Logger log = LoggerFactory.getLogger(StartUp.class);
     public void init(){
         try {
             Statement statement = DBUtil.getConnection().createStatement();
             // 创建数据表
             if (!isExist(statement,"CM_PRODECT_TYPE")){
-                System.out.println("--->CM_PRODECT_TYPE init");
+                log.info("数据表->CM_PRODECT_TYPE 初始化");
                 String sql = "create table CM_PRODECT_TYPE(" +
                         "id bigint(11) primary key auto_increment, " +
                         "category varchar(20)," +
