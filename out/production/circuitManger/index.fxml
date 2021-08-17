@@ -1,16 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <GridPane fx:controller="com.xbky.circuitManger.controller.Controller"
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
           hgap="0"
           vgap="20"
-          stylesheets="login.css"
 >
 <!--    <gridLinesVisible>true</gridLinesVisible>-->
     <Label text="欢迎使用本软件，请先登录"
@@ -30,5 +27,7 @@
                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     <Button text="登录" GridPane.columnIndex="0"
             GridPane.rowIndex="3"
-            GridPane.columnSpan="2"></Button>
+            GridPane.columnSpan="2"
+            onAction="#handleClick"
+    ></Button>
 </GridPane>
