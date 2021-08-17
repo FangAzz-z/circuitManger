@@ -11,8 +11,7 @@ public class StartUp {
         try {
             Statement statement = DBUtil.getConnection().createStatement();
             // 创建数据表
-            ResultSet resultSet = statement.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'CM_PRODECT_TYPE'");
-            if (!resultSet.next()){
+            if (!isExist(statement,"CM_PRODECT_TYPE")){
                 System.out.println("--->CM_PRODECT_TYPE init");
                 String sql = "create table CM_PRODECT_TYPE(" +
                         "id int(11) primary key auto_increment, " +
@@ -30,5 +29,10 @@ public class StartUp {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isExist(Statement statement,String tableName) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = '%s'",tableName));
+        return resultSet.next();
     }
 }
