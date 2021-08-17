@@ -9,7 +9,7 @@ import java.util.Map;
 public class ProductTypeDao extends BaseDao {
 
     public List<ProductType> queryAll(){
-        String sql = "select category,model,brand from cm_prodect_type";
+        String sql = "select category,model,brand from CM_PRODECT_TYPE";
         List<Map<String,Object>> result = super.queryForList(sql, null);
         return fillElement(result);
     }
