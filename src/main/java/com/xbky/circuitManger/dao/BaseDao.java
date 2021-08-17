@@ -1,6 +1,8 @@
 package com.xbky.circuitManger.dao;
 
 import com.xbky.circuitManger.utils.DBUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Map;
  * @author zzl
  */
 public class BaseDao {
+    private static Logger log = LoggerFactory.getLogger(BaseDao.class);
     protected List<Map<String, Object>> queryForList(String sql, Object[] obj) {
         List<Map<String, Object>> returnList = new ArrayList<>();
         try {
@@ -40,7 +43,7 @@ public class BaseDao {
             statement.close();
             DBUtil.closeConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
         return returnList;
     }
@@ -67,7 +70,7 @@ public class BaseDao {
             statement.close();
             DBUtil.closeConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
         return result;
     }
@@ -88,7 +91,7 @@ public class BaseDao {
             boolean bool = statement.execute(sql);
             result = bool?1:0;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
         return result;
     }
@@ -112,7 +115,7 @@ public class BaseDao {
             }
             result = statement.executeUpdate(sql);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("", e);
         }
         return result;
     }

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StartUp {
-    Logger log = LoggerFactory.getLogger(StartUp.class);
+    private static Logger log = LoggerFactory.getLogger(StartUp.class);
     public void init(){
         try {
             Statement statement = DBUtil.getConnection().createStatement();
@@ -30,7 +30,7 @@ public class StartUp {
             statement.close();
             DBUtil.closeConnection();
         }catch (SQLException e) {
-            e.printStackTrace();
+            log.error("", e);
         }
     }
 
