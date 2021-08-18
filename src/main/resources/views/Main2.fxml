@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXBadge?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.geometry.Insets?>
+
+
+<StackPane fx:id="root" prefHeight="653.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.MainController">
+    <children>
+        <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <VBox fx:id="drawer" alignment="TOP_CENTER" prefHeight="651.0" prefWidth="250.0" stylesheets="@/css/drawer.css">
+                    <ScrollPane fx:id="scroll" fitToWidth="true" styleClass="scroll" stylesheets="@/css/custom-scroll.css">
+                        <content>
+                            <VBox fx:id="views" styleClass="drawer-content">
+                                <children>
+                                    <Button fx:id="home" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#dashboard" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="Dashboard">
+                                        <graphic>
+                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                        </graphic>
+                                    </Button>
+                                    <Button fx:id="home2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="JFoenix Textfield">
+                                        <graphic>
+                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                        </graphic>
+                                    </Button>
+                                    <Button fx:id="about" alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="About" onMouseClicked="#about">
+                                        <graphic>
+                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="WebView - Baidu" onMouseClicked="#webview">
+                                        <graphic>
+                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="WebView - Bing" onMouseClicked="#webview2">
+                                        <graphic>
+                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </VBox>
+                        </content>
+                        <VBox.margin>
+                            <Insets top="10.0" />
+                        </VBox.margin>
+                    </ScrollPane>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                    <styleClass>
+                        <String fx:value="border" />
+                        <String fx:value="border-r-1" />
+                        <String fx:value="drawer" />
+                    </styleClass>
+                </VBox>
+                <VBox fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="drawer" HBox.hgrow="ALWAYS">
+                </VBox>
+            </children>
+            <styleClass>
+                <String fx:value="border-top-1" />
+                <String fx:value="border" />
+            </styleClass>
+        </HBox>
+    </children>
+</StackPane>
