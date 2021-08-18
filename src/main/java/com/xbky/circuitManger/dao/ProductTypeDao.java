@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class ProductTypeDao extends BaseDao {
 
-    public List<ProductType> queryAll(){
+    public List<Map<String,Object>> queryAll(){
         String sql = "select id,category,model,brand from CM_PRODECT_TYPE";
         List<Map<String,Object>> result = super.queryForList(sql, null);
-        return fillElement(result);
+        return result;
     }
 
     public int deleteById(Long id) {

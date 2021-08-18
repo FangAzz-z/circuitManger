@@ -5,11 +5,12 @@ import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.ProductType;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProdectTypeService {
     ProductTypeDao dao = new ProductTypeDao();
 
-    public List<ProductType> queryAll(){
+    public List<Map<String,Object>> queryAll(){
         return dao.queryAll();
     }
 
