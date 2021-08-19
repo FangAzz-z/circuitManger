@@ -7,7 +7,7 @@ public enum FxmlView {
         @Override
         public String title() {return "初始页";}
         @Override
-        public String fxml() {return "/views/main2.fxml";}
+        public String fxml() {return "/views/main.fxml";}
     },
     BASESET_PT{
         @Override
