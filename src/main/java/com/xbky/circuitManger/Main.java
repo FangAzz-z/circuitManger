@@ -19,6 +19,7 @@ public class Main extends Application {
         primarySence.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());// 页面样式表
         primaryStage.show();*/
 
+        AppIntializer.init();
         GNDecorator decorator = new GNDecorator();
         StageManager stageManager = StageManagerSingleton.getSingleton(primaryStage, decorator);
         stageManager.switchScene(FxmlView.MAIN);

@@ -1,10 +1,6 @@
 package com.xbky.circuitManger.view.fx;
 
-/**
- * @description:
- * @author:004485
- * @date:2021/8/18 14:46
- */
+
 public enum FxmlView {
 
     MAIN{
