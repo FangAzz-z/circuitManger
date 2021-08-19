@@ -21,7 +21,7 @@ public class ProductTypeDao extends BaseDao {
     }
 
     public int add(ProductType pt) {
-        String sql = "insert into CM_PRODECT_TYPE(category,model,brand) values(?,?,?)";
+        String sql = "insert into CM_PRODECT_TYPE(category,model,brand,create_time,update_time) values(?,?,?,now(),now())";
         Object[] obj = new Object[]{pt.getCategory(),pt.getModel(),pt.getBrand()};
         return super.insert(sql, obj);
     }
