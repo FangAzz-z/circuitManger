@@ -34,7 +34,7 @@ public class MainController implements Initializable {
      *  基本设置->基础信息
      */
     public void baseSetInfo(MouseEvent mouseEvent) {
-
+        updateBody(FxmlView.BASESET_INFO);
     }
 
     public void jfxTextField(MouseEvent mouseEvent) {
