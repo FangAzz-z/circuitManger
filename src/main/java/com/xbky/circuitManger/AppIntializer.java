@@ -56,7 +56,7 @@ public class AppIntializer {
             //基础设置->处理结果
             if(!isExist(statement,"CM_BASE_HANDLE_RESULT")){
                 log.info("数据表->CM_BASE_HANDLE_RESULT 初始化");
-                String sql = "create table CM_BASE_PT_STAUS(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
+                String sql = "create table CM_BASE_HANDLE_RESULT(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
 

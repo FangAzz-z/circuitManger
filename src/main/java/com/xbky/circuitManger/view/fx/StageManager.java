@@ -112,7 +112,6 @@ public class StageManager {
 	private Parent loadViewNodeHierarchy(String fxmlFilePath) {
 		Parent rootNode = null;
 		try {
-			logger.info(getClass().getResource(fxmlFilePath).toString());
 			rootNode = FXMLLoader.load(getClass().getResource(fxmlFilePath));
 			Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
 		} catch (Exception exception) {
