@@ -1,4 +1,4 @@
-package com.xbky.circuitManger.view.fx;
+package com.xbky.circuitManger.view.common;
 
 import com.gn.decorator.GNDecorator;
 import com.gn.decorator.options.ButtonType;

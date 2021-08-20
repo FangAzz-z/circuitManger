@@ -1,4 +1,4 @@
-package com.xbky.circuitManger.view.fx;
+package com.xbky.circuitManger.view.common;
 
 
 public enum FxmlView {

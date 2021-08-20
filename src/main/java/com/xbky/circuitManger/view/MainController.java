@@ -1,7 +1,7 @@
 package com.xbky.circuitManger.view;
 
-import com.xbky.circuitManger.view.fx.FxmlView;
-import com.xbky.circuitManger.view.fx.StageManagerSingleton;
+import com.xbky.circuitManger.view.common.FxmlView;
+import com.xbky.circuitManger.view.common.StageManagerSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class Main2Controller implements Initializable {
+public class MainController implements Initializable {
     @FXML
     public ScrollPane body;
 
@@ -25,16 +25,23 @@ public class Main2Controller implements Initializable {
     }
 
     /**
-     *  基本设置
+     *  基本设置->维修产品类型
      */
-    public void baseSet(MouseEvent mouseEvent) {
+    public void baseSetPt(MouseEvent mouseEvent) {
+        updateBody(FxmlView.BASESET_PT);
+    }
+    /**
+     *  基本设置->基础信息
+     */
+    public void baseSetInfo(MouseEvent mouseEvent) {
+
     }
 
     public void jfxTextField(MouseEvent mouseEvent) {
     }
 
     public void queryManager(MouseEvent mouseEvent) {
-        updateBody(FxmlView.BASESET_PT);
+
     }
 
     public void webview(MouseEvent mouseEvent) {
@@ -45,9 +52,14 @@ public class Main2Controller implements Initializable {
 
     public void altLayout(MouseEvent mouseEvent) {
     }
+    public void baseSet(MouseEvent mouseEvent) {
+    }
+
 
     private void updateBody(FxmlView view) {
         title.setText(view.title());
         StageManagerSingleton.getSingleton().switchContent(view, body);
     }
+
+
 }

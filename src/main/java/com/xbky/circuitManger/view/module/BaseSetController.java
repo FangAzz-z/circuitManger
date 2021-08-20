@@ -1,4 +1,4 @@
-package com.xbky.circuitManger.view;
+package com.xbky.circuitManger.view.module;
 
 import com.xbky.circuitManger.entity.ProductType;
 import com.xbky.circuitManger.service.ProdectTypeService;
