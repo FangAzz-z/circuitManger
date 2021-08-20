@@ -1,60 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.SVGPath?>
-<?import javafx.geometry.Insets?>
-
-
-<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
 <?import java.net.URL?>
-<StackPane fx:id="root" prefHeight="653.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.Main2Controller">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" prefHeight="653.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.Main2Controller">
     <children>
         <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
             <children>
                 <VBox fx:id="drawer" alignment="TOP_CENTER" prefHeight="651.0" prefWidth="250.0" stylesheets="@/css/theme/drawer.css">
-                    <ScrollPane fx:id="scroll" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
-                        <content>
-                            <VBox fx:id="views" styleClass="drawer-content">
-                                <children>
-                                    <Button fx:id="home" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="基本设置">
-                                        <graphic>
-                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button fx:id="home2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修登记管理">
-                                        <graphic>
-                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button fx:id="about" alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="查询管理" onMouseClicked="#queryManager">
-                                        <graphic>
-                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="系统维护" onMouseClicked="#webview">
-                                        <graphic>
-                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="50.0" prefWidth="596.0" styleClass="drawer-item" text="外部调用" onMouseClicked="#webview2">
-                                        <graphic>
-                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
-                                        </graphic>
-                                    </Button>
-                                </children>
-                            </VBox>
-                        </content>
-                        <VBox.margin>
-                            <Insets top="10.0" />
-                        </VBox.margin>
-                    </ScrollPane>
-                    <padding>
-                        <Insets top="20.0" />
-                    </padding>
+                    <Accordion>
+                        <panes>
+                            <TitledPane animated="false" text="基本设置">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
+                                    <ScrollPane fx:id="scroll" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                                        <content>
+                                            <VBox fx:id="views" styleClass="drawer-content">
+                                                <children>
+                                                    <Button fx:id="home" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修产品类别型号">
+                                                        <graphic>
+                                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="home2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修基础信息">
+                                                        <graphic>
+                                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="about" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="维修人员管理">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#webview" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="配件入库信息">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </ScrollPane>
+                                </AnchorPane>
+                            </TitledPane>
+                            <TitledPane animated="false" text="维修登记管理">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
+                                    <ScrollPane fx:id="scroll2" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                                        <content>
+                                            <VBox fx:id="views2" styleClass="drawer-content">
+                                                <children>
+                                                    <Button fx:id="weixiu" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修登记单">
+                                                        <graphic>
+                                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="peijian" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="配件登记单">
+                                                        <graphic>
+                                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </ScrollPane>
+                                </AnchorPane>
+                            </TitledPane>
+                            <TitledPane animated="false" text="查询管理">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
+                                    <ScrollPane fx:id="scroll3" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                                        <content>
+                                            <VBox fx:id="views3" styleClass="drawer-content">
+                                                <children>
+                                                    <Button fx:id="query1" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="按时间查询">
+                                                        <graphic>
+                                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="query2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="按维修工单号查询">
+                                                        <graphic>
+                                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="query3" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="按照板卡维修状态查询">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button  fx:id="query4" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#webview" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="按照板卡类型查询">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="query5" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#webview2" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="按照板卡编号查询">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="query6" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#webview" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="维修统计查询">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="query7" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#webview2" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="维修配件查询">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </ScrollPane>
+                                </AnchorPane>
+                            </TitledPane>
+                            <TitledPane animated="false" text="系统维护">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
+                                    <ScrollPane fx:id="scroll4" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                                        <content>
+                                            <VBox fx:id="views4" styleClass="drawer-content">
+                                                <children>
+                                                    <Button fx:id="system1" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="数据备份">
+                                                        <graphic>
+                                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="system2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="权限设置">
+                                                        <graphic>
+                                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="system3" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="软件管理使用方信息变更">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="system4" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="打印机设置">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </ScrollPane>
+                                </AnchorPane>
+                            </TitledPane>
+                            <TitledPane animated="false" text="外部调用">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
+                                    <ScrollPane fx:id="scroll5" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                                        <content>
+                                            <VBox fx:id="views5" styleClass="drawer-content">
+                                                <children>
+                                                    <Button fx:id="program1" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#baseSet" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="调用programmm程序">
+                                                        <graphic>
+                                                            <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="program2" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#jfxTextField" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="调用PTU程序">
+                                                        <graphic>
+                                                            <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="program3" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="调用TERM程序">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                    <Button fx:id="program4" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#queryManager" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="调用P-touchEditor程序">
+                                                        <graphic>
+                                                            <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                                        </graphic>
+                                                    </Button>
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </ScrollPane>
+                                </AnchorPane>
+                            </TitledPane>
+                        </panes>
+                    </Accordion>
                     <styleClass>
                         <String fx:value="border" />
                         <String fx:value="border-r-1" />
@@ -82,9 +231,9 @@
                         <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <ScrollPane fx:id="body" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" StackPane.alignment="TOP_LEFT">
-<!--                                    <content>-->
-<!--                                       &lt;!&ndash; <fx:include source="../module/profile.fxml" />&ndash;&gt;-->
-<!--                                    </content>-->
+                                    <!--                                    <content>-->
+                                    <!--                                       &lt;!&ndash; <fx:include source="../module/profile.fxml" />&ndash;&gt;-->
+                                    <!--                                    </content>-->
                                 </ScrollPane>
                             </children>
                         </StackPane>
