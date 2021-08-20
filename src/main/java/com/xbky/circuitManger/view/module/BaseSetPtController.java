@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class BaseSetController implements Initializable {
+public class BaseSetPtController implements Initializable {
     @FXML
     private TableView userTable;
 
