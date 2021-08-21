@@ -59,7 +59,34 @@ public class AppIntializer {
                 String sql = "create table CM_BASE_HANDLE_RESULT(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
-
+            //维修人员
+            if(!isExist(statement,"CM_MAINTAIN_USER")){
+                log.info("数据表->CM_MAINTAIN_USER 初始化");
+                String sql = "create table CM_MAINTAIN_USER(id bigint(11) primary key auto_increment, name varchar(50),department varchar(50),job varchar(50),phone varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+            }
+            //配件入库信息
+            if(!isExist(statement,"CM_FITTING_IN_INFO")){
+                log.info("数据表->CM_FITTING_IN_INFO 初始化");
+                String sql = "create table CM_FITTING_IN_INFO(id bigint(11) primary key auto_increment, fitting_no varchar(50),fitting_name varchar(50),job varchar(50),fitting_model varchar(50),unit varchar(20),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+            }
+            //维修登记单
+            if(!isExist(statement,"CM_CHECK_MAINTAIN_RECORD")){
+                log.info("数据表->CM_CHECK_MAINTAIN_RECORD 初始化");
+                String sql = "create table CM_CHECK_MAINTAIN_RECORD(id bigint(11) primary key auto_increment," +
+                        " maintain_id varchar(20),receive_date datetime, complete_date datetime," +
+                        "maintain_card_no varchar(50),maintain_card_model varchar(50),maintain_card_category varchar(50)," +
+                        "maintain_card_brand varchar(50),maintain_user varchar(50),maintain_desc varchar(255)," +
+                        "maintain_fitting varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+            }
+            //配件登记单
+            if(!isExist(statement,"CM_CHECK_FITTING_RECORD")){
+                log.info("数据表->CM_CHECK_FITTING_RECORD 初始化");
+                String sql = "create table CM_CHECK_FITTING_RECORD(id bigint(11) primary key auto_increment, fitting_model varchar(50),fitting_num varchar(50),fitting_no varchar(50),fitting_name varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+            }
             statement.close();
             DBUtil.closeConnection();
         }catch (SQLException e) {
