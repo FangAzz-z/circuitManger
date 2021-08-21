@@ -79,7 +79,6 @@ public class BaseDao {
         int result=0;
         try {
             Statement statement;
-            ResultSet resultSet;
             if(obj == null) {
                 statement = DBUtil.getConnection().createStatement();
             }else{
@@ -104,7 +103,6 @@ public class BaseDao {
         int result=0;
         try {
             Statement statement;
-            ResultSet resultSet;
             if(obj == null) {
                 statement = DBUtil.getConnection().createStatement();
             }else{
@@ -118,5 +116,16 @@ public class BaseDao {
             log.error("", e);
         }
         return result;
+    }
+
+    public List<Map<String,Object>> commonQueryAll(String baseTable){
+        String sql = String.format("select * from %s",baseTable);
+        List<Map<String,Object>> result = queryForList(sql, null);
+        return result;
+    }
+    public int commonDeleteById(String baseTable,String id){
+        String sql = String.format("delete from %s where id = ?",baseTable);
+        Object[] obj = new Object[]{id};
+        return update(sql, obj);
     }
 }

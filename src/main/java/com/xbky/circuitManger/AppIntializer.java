@@ -66,9 +66,9 @@ public class AppIntializer {
                 statement.execute(sql);
             }
             //配件入库信息
-            if(!isExist(statement,"CM_FITTING_IN_INFO")){
-                log.info("数据表->CM_FITTING_IN_INFO 初始化");
-                String sql = "create table CM_FITTING_IN_INFO(id bigint(11) primary key auto_increment, fitting_no varchar(50),fitting_name varchar(50),job varchar(50),fitting_model varchar(50),unit varchar(20),create_time datetime,update_time datetime)";
+            if(!isExist(statement,"CM_FITTING_INTO_INFO")){
+                log.info("数据表->CM_FITTING_INTO_INFO 初始化");
+                String sql = "create table CM_FITTING_INTO_INFO(id bigint(11) primary key auto_increment, fitting_no varchar(50),fitting_name varchar(50),job varchar(50),fitting_model varchar(50),unit varchar(20),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //维修登记单
