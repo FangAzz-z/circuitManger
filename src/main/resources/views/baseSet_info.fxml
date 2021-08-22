@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.module.BaseSetFittingController">
+<StackPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.module.BaseSetInfoController">
     <children>
         <TabPane prefHeight="500" prefWidth="700" VBox.vgrow="ALWAYS">
             <tabs>
@@ -26,13 +26,13 @@
                         <left>
                             <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
                                 <children>
-                                    <TextField fx:id="username" prefHeight="30.0" prefWidth="246.0" promptText="内容">
+                                    <TextField fx:id="status_text_content" prefHeight="30.0" prefWidth="246.0" promptText="内容">
                                         <VBox.margin>
                                             <Insets left="25.0" right="25.0" />
                                         </VBox.margin></TextField>
                                     <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
                                         <children>
-                                            <Button fx:id="reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                                            <Button fx:id="status_reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
                                                 <font>
                                                     <Font size="15.0" />
                                                 </font>
@@ -40,7 +40,7 @@
                                                     <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                                                 </effect>
                                             </Button>
-                                            <Button fx:id="query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                                            <Button fx:id="status_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
                                                 <font>
                                                     <Font size="15.0" />
                                                 </font>
@@ -68,10 +68,10 @@
                         <center>
                             <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                                 <children>
-                                    <TableView fx:id="userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
+                                    <TableView fx:id="status_userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
                                         <columns>
-                                            <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                                            <TableColumn fx:id="content" maxWidth="4000.0" prefWidth="75.0" text="内容" />
+                                            <TableColumn fx:id="status_id" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                                            <TableColumn fx:id="status_content" maxWidth="4000.0" prefWidth="75.0" text="内容" />
                                         </columns>
                                         <VBox.margin>
                                             <Insets left="10.0" right="5.0" />
@@ -82,7 +82,7 @@
                                         <contextMenu>
                                             <ContextMenu>
                                                 <items>
-                                                    <MenuItem fx:id="deleteUsers" mnemonicParsing="false" onAction="#deleteItems" text="Delete" />
+                                                    <MenuItem fx:id="deleteUsers1" mnemonicParsing="false" onAction="#deleteItems" text="Delete" />
                                                 </items>
                                             </ContextMenu>
                                         </contextMenu>
@@ -131,11 +131,340 @@
                      <Insets right="100.0" />
                   </padding>
                     </BorderPane>
-
                 </Tab>
-                <Tab closable="false" text="故障现象" />
-                <Tab closable="false" text="维修措施" />
-                <Tab closable="false" text="处理结果" />
+                <Tab closable="false" text="故障现象" >
+                    <BorderPane prefHeight="500" prefWidth="700.0">
+                        <left>
+                            <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TextField fx:id="show_text_username" prefHeight="30.0" prefWidth="246.0" promptText="内容">
+                                        <VBox.margin>
+                                            <Insets left="25.0" right="25.0" />
+                                        </VBox.margin></TextField>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
+                                        <children>
+                                            <Button fx:id="show_reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
+                                                </effect>
+                                            </Button>
+                                            <Button fx:id="show_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                        <VBox.margin>
+                                            <Insets left="100.0" />
+                                        </VBox.margin>
+                                    </HBox>
+                                </children>
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                                <BorderPane.margin>
+                                    <Insets />
+                                </BorderPane.margin>
+                            </VBox>
+                        </left>
+                        <center>
+                            <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TableView fx:id="show_userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
+                                        <columns>
+                                            <TableColumn fx:id="show_id" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                                            <TableColumn fx:id="show_content" maxWidth="4000.0" prefWidth="75.0" text="内容" />
+                                        </columns>
+                                        <VBox.margin>
+                                            <Insets left="10.0" right="5.0" />
+                                        </VBox.margin>
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        </columnResizePolicy>
+                                        <contextMenu>
+                                            <ContextMenu>
+                                                <items>
+                                                    <MenuItem fx:id="deleteUsers2" mnemonicParsing="false" onAction="#deleteItems" text="Delete" />
+                                                </items>
+                                            </ContextMenu>
+                                        </contextMenu>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </center>
+                        <top>
+                            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
+                                        <children>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <padding>
+                                            <Insets right="10.0" />
+                                        </padding>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </top>
+                        <padding>
+                            <Insets right="100.0" />
+                        </padding>
+                    </BorderPane>
+                </Tab>
+                <Tab closable="false" text="维修措施" >
+                    <BorderPane prefHeight="500" prefWidth="700.0">
+                        <left>
+                            <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TextField fx:id="method_text_username" prefHeight="30.0" prefWidth="246.0" promptText="内容">
+                                        <VBox.margin>
+                                            <Insets left="25.0" right="25.0" />
+                                        </VBox.margin></TextField>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
+                                        <children>
+                                            <Button fx:id="method_reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
+                                                </effect>
+                                            </Button>
+                                            <Button fx:id="method_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                        <VBox.margin>
+                                            <Insets left="100.0" />
+                                        </VBox.margin>
+                                    </HBox>
+                                </children>
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                                <BorderPane.margin>
+                                    <Insets />
+                                </BorderPane.margin>
+                            </VBox>
+                        </left>
+                        <center>
+                            <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TableView fx:id="method_userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
+                                        <columns>
+                                            <TableColumn fx:id="method_id" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                                            <TableColumn fx:id="method_content" maxWidth="4000.0" prefWidth="75.0" text="内容" />
+                                        </columns>
+                                        <VBox.margin>
+                                            <Insets left="10.0" right="5.0" />
+                                        </VBox.margin>
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        </columnResizePolicy>
+                                        <contextMenu>
+                                            <ContextMenu>
+                                                <items>
+                                                    <MenuItem fx:id="deleteUsers3" mnemonicParsing="false" onAction="#deleteItems" text="Delete" />
+                                                </items>
+                                            </ContextMenu>
+                                        </contextMenu>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </center>
+                        <top>
+                            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
+                                        <children>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <padding>
+                                            <Insets right="10.0" />
+                                        </padding>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </top>
+                        <padding>
+                            <Insets right="100.0" />
+                        </padding>
+                    </BorderPane>
+                </Tab>
+                <Tab closable="false" text="处理结果" >
+                    <BorderPane prefHeight="500" prefWidth="700.0">
+                        <left>
+                            <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TextField fx:id="result_text_username" prefHeight="30.0" prefWidth="246.0" promptText="内容">
+                                        <VBox.margin>
+                                            <Insets left="25.0" right="25.0" />
+                                        </VBox.margin></TextField>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
+                                        <children>
+                                            <Button fx:id="result_reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
+                                                </effect>
+                                            </Button>
+                                            <Button fx:id="result_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                        <VBox.margin>
+                                            <Insets left="100.0" />
+                                        </VBox.margin>
+                                    </HBox>
+                                </children>
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                                <BorderPane.margin>
+                                    <Insets />
+                                </BorderPane.margin>
+                            </VBox>
+                        </left>
+                        <center>
+                            <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <TableView fx:id="result_userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
+                                        <columns>
+                                            <TableColumn fx:id="result_id" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                                            <TableColumn fx:id="result_content" maxWidth="4000.0" prefWidth="75.0" text="内容" />
+                                        </columns>
+                                        <VBox.margin>
+                                            <Insets left="10.0" right="5.0" />
+                                        </VBox.margin>
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        </columnResizePolicy>
+                                        <contextMenu>
+                                            <ContextMenu>
+                                                <items>
+                                                    <MenuItem fx:id="deleteUsers4" mnemonicParsing="false" onAction="#deleteItems" text="Delete" />
+                                                </items>
+                                            </ContextMenu>
+                                        </contextMenu>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </center>
+                        <top>
+                            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
+                                        <children>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                            <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <effect>
+                                                    <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                                                </effect>
+                                            </Button>
+                                        </children>
+                                        <padding>
+                                            <Insets right="10.0" />
+                                        </padding>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </top>
+                        <padding>
+                            <Insets right="100.0" />
+                        </padding>
+                    </BorderPane>
+                </Tab>
             </tabs>
         </TabPane>
     </children>

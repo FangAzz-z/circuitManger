@@ -26,12 +26,12 @@
                 </VBox.margin></TextField>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="255.0" spacing="15.0">
                 <children>
-                    <RadioButton fx:id="rbAll" mnemonicParsing="false" text="全部" textFill="WHITE" toggleGroup="$gender">
+                    <RadioButton fx:id="rbAll" mnemonicParsing="false" selected="true"  text="全部" textFill="WHITE">
                         <toggleGroup>
                             <ToggleGroup fx:id="gender" />
                         </toggleGroup>
                     </RadioButton>
-                    <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="男" textFill="WHITE" toggleGroup="$gender">
+                    <RadioButton fx:id="rbMale" mnemonicParsing="false" text="男" textFill="WHITE" toggleGroup="$gender">
                         <HBox.margin>
                             <Insets left="10.0" />
                         </HBox.margin>
