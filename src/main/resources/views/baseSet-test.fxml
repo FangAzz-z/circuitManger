@@ -23,18 +23,58 @@
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background"  BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="firstName" prefHeight="30.0" prefWidth="246.0" promptText="产品类别">
+                <Label text="Add New User">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" top="30.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="firstName" prefHeight="30.0" prefWidth="246.0" promptText="First Name">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="lastName" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
+                <TextField fx:id="lastName" prefHeight="30.0" prefWidth="246.0" promptText="Last Name">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="email" prefHeight="30.0" prefWidth="246.0" promptText="厂家品牌">
+                <DatePicker fx:id="dob" editable="false" prefHeight="30.0" prefWidth="245.0" promptText="Date of Birth">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </DatePicker>
+                <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="255.0" spacing="15.0">
+                    <children>
+                        <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="Male" textFill="WHITE">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="gender" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="Female" textFill="WHITE" toggleGroup="$gender">
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </RadioButton>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin>
+                </HBox>
+                <ComboBox fx:id="cbRole" prefHeight="30.0" prefWidth="246.0" promptText="Select Role">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </ComboBox>
+                <TextField fx:id="email" prefHeight="30.0" prefWidth="246.0" promptText="Email">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
+                <PasswordField fx:id="password" prefHeight="30.0" prefWidth="246.0" promptText="Password">
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin>
+                </PasswordField>
                 <HBox prefHeight="30.0" prefWidth="250.0" spacing="10.0">
                     <children>
                         <Button fx:id="reset" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="重置">
@@ -94,41 +134,4 @@
             </children>
         </VBox>
     </center>
-    <top>
-        <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <children>
-                <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
-                    <children>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                            <effect>
-                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                            </effect>
-                        </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                            <effect>
-                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                            </effect>
-                        </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                            <effect>
-                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                            </effect>
-                        </Button>
-                    </children>
-                    <padding>
-                        <Insets right="10.0" />
-                    </padding>
-                </HBox>
-            </children>
-        </VBox>
-    </top>
 </BorderPane>

@@ -27,20 +27,27 @@ public class MainController implements Initializable {
     /**
      *  基本设置->维修产品类型
      */
-    public void baseSetPt(MouseEvent mouseEvent) {
+    public void setPt(MouseEvent mouseEvent) {
+
         updateBody(FxmlView.BASESET_PT);
     }
     /**
      *  基本设置->基础信息
      */
-    public void baseSetInfo(MouseEvent mouseEvent) {
+    public void setInfo(MouseEvent mouseEvent) {
         updateBody(FxmlView.BASESET_INFO);
     }
     /**
      *  基本设置->人员管理
      */
-    public void queryManager(MouseEvent mouseEvent) {
+    public void setUser(MouseEvent mouseEvent) {
         updateBody(FxmlView.BASESET_USER);
+    }
+    /**
+     *  基本设置->配件入库信息
+     */
+    public void setFtting(MouseEvent mouseEvent) {
+        updateBody(FxmlView.BASESET_FITTING);
     }
 
     public void jfxTextField(MouseEvent mouseEvent) {
@@ -66,4 +73,6 @@ public class MainController implements Initializable {
     }
 
 
+    public void queryManager(MouseEvent mouseEvent) {
+    }
 }

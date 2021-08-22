@@ -26,6 +26,12 @@ public enum FxmlView {
         public String title() {return "维修人员管理";}
         @Override
         public String fxml() {return "/views/baseSet_user.fxml";}
+    },
+    BASESET_FITTING{
+        @Override
+        public String title() {return "配件入库信息";}
+        @Override
+        public String fxml() {return "/views/baseSet_fitting.fxml";}
     };
 
     public abstract String title();
