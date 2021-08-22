@@ -1,18 +1,23 @@
 package com.xbky.circuitManger.view;
 
 import com.xbky.circuitManger.view.common.FxmlView;
-import com.xbky.circuitManger.view.common.StageManagerSingleton;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
+    private static Logger log = LoggerFactory.getLogger(MainController.class);
     @FXML
     public ScrollPane body;
 
@@ -69,7 +74,19 @@ public class MainController implements Initializable {
 
     private void updateBody(FxmlView view) {
         title.setText(view.title());
-        StageManagerSingleton.getSingleton().switchContent(view, body);
+        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.fxml());
+        body.setContent(viewRootNodeHierarchy);
+    }
+
+    private Parent loadViewNodeHierarchy(String fxmlFilePath) {
+        Parent rootNode = null;
+        try {
+            rootNode = FXMLLoader.load(getClass().getResource(fxmlFilePath));
+            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
+        } catch (Exception exception) {
+            log.info("", exception);
+        }
+        return rootNode;
     }
 
 

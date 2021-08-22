@@ -32,6 +32,12 @@ public enum FxmlView {
         public String title() {return "配件入库信息";}
         @Override
         public String fxml() {return "/views/baseSet_fitting.fxml";}
+    },
+    BASESET_PT_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/baseSet_pt_dialog.fxml";}
     };
 
     public abstract String title();

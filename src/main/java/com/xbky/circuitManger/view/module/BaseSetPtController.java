@@ -1,6 +1,6 @@
 package com.xbky.circuitManger.view.module;
 
-import com.xbky.circuitManger.entity.ProductType;
+import com.gn.decorator.GNDecorator;
 import com.xbky.circuitManger.service.ProdectTypeService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,14 +10,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
+import org.slf4j.Logger;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class BaseSetPtController implements Initializable {
+    private static final Logger log = getLogger(BaseSetPtController.class);
     @FXML
     private TableView userTable;
 
@@ -29,6 +32,8 @@ public class BaseSetPtController implements Initializable {
     private TableColumn model;
     @FXML
     private TableColumn brand;
+
+    private final GNDecorator gnDialog = new GNDecorator();
 
     ProdectTypeService prodectTypeService = new  ProdectTypeService();
 
@@ -48,5 +53,10 @@ public class BaseSetPtController implements Initializable {
         List<Map<String,Object>> dataList =  prodectTypeService.queryAll();
         list.addAll(dataList);
         this.userTable.setItems(list);
+
+    }
+
+    public void addData(ActionEvent actionEvent) {
+
     }
 }

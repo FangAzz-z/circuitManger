@@ -37,12 +37,12 @@
                     </VBox.margin></TextField>
                 <HBox prefHeight="30.0" prefWidth="250.0" spacing="10.0">
                     <children>
-                        <Button fx:id="reset" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="重置">
+                        <Button fx:id="reset" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="清除">
                             <effect>
                                 <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                             </effect>
                         </Button>
-                        <Button fx:id="saveUser" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="保存" textFill="WHITE">
+                        <Button fx:id="query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="查询" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -99,7 +99,7 @@
             <children>
                 <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
                     <children>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                        <Button fx:id="addData" onAction="#addData"  ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
