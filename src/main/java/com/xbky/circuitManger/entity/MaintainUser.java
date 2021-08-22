@@ -8,6 +8,8 @@ public class MaintainUser {
 
     private String name;
 
+    private int sex;
+
     private String department;
 
     private String job;
@@ -33,6 +35,14 @@ public class MaintainUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 
     public String getDepartment() {

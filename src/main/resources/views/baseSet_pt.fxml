@@ -23,7 +23,7 @@
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background"  BorderPane.alignment="CENTER">
             <children>
-                <Label text="Add New User" textFill="WHITE">
+                <Label text="Add New User">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -31,23 +31,6 @@
                         <Insets bottom="10.0" left="20.0" top="30.0" />
                     </VBox.margin>
                 </Label>
-                <HBox prefHeight="30.0" prefWidth="265.0">
-                    <children>
-                        <Label text="User ID - " textFill="#f8f7f7">
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="userId">
-                            <HBox.margin>
-                                <Insets left="25.0" />
-                            </HBox.margin>
-                        </Label>
-                    </children>
-                    <VBox.margin>
-                        <Insets left="25.0" />
-                    </VBox.margin>
-                </HBox>
                 <TextField fx:id="firstName" prefHeight="30.0" prefWidth="246.0" promptText="First Name">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
@@ -127,21 +110,6 @@
     <center>
         <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-<!--                <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
-                    <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" styleClass="background" text="Logout" textFill="#fff9f9" textOverrun="CLIP">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets right="5.0" top="5.0" />
-                            </HBox.margin>
-                            <effect>
-                                <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
-                            </effect>
-                        </Button>
-                    </children>
-                </HBox>-->
                 <TableView fx:id="userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
                     <columns>
                         <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />

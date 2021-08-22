@@ -247,13 +247,13 @@
         </HBox>
     </children>
     <stylesheets>
-        <URL value="@/css/theme/material-color.css" />
-        <URL value="@/css/theme/skeleton.css" />
-        <URL value="@/css/theme/light.css" />
-        <URL value="@/css/theme/bootstrap.css" />
-        <URL value="@/css/theme/shape.css" />
-        <URL value="@/css/theme/typographic.css" />
-        <URL value="@/css/theme/helpers.css" />
-        <URL value="@/css/theme/master.css" />
+        <URL value="@../css/theme/material-color.css" />
+        <URL value="@../css/theme/skeleton.css" />
+        <URL value="@../css/theme/light.css" />
+        <URL value="@../css/theme/bootstrap.css" />
+        <URL value="@../css/theme/shape.css" />
+        <URL value="@../css/theme/typographic.css" />
+        <URL value="@../css/theme/helpers.css" />
+        <URL value="@../css/theme/master.css" />
     </stylesheets>
 </StackPane>

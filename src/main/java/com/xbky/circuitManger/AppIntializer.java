@@ -62,7 +62,7 @@ public class AppIntializer {
             //维修人员
             if(!isExist(statement,"CM_MAINTAIN_USER")){
                 log.info("数据表->CM_MAINTAIN_USER 初始化");
-                String sql = "create table CM_MAINTAIN_USER(id bigint(11) primary key auto_increment, name varchar(50),department varchar(50),job varchar(50),phone varchar(50),create_time datetime,update_time datetime)";
+                String sql = "create table CM_MAINTAIN_USER(id bigint(11) primary key auto_increment, name varchar(50),sex tinyint(2),department varchar(50),job varchar(50),phone varchar(50),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //配件入库信息

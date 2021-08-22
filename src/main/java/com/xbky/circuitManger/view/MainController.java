@@ -36,13 +36,17 @@ public class MainController implements Initializable {
     public void baseSetInfo(MouseEvent mouseEvent) {
         updateBody(FxmlView.BASESET_INFO);
     }
+    /**
+     *  基本设置->人员管理
+     */
+    public void queryManager(MouseEvent mouseEvent) {
+        updateBody(FxmlView.BASESET_USER);
+    }
 
     public void jfxTextField(MouseEvent mouseEvent) {
     }
 
-    public void queryManager(MouseEvent mouseEvent) {
 
-    }
 
     public void webview(MouseEvent mouseEvent) {
     }

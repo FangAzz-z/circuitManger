@@ -11,7 +11,7 @@ public enum FxmlView {
     },
     BASESET_PT{
         @Override
-        public String title() {return "产品类型设置";}
+        public String title() {return "维修产品类别型号";}
         @Override
         public String fxml() {return "/views/baseSet_pt.fxml";}
     },
@@ -20,6 +20,12 @@ public enum FxmlView {
         public String title() {return "维修基础信息";}
         @Override
         public String fxml() {return "/views/baseSet_info.fxml";}
+    },
+    BASESET_USER{
+        @Override
+        public String title() {return "维修人员管理";}
+        @Override
+        public String fxml() {return "/views/baseSet_user.fxml";}
     };
 
     public abstract String title();
