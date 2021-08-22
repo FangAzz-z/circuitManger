@@ -33,4 +33,21 @@ public class ObjectUtil {
         return dateFormatEn(time, standTimeFormat);
     }
 
+    /**
+     * 参数集是否有参数为null
+     * @param param 参数集
+     * @return true，有；false，没有
+     */
+    public static boolean hasNull(String... param)
+    {
+        for (String str : param)
+        {
+            if (isNull(str))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

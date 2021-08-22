@@ -23,15 +23,15 @@
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background"  BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="firstName" prefHeight="30.0" prefWidth="246.0" promptText="产品类别">
+                <TextField fx:id="qTfCategory" prefHeight="30.0" prefWidth="246.0" promptText="产品类别">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="lastName" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
+                <TextField fx:id="qTfModel" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="email" prefHeight="30.0" prefWidth="246.0" promptText="厂家品牌">
+                <TextField fx:id="qTfBrand" prefHeight="30.0" prefWidth="246.0" promptText="厂家品牌">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
