@@ -219,7 +219,7 @@
                                         <SVGPath content="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" styleClass="icon" />
                                     </graphic>
                                 </Button>
-                                <Label fx:id="title" styleClass="h4" text="Dashboard" textFill="#0000008c">
+                                <Label fx:id="title" styleClass="h4" text="初始页" textFill="#0000008c">
                                     <font>
                                         <Font size="17.0" />
                                     </font>

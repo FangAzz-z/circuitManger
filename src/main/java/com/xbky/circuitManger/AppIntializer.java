@@ -15,24 +15,26 @@ public class AppIntializer {
             Statement statement = DBUtil.getConnection().createStatement();
             // 创建数据表
             // 产品类别型号
-            if (!isExist(statement,"CM_PRODECT_TYPE")){
-                log.info("数据表->CM_PRODECT_TYPE 初始化");
-                String sql = "create table CM_PRODECT_TYPE(" +
+            if (!isExist(statement,"CM_PRODUCT_TYPE")){
+                log.info("数据表->CM_PRODUCT_TYPE 初始化");
+                String sql = "create table CM_PRODUCT_TYPE(" +
                         "id bigint(11) primary key auto_increment, " +
                         "category varchar(20)," +
                         "model varchar(20)," +
-                        "brand varchar(20))";
+                        "brand varchar(20)," +
+                        "create_time datetime," +
+                        "update_time datetime)";
                 statement.execute(sql);
                 // 添加数据
-                statement.executeUpdate("insert into CM_PRODECT_TYPE(category,model,brand) values('冰箱','002','海尔')");
-                statement.executeUpdate("insert into CM_PRODECT_TYPE(category,model,brand) values('空调','003','格力')");
-                statement.executeUpdate("insert into CM_PRODECT_TYPE(category,model,brand) values('洗衣机','007','美的')");
+//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('冰箱','002','海尔')");
+//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('空调','003','格力')");
+//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('洗衣机','007','美的')");
             }
 
             //基础设置->产品状态
-            if(!isExist(statement,"CM_BASE_PT_STAUS")){
-                log.info("数据表->CM_BASE_PT_STAUS 初始化");
-                String sql = "create table CM_BASE_PT_STAUS(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
+            if(!isExist(statement,"CM_BASE_PT_STATUS")){
+                log.info("数据表->CM_BASE_PT_STATUS 初始化");
+                String sql = "create table CM_BASE_PT_STATUS(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //基础设置->故障现象

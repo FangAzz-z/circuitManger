@@ -28,6 +28,17 @@ public class ProductType {
     private Date createTime;
     private Date updateTime;
 
+    public ProductType(){
+
+    }
+    public ProductType(Long id,String category,String model,String brand){
+        this.id = id;
+        this.category = category;
+        this.model = model;
+        this.brand = brand;
+    }
+
+
     public Long getId() {
         return id;
     }

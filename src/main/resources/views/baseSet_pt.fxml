@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.module.BaseSetPtController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtController">
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background"  BorderPane.alignment="CENTER">
             <children>
@@ -37,12 +37,12 @@
                     </VBox.margin></TextField>
                 <HBox prefHeight="30.0" prefWidth="250.0" spacing="10.0">
                     <children>
-                        <Button fx:id="reset" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="清除">
+                        <Button fx:id="reset" onAction="#resetData"  mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="清除">
                             <effect>
                                 <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                             </effect>
                         </Button>
-                        <Button fx:id="query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="查询" textFill="WHITE">
+                        <Button fx:id="query" onAction="#queryData"  alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="btnGreen" text="查询" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -83,13 +83,6 @@
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
-                    <contextMenu>
-                        <ContextMenu>
-                            <items>
-                                <MenuItem fx:id="deleteUsers" mnemonicParsing="false" onAction="#deleteUsers" text="Delete" />
-                            </items>
-                        </ContextMenu>
-                    </contextMenu>
                 </TableView>
             </children>
         </VBox>
@@ -107,7 +100,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                        <Button fx:id="modify" onAction="#modifyData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -115,7 +108,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                        <Button fx:id="deleteData" onAction="#deleteData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>

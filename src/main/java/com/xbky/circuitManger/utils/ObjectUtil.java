@@ -12,11 +12,6 @@ public class ObjectUtil {
         return param == null || "".equals(param);
     }
 
-    public static boolean isNotNull(Object param)
-    {
-        return isNull(param);
-    }
-
     /**
      * 格式化日间  （英文环境）
      * @param time 日间
@@ -31,6 +26,12 @@ public class ObjectUtil {
 
     public static String dateFormatForStand(Date time) {
         return dateFormatEn(time, standTimeFormat);
+    }
+
+
+    public static boolean isNotNull(Object param)
+    {
+        return !isNull(param);
     }
 
     /**
@@ -48,6 +49,28 @@ public class ObjectUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 参数集是否全为null
+     * @param param 参数集
+     * @return true，有；false，没有
+     */
+    public static boolean isAllNull(String... param)
+    {
+        for (String str : param)
+        {
+            if (isNotNull(str))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static long getLong(Object obj)
+    {
+        return isNull(obj) ? null : Long.parseLong(obj.toString());
     }
 
 }

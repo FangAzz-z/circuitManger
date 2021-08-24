@@ -25,7 +25,7 @@ public class BaseDao {
             }else{
                 statement = DBUtil.getConnection().prepareStatement(sql);
                 for (int i = 0; i < obj.length; i++) {
-                    ((PreparedStatement) statement).setObject(i,obj[i]);
+                    ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
             }
             resultSet = statement.executeQuery(sql);
@@ -52,7 +52,16 @@ public class BaseDao {
         Map<String, Object> result = null;
         try {
             Statement statement = DBUtil.getConnection().createStatement();
+            if(obj == null) {
+                statement = DBUtil.getConnection().createStatement();
+            }else{
+                statement = DBUtil.getConnection().prepareStatement(sql);
+                for (int i = 0; i < obj.length; i++) {
+                    ((PreparedStatement) statement).setObject(i,obj[i-1]);
+                }
+            }
             ResultSet resultSet = statement.executeQuery(sql);
+
             List<Map<String, Object>> returnList = new ArrayList<>();
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
@@ -83,8 +92,8 @@ public class BaseDao {
                 statement = DBUtil.getConnection().createStatement();
             }else{
                 statement = DBUtil.getConnection().prepareStatement(sql);
-                for (int i = 0; i < obj.length; i++) {
-                    ((PreparedStatement) statement).setObject(i,obj[i]);
+                for (int i = 1; i <= obj.length; i++) {
+                    ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
             }
             boolean bool = statement.execute(sql);
@@ -107,8 +116,8 @@ public class BaseDao {
                 statement = DBUtil.getConnection().createStatement();
             }else{
                 statement = DBUtil.getConnection().prepareStatement(sql);
-                for (int i = 0; i < obj.length; i++) {
-                    ((PreparedStatement) statement).setObject(i,obj[i]);
+                for (int i = 1; i <= obj.length; i++) {
+                    ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
             }
             result = statement.executeUpdate(sql);
@@ -124,8 +133,8 @@ public class BaseDao {
         return result;
     }
     public int commonDeleteById(String baseTable,String id){
-        String sql = String.format("delete from %s where id = ?",baseTable);
+        String sql = String.format("delete from %s where id = %s",baseTable,id);
         Object[] obj = new Object[]{id};
-        return update(sql, obj);
+        return update(sql, null);
     }
 }
