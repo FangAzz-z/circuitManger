@@ -45,6 +45,12 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/baseSet_fitting.fxml";}
     },
+    BASESET_FITTING_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/baseSet_fitting_dialog.fxml";}
+    },
     BASESET_PT_DIALOG{
         @Override
         public String title() {return "添加";}

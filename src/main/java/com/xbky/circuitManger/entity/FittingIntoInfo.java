@@ -19,7 +19,17 @@ public class FittingIntoInfo {
     private Date createTime;
     private Date updateTime;
 
+    public FittingIntoInfo(){
 
+    }
+
+    public FittingIntoInfo(Long id,String fittingNo, String fittingName, String fittingModel, String unit) {
+        this.id = id;
+        this.fittingNo = fittingNo;
+        this.fittingName = fittingName;
+        this.fittingModel = fittingModel;
+        this.unit = unit;
+    }
 
     public Long getId() {
         return id;

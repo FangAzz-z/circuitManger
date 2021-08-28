@@ -16,29 +16,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.module.BaseSetFittingController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetFitting.BaseSetFittingController">
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="username" prefHeight="30.0" prefWidth="246.0" promptText="配件编号">
+                <TextField fx:id="tfNo" prefHeight="30.0" prefWidth="246.0" promptText="配件编号">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="textDepartment" prefHeight="30.0" prefWidth="246.0" promptText="配件名称">
+                <TextField fx:id="tfName" prefHeight="30.0" prefWidth="246.0" promptText="配件名称">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="textJob" prefHeight="30.0" prefWidth="246.0" promptText="配件型号">
+                <TextField fx:id="tfModel" prefHeight="30.0" prefWidth="246.0" promptText="配件型号">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="textPhone" prefHeight="30.0" prefWidth="246.0" promptText="单位">
+                <TextField fx:id="tfUnit" prefHeight="30.0" prefWidth="246.0" promptText="单位">
                     <VBox.margin>
                         <Insets left="25.0" right="25.0" />
                     </VBox.margin></TextField>
                 <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
                     <children>
-                        <Button fx:id="reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                        <Button fx:id="reset" onAction="#reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -46,7 +46,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                             </effect>
                         </Button>
-                        <Button fx:id="query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                        <Button fx:id="query" onAction="#query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -77,10 +77,10 @@
                 <TableView fx:id="userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
                     <columns>
                         <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                        <TableColumn fx:id="name" maxWidth="4000.0" prefWidth="75.0" text="姓名" />
-                        <TableColumn fx:id="department" maxWidth="4000.0" prefWidth="75.0" text="部门" />
-                        <TableColumn fx:id="job" maxWidth="4000.0" prefWidth="75.0" text="职位" />
-                        <TableColumn fx:id="phone" maxWidth="4000.0" prefWidth="75.0" text="电话" />
+                        <TableColumn fx:id="no" maxWidth="4000.0" prefWidth="75.0" text="配件编号" />
+                        <TableColumn fx:id="name" maxWidth="4000.0" prefWidth="75.0" text="配件名称" />
+                        <TableColumn fx:id="model" maxWidth="4000.0" prefWidth="75.0" text="配件型号" />
+                        <TableColumn fx:id="unit" maxWidth="4000.0" prefWidth="75.0" text="单位" />
                     </columns>
                     <VBox.margin>
                         <Insets left="10.0" right="5.0" />
@@ -97,7 +97,7 @@
             <children>
                 <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
                     <children>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                        <Button onAction="#addData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -105,7 +105,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                        <Button onAction="#modifyData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -113,7 +113,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                        <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                        <Button onAction="#deleteData"  ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
