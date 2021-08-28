@@ -40,10 +40,10 @@ public class FittingIntoInfoDao extends BaseDao{
             sql.append(String.format(" and fitting_model like '%s'",fii.getFittingModel()+"%"));
         }
         if(ObjectUtil.isNotNull(fii.getFittingName())){
-            sql.append(String.format(" and fitting_name like '%s",fii.getFittingName()+"%"));
+            sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
         }
         if(ObjectUtil.isNotNull(fii.getUnit())){
-            sql.append(String.format(" and unit like '%s",fii.getUnit()+"%"));
+            sql.append(String.format(" and unit = '%s'",fii.getUnit()));
         }
         return super.queryForList(sql.toString(), null);
     }

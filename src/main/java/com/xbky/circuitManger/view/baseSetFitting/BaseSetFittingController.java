@@ -63,9 +63,9 @@ public class BaseSetFittingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.id.setCellValueFactory(new MapValueFactory<String>("id"));
-        this.no.setCellValueFactory(new MapValueFactory<String>("no"));
-        this.name.setCellValueFactory(new MapValueFactory<String>("name"));
-        this.model.setCellValueFactory(new MapValueFactory<String>("model"));
+        this.no.setCellValueFactory(new MapValueFactory<String>("fitting_no"));
+        this.name.setCellValueFactory(new MapValueFactory<String>("fitting_name"));
+        this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
         this.unit.setCellValueFactory(new MapValueFactory<>("unit"));
         refreshData();
     }
@@ -73,7 +73,7 @@ public class BaseSetFittingController implements Initializable {
 
     private void refreshData() {
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  dao.commonQueryAll("CM_CHECK_FITTING_RECORD");
+        List<Map<String,Object>> dataList =  dao.commonQueryAll("CM_FITTING_INTO_INFO");
         list.addAll(dataList);
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
@@ -126,7 +126,7 @@ public class BaseSetFittingController implements Initializable {
             StageManager.nullWarn();
             return;
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_PT_DIALOG.fxml()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_FITTING_DIALOG.fxml()));
         Parent root = loader.load();
         Scene scene = new Scene(root, 500, 600); // 页面大小
         Stage dialog = new Stage();
@@ -136,7 +136,7 @@ public class BaseSetFittingController implements Initializable {
         dialog.centerOnScreen();
         BaseSetFittingAddController  controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fittingNo"),(String)map.get("fittingName"),(String)map.get("fittingModel"),(String)map.get("unit")));
+        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("unit")));
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
     }

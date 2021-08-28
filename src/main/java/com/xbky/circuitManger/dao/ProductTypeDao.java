@@ -48,7 +48,7 @@ public class ProductTypeDao extends BaseDao {
             sql.append(String.format(" and model like '%s'",pt.getModel()+"%"));
         }
         if(ObjectUtil.isNotNull(pt.getBrand())){
-            sql.append(String.format(" and brand like '%s",pt.getBrand()+"%"));
+            sql.append(String.format(" and brand like '%s'",pt.getBrand()+"%"));
         }
         return super.queryForList(sql.toString(), null);
     }
