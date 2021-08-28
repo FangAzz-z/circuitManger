@@ -43,16 +43,10 @@ public class AppIntializer {
                 String sql = "create table CM_BASE_FAULT_SHOW(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
-            //基础设置->配件种类
-            if(!isExist(statement,"CM_BASE_MOUNTINGS_CATEGORY")){
-                log.info("数据表->CM_BASE_MOUNTINGS_CATEGORY 初始化");
-                String sql = "create table CM_BASE_MOUNTINGS_CATEGORY(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
-                statement.execute(sql);
-            }
             //基础设置->维修措施
-            if(!isExist(statement,"CM_BASE_MAINTAIN_ITEM")){
-                log.info("数据表->CM_BASE_MAINTAIN_ITEM 初始化");
-                String sql = "create table CM_BASE_MAINTAIN_ITEM(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
+            if(!isExist(statement,"CM_BASE_MAINTAIN_METHOD")){
+                log.info("数据表->CM_BASE_MAINTAIN_METHOD 初始化");
+                String sql = "create table CM_BASE_MAINTAIN_METHOD(id bigint(11) primary key auto_increment, content varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //基础设置->处理结果

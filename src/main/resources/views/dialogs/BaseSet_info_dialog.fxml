@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetInfo.BaseSetInfoAddController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <BorderPane prefHeight="350.0" prefWidth="600.0">
+                    <center>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <HBox prefHeight="0" prefWidth="0">
+                                    <children>
+                                        <TextField fx:id="tfId" prefHeight="0" prefWidth="0" promptText="id" visible="false"/>
+                                       <!-- <TextField fx:id="tfType" prefHeight="0" prefWidth="0" promptText="id" visible="false"/>-->
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id = "dialog_label" text="产品类别" />
+                                        <TextField fx:id="dialog_content" prefHeight="30.0" prefWidth="246.0" promptText="内容">
+                                            <VBox.margin>
+                                                <Insets left="25.0" right="25.0" />
+                                            </VBox.margin></TextField>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </center>
+                </BorderPane>
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#cancelSubmit" text="取消" />
+                        <Button mnemonicParsing="false" onAction="#submitData" text="添加" />
+                    </children>
+                    <VBox.margin>
+                        <Insets right="10.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

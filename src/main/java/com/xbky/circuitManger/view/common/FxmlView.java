@@ -21,6 +21,12 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/baseSet_info.fxml";}
     },
+    BASESET_INFO_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/baseSet_info_dialog.fxml";}
+    },
     BASESET_USER{
         @Override
         public String title() {return "维修人员管理";}
