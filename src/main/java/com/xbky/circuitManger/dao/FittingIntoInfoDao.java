@@ -9,7 +9,7 @@ import java.util.Map;
 public class FittingIntoInfoDao extends BaseDao{
 
     public int add(FittingIntoInfo info){
-        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,unit,create_time,update_time)values('%s','%s','%s','%',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getUnit());
+        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,unit,create_time,update_time)values('%s','%s','%s','%s',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getUnit());
         return super.insert(sql, null);
     }
 
