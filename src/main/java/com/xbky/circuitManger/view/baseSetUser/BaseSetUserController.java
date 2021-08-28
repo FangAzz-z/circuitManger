@@ -16,10 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -57,6 +54,8 @@ public class BaseSetUserController implements Initializable {
     public TextField textJob;
     @FXML
     public TextField textPhone;
+    @FXML
+    public RadioButton rbAll;
 
 
     MaintainUserDao dao = new MaintainUserDao();
@@ -134,10 +133,12 @@ public class BaseSetUserController implements Initializable {
         this.textDepartment.clear();
         this.textJob.clear();
         this.textPhone.clear();
+        this.rbAll.setSelected(true);
     }
 
     public void query(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.textName.getText(), this.textDepartment.getText(), this.textJob.getText(),this.textPhone.getText())&&"全部".equals(String.valueOf(this.gender.getSelectedToggle().getProperties().get("value")))) {
+        String radioValue = ((RadioButton)this.gender.getSelectedToggle()).getAccessibleText();
+        if (ObjectUtil.isAllNull(this.textName.getText(), this.textDepartment.getText(), this.textJob.getText())&&"全部".equals(radioValue)) {
             refreshData();
             return;
         }
@@ -146,6 +147,9 @@ public class BaseSetUserController implements Initializable {
         mu.setDepartment(this.textDepartment.getText());
         mu.setJob(this.textJob.getText());
         mu.setPhone(this.textPhone.getText());
+        if(!"全部".equals(radioValue)){
+            mu.setSex(radioValue);
+        }
 
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
         List<Map<String,Object>> dataList = this.dao.queryByExample(mu);

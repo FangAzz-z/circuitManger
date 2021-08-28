@@ -63,8 +63,10 @@ public class BaseSetUserAddController  implements Initializable {
         };
         mu.setPhone(tfPhone.getText());
         mu.setName(tfName.getText());
+        mu.setSex(String.valueOf(((RadioButton)this.gender.getSelectedToggle()).getAccessibleText()));
         mu.setDepartment(tfDepartment.getText());
         mu.setJob(tfJob.getText());
+        mu.setPhone(tfPhone.getText());
         if(ObjectUtil.isNull(tfId.getText())) {
             dao.add(mu);
         }else{
@@ -86,8 +88,6 @@ public class BaseSetUserAddController  implements Initializable {
         this.tfDepartment.setText(mu.getDepartment());
         this.tfJob.setText(mu.getJob());
         this.tfPhone.setText(mu.getPhone());
-
-        this.gender.getSelectedToggle().setSelected(false);
         if ("女".equals(mu.getSex())){
             this.rbFemale.setSelected(true);
         }else {

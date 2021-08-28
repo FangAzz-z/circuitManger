@@ -3,15 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.control.RadioButton?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetUser.BaseSetUserAddController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetUser.BaseSetUserAddController">
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -19,7 +19,7 @@
                     <center>
                         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                             <children>
-                                <TextField fx:id="tfId" prefHeight="0" prefWidth="0" promptText="id" visible="false"/>
+                                <TextField fx:id="tfId" prefHeight="0" prefWidth="0" promptText="id" visible="false" />
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <Label text="姓名" />
@@ -31,12 +31,12 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100" prefWidth="200" spacing="15.0">
                                     <children>
-                                        <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="男" value="男" textFill="WHITE">
+                                        <RadioButton fx:id="rbMale"  accessibleText="男" mnemonicParsing="false" selected="true" text="男">
                                             <toggleGroup>
                                                 <ToggleGroup fx:id="gender" />
                                             </toggleGroup>
                                         </RadioButton>
-                                        <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="女" value="女" textFill="WHITE" toggleGroup="$gender">
+                                        <RadioButton fx:id="rbFemale" accessibleText="女" mnemonicParsing="false" text="女" toggleGroup="$gender">
                                             <HBox.margin>
                                                 <Insets left="10.0" />
                                             </HBox.margin>
@@ -49,7 +49,7 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <Label text="部门" />
-                                        <TextField fx:id="tfDepartment" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
+                                        <TextField fx:id="tfDepartment" prefHeight="30.0" prefWidth="246.0" promptText="部门">
                                             <VBox.margin>
                                                 <Insets left="25.0" right="25.0" />
                                             </VBox.margin></TextField>
@@ -58,7 +58,7 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <Label text="职位" />
-                                        <TextField fx:id="tfJob" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
+                                        <TextField fx:id="tfJob" prefHeight="30.0" prefWidth="246.0" promptText="职位">
                                             <VBox.margin>
                                                 <Insets left="25.0" right="25.0" />
                                             </VBox.margin></TextField>
@@ -67,7 +67,7 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <Label text="电话" />
-                                        <TextField fx:id="tfPhone" prefHeight="30.0" prefWidth="246.0" promptText="厂家品牌">
+                                        <TextField fx:id="tfPhone" prefHeight="30.0" prefWidth="246.0" promptText="电话">
                                             <VBox.margin>
                                                 <Insets left="25.0" right="25.0" />
                                             </VBox.margin></TextField>
