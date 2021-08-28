@@ -3,11 +3,13 @@ package com.xbky.circuitManger.dao;
 import com.xbky.circuitManger.entity.MaintainUser;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
+import java.util.List;
+import java.util.Map;
+
 public class MaintainUserDao extends BaseDao{
     public int add(MaintainUser mu){
-        String sql = "insert into CM_MAINTAIN_USER(name,department,job,phone,create_time,update_time)values(?,?,?,?,now(),now());";
-        Object [] obj = new Object[]{mu.getName(),mu.getDepartment(),mu.getJob(),mu.getPhone()};
-        return super.insert(sql, obj);
+        String sql = String.format("insert into CM_MAINTAIN_USER(name,department,job,phone,create_time,update_time)values(%s,%s,%s,%s,now(),now())",mu.getName(),mu.getDepartment(),mu.getJob(),mu.getPhone());
+        return super.insert(sql, null);
     }
 
     public int modify(MaintainUser mu){
@@ -26,5 +28,25 @@ public class MaintainUserDao extends BaseDao{
         }
         sql.append(String.format(" where id = '%s'"));
         return super.update(sql.toString(), null);
+    }
+
+    public List<Map<String,Object>> queryByExample(MaintainUser mu){
+        StringBuffer sql = new StringBuffer("select name,department,job,phone from CM_MAINTAIN_USER where 1=1 ");
+        if(ObjectUtil.isNotNull(mu.getName())){
+            sql.append(String.format(" and name like '%s'",mu.getName()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getDepartment())){
+            sql.append(String.format(" and department like '%s'",mu.getDepartment()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getJob())){
+            sql.append(String.format(" and job like '%s'",mu.getJob()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getSex())){
+            sql.append(String.format(" and sex = %s",mu.getSex()));
+        }
+        if(ObjectUtil.isNotNull(mu.getPhone())){
+            sql.append(String.format(" and phone like '%s'",mu.getPhone()+"%"));
+        }
+        return super.queryForList(sql.toString(), null);
     }
 }

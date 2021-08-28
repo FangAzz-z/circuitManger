@@ -28,7 +28,7 @@ public class Main extends Application {
         Scene primarySence = new Scene(root, 1600, 800); // 页面大小
         primaryStage.setScene( primarySence );
         primaryStage.setOnCloseRequest(event -> {
-             closeAllPopups();
+            closeAllPopups();
         });
         primaryStage.show();
     }

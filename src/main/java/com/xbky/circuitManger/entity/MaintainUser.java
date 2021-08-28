@@ -8,7 +8,7 @@ public class MaintainUser {
 
     private String name;
 
-    private int sex;
+    private String sex;
 
     private String department;
 
@@ -19,6 +19,17 @@ public class MaintainUser {
     private Date createTime;
 
     private Date updateTime;
+    public MaintainUser(){
+
+    }
+    public MaintainUser(Long id,String name,String sex,String department,String job,String phone){
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.department = department;
+        this.job = job;
+        this.phone = phone;
+    }
 
 
     public Long getId() {
@@ -37,11 +48,11 @@ public class MaintainUser {
         this.name = name;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

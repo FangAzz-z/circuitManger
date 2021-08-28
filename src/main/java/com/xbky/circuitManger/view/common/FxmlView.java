@@ -33,6 +33,12 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/baseSet_user.fxml";}
     },
+    BASESET_USER_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/baseSet_user_dialog.fxml";}
+    },
     BASESET_FITTING{
         @Override
         public String title() {return "配件入库信息";}

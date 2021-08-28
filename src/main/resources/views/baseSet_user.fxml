@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.module.BaseSetUserController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetUser.BaseSetUserController">
 <left>
     <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
         <children>
-            <TextField fx:id="username" prefHeight="30.0" prefWidth="246.0" promptText="姓名">
+            <TextField fx:id="textName" prefHeight="30.0" prefWidth="246.0" promptText="姓名">
                 <VBox.margin>
                     <Insets left="25.0" right="25.0" />
                 </VBox.margin></TextField>
@@ -60,7 +60,7 @@
                 </VBox.margin></TextField>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
                 <children>
-                    <Button fx:id="reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
+                    <Button fx:id="reset" onAction="#reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
                         <font>
                             <Font size="15.0" />
                         </font>
@@ -68,7 +68,7 @@
                             <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                         </effect>
                     </Button>
-                    <Button fx:id="query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
+                    <Button fx:id="query" onAction="#query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
                         <font>
                             <Font size="15.0" />
                         </font>
@@ -100,6 +100,7 @@
                 <columns>
                     <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />
                     <TableColumn fx:id="name" maxWidth="4000.0" prefWidth="75.0" text="姓名" />
+                    <TableColumn fx:id="sex" maxWidth="4000.0" prefWidth="75.0" text="性别" />
                     <TableColumn fx:id="department" maxWidth="4000.0" prefWidth="75.0" text="部门" />
                     <TableColumn fx:id="job" maxWidth="4000.0" prefWidth="75.0" text="职位" />
                     <TableColumn fx:id="phone" maxWidth="4000.0" prefWidth="75.0" text="电话" />
@@ -119,7 +120,7 @@
          <children>
             <HBox alignment="BASELINE_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css">
                <children>
-                   <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
+                   <Button onAction="#addData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
                        <font>
                            <Font size="15.0" />
                        </font>
@@ -127,7 +128,7 @@
                            <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                        </effect>
                    </Button>
-                   <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
+                   <Button onAction="#modifyData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="warning" text="修改" textFill="WHITE">
                        <font>
                            <Font size="15.0" />
                        </font>
@@ -135,7 +136,7 @@
                            <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                        </effect>
                    </Button>
-                   <Button ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
+                   <Button onAction="#deleteData" ellipsisString="" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="danger" text="删除" textFill="WHITE">
                        <font>
                            <Font size="15.0" />
                        </font>

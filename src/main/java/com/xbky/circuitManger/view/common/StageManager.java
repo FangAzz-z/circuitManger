@@ -36,7 +36,12 @@ public class StageManager {
                 StageManager.class.getResource("/css/theme/skeleton.css").toExternalForm(),
                 StageManager.class.getResource("/css/theme/drawer.css").toExternalForm());
     }
-
+    public static void nullWarn(){
+        nullWarn("提示","请选中某一行");
+    }
+    public static void nullWarn(String content){
+        nullWarn("提示",content);
+    }
     public static void nullWarn(String title,String context) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
