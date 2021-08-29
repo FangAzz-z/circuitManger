@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.system.SystemDataController">
+    <children>
+        <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0">
+        <TableView fx:id="userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
+            <columns>
+                <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                <TableColumn fx:id="dataSource" maxWidth="4000.0" prefWidth="75.0" text="备份数据源" />
+<!--                        <TableColumn fx:id="receiveDate" maxWidth="4000.0" prefWidth="75.0" text="接收日期" />
+                <TableColumn fx:id="completeDate" maxWidth="4000.0" prefWidth="75.0" text="完成日期" />-->
+                <TableColumn fx:id="button" maxWidth="4000.0" prefWidth="75.0" text="操作" />
+            </columns>
+            <VBox.margin>
+                <Insets left="10.0" right="5.0" />
+            </VBox.margin>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+         </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/theme/helpers.css" />
+        <URL value="@../css/theme/typographic.css" />
+        <URL value="@../css/theme/material-color.css" />
+        <URL value="@../css/theme/master.css" />
+        <URL value="@../css/theme/shape.css" />
+        <URL value="@../css/theme/light.css" />
+        <URL value="@../css/theme/bootstrap.css" />
+        <URL value="@../css/theme/skeleton.css" />
+    </stylesheets>
+</StackPane>
+

@@ -69,21 +69,48 @@ public class MainController implements Initializable {
         updateBody(FxmlView.CHECK_FITTING);
     }
 
-    public void jfxTextField(MouseEvent mouseEvent) {
+    /**
+     *  系统设置->数据备份
+     */
+    public void dataBackUp(ActionEvent actionEvent) {
+        updateBody(FxmlView.SYSTEM_DATA);
+    }
+
+    /**
+     *  系统设置->使用方信息变更
+     */
+    public void infoChange(ActionEvent actionEvent) {
+        updateBody(FxmlView.SYSTEM_INFO_CHANGE);
+    }
+
+    /**
+     *  系统设置->打印机设置
+     */
+    public void printer(ActionEvent actionEvent) {
+        updateBody(FxmlView.SYSTEM_PRINTER);
+    }
+
+    /**
+     *  外部程序调用
+     */
+    public void program(ActionEvent actionEvent) {
+        updateBody(FxmlView.PRODUCE_PRO);
+    }
+
+    public void ptu(ActionEvent actionEvent) {
+        updateBody(FxmlView.PRODUCE_PTU);
+    }
+
+    public void term(ActionEvent actionEvent) {
+        updateBody(FxmlView.PRODUCE_TERM);
+    }
+
+    public void pTouch(ActionEvent actionEvent) {
+        updateBody(FxmlView.PRODUCE_PTOUCH);
     }
 
 
 
-    public void webview(MouseEvent mouseEvent) {
-    }
-
-    public void webview2(MouseEvent mouseEvent) {
-    }
-
-    public void altLayout(MouseEvent mouseEvent) {
-    }
-    public void baseSet(MouseEvent mouseEvent) {
-    }
 
 
     private void updateBody(FxmlView view) {
@@ -104,7 +131,15 @@ public class MainController implements Initializable {
     }
 
 
+    public void altLayout(MouseEvent mouseEvent) {
+    }
+
     public void queryManager(MouseEvent mouseEvent) {
     }
 
+    public void jfxTextField(MouseEvent mouseEvent) {
+    }
+
+    public void baseSet(MouseEvent mouseEvent) {
+    }
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.system.SystemPrinterController">
+    <left>
+        <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+            <children>
+                <TextField fx:id="textName" prefHeight="30.0" prefWidth="246.0" promptText="打印机品牌">
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="textDepartment" prefHeight="30.0" prefWidth="246.0" promptText="打印机型号">
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="textJob" prefHeight="30.0" prefWidth="246.0" promptText="说明">
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="textPhone" prefHeight="30.0" prefWidth="246.0" promptText="联系人">
+                    <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                    </VBox.margin></TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="reset" onAction="#reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="还原" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
+                            </effect>
+                        </Button>
+                        <Button fx:id="query" onAction="#submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="设置" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
+                        </Button>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets left="100.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+            </children>
+        </VBox>
+    </center>
+    <stylesheets>
+        <URL value="@../css/theme/helpers.css" />
+        <URL value="@../css/theme/typographic.css" />
+        <URL value="@../css/theme/material-color.css" />
+        <URL value="@../css/theme/master.css" />
+        <URL value="@../css/theme/shape.css" />
+        <URL value="@../css/theme/light.css" />
+        <URL value="@../css/theme/bootstrap.css" />
+        <URL value="@../css/theme/skeleton.css" />
+    </stylesheets>
+</BorderPane>

@@ -68,6 +68,48 @@ public enum FxmlView {
         public String title() {return "配件登记单";}
         @Override
         public String fxml() {return "/views/check_fitting.fxml";}
+    },
+    SYSTEM_DATA{
+        @Override
+        public String title() {return "数据备份";}
+        @Override
+        public String fxml() {return "/views/system_data.fxml";}
+    },
+    SYSTEM_INFO_CHANGE{
+        @Override
+        public String title() {return "软件管理使用方信息变更";}
+        @Override
+        public String fxml() {return "/views/system_info_change.fxml";}
+    },
+    SYSTEM_PRINTER{
+        @Override
+        public String title() {return "打印机设置";}
+        @Override
+        public String fxml() {return "/views/system_printer.fxml";}
+    },
+    PRODUCE_PRO{
+        @Override
+        public String title() {return "program程序调用";}
+        @Override
+        public String fxml() {return "/views/produce_programmm.fxml";}
+    },
+    PRODUCE_PTU{
+        @Override
+        public String title() {return "PTU程序调用";}
+        @Override
+        public String fxml() {return "/views/produce_ptu.fxml";}
+    },
+    PRODUCE_TERM{
+        @Override
+        public String title() {return "Term程序调用";}
+        @Override
+        public String fxml() {return "/views/produce_term.fxml";}
+    },
+    PRODUCE_PTOUCH{
+        @Override
+        public String title() {return "P-touchEditor程序调用";}
+        @Override
+        public String fxml() {return "/views/produce_ptouch.fxml";}
     }
     ;
 

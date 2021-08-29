@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.check.CheckMaintainController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.check.CheckMaintainController">
     <center>
         <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
