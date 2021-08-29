@@ -73,8 +73,9 @@ public class AppIntializer {
                 String sql = "create table CM_CHECK_MAINTAIN_RECORD(id bigint(11) primary key auto_increment," +
                         " maintain_id varchar(20),receive_date datetime, complete_date datetime," +
                         "maintain_card_no varchar(50),maintain_card_model varchar(50),maintain_card_category varchar(50)," +
-                        "maintain_card_brand varchar(50),maintain_user varchar(50),maintain_desc varchar(255)," +
-                        "maintain_fitting varchar(50),create_time datetime,update_time datetime)";
+                        "maintain_card_brand varchar(50),maintain_user varchar(50),wx_status varchar(50)," +
+                        "wx_show varchar(50),wx_method varchar(50),wx_result varchar(50),maintain_desc varchar(255)," +
+                        "maintain_fitting varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //配件登记单

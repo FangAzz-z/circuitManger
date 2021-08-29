@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetFitting.BaseSetFittingController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetFitting.BaseSetFittingController">
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
             <children>

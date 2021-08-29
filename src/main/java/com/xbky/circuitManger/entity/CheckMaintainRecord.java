@@ -12,6 +12,10 @@ public class CheckMaintainRecord {
     private String maintainCardCategory;
     private String maintainCardBrand;
     private String maintainUser;
+    private String wxStatus;
+    private String wxShow;
+    private String wxMethod;
+    private String wxResult;
     private String maintainDesc;
     private String maintainFitting;
     private Date createTime;
@@ -121,5 +125,38 @@ public class CheckMaintainRecord {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public String getWxStatus() {
+        return wxStatus;
+    }
+
+    public void setWxStatus(String wxStatus) {
+        this.wxStatus = wxStatus;
+    }
+
+    public String getWxShow() {
+        return wxShow;
+    }
+
+    public void setWxShow(String wxShow) {
+        this.wxShow = wxShow;
+    }
+
+    public String getWxMethod() {
+        return wxMethod;
+    }
+
+    public void setWxMethod(String wxMethod) {
+        this.wxMethod = wxMethod;
+    }
+
+    public String getWxResult() {
+        return wxResult;
+    }
+
+    public void setWxResult(String wxResult) {
+        this.wxResult = wxResult;
+    }
+
 
 }

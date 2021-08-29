@@ -39,8 +39,20 @@ public class CheckMaintainRecordDao extends BaseDao {
         if (ObjectUtil.isNotNull(record.getMaintainUser())) {
             sql.append(String.format(",maintain_user = '%s'",record.getMaintainUser()));
         }
-        if (ObjectUtil.isNotNull(record.getMaintainUser())) {
+        if (ObjectUtil.isNotNull(record.getMaintainDesc())) {
             sql.append(String.format(",maintain_desc = '%s'",record.getMaintainDesc()));
+        }
+        if (ObjectUtil.isNotNull(record.getWxStatus())) {
+            sql.append(String.format(",wx_status = '%s'",record.getWxStatus()));
+        }
+        if (ObjectUtil.isNotNull(record.getWxShow())) {
+            sql.append(String.format(",wx_show = '%s'",record.getWxShow()));
+        }
+        if (ObjectUtil.isNotNull(record.getWxMethod())) {
+            sql.append(String.format(",wx_method = '%s'",record.getWxMethod()));
+        }
+        if (ObjectUtil.isNotNull(record.getWxResult())) {
+            sql.append(String.format(",wx_result = '%s'",record.getWxResult()));
         }
         if (ObjectUtil.isNotNull(record.getMaintainFitting())) {
             sql.append(String.format(",maintain_fitting = '%s'",record.getMaintainFitting()));

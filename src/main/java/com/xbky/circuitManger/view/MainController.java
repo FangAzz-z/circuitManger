@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view;
 
 import com.xbky.circuitManger.view.common.FxmlView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,6 +56,18 @@ public class MainController implements Initializable {
         updateBody(FxmlView.BASESET_FITTING);
     }
 
+    /**
+     *  维修登记管理->维修登记单
+     */
+    public void checkMaintain(ActionEvent actionEvent) {
+        updateBody(FxmlView.CHECK_MAINTAIN);
+    }
+    /**
+     *  维修登记管理->配件登记单
+     */
+    public void checkFitting(ActionEvent actionEvent) {
+    }
+
     public void jfxTextField(MouseEvent mouseEvent) {
     }
 
@@ -92,4 +105,5 @@ public class MainController implements Initializable {
 
     public void queryManager(MouseEvent mouseEvent) {
     }
+
 }
