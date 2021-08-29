@@ -66,6 +66,7 @@ public class MainController implements Initializable {
      *  维修登记管理->配件登记单
      */
     public void checkFitting(ActionEvent actionEvent) {
+        updateBody(FxmlView.CHECK_FITTING);
     }
 
     public void jfxTextField(MouseEvent mouseEvent) {

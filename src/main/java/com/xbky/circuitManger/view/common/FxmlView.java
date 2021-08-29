@@ -62,6 +62,12 @@ public enum FxmlView {
         public String title() {return "维修登记单";}
         @Override
         public String fxml() {return "/views/check_maintain.fxml";}
+    },
+    CHECK_FITTING{
+        @Override
+        public String title() {return "配件登记单";}
+        @Override
+        public String fxml() {return "/views/check_fitting.fxml";}
     }
     ;
 
