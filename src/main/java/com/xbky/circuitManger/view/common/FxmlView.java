@@ -57,6 +57,12 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/dialogs/baseSet_pt_dialog.fxml";}
     },
+    CHECK_MAINTAIN_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/check_maintain_dialog.fxml";}
+    },
     CHECK_MAINTAIN{
         @Override
         public String title() {return "维修登记单";}

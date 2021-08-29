@@ -101,9 +101,10 @@ public class BaseSetInfoController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG.fxml()));
             Parent root = loader.<Parent>load();
-            Scene sence = new Scene(root, 500, 300); // 页面大小
+            Scene sence = new Scene(root, 600, 300); // 页面大小
             Stage dialog = new Stage();
             dialog.setScene(sence);
+            dialog.setTitle(label+"-基础信息-添加");
             dialog.initStyle(StageStyle.UTILITY);
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
@@ -125,9 +126,10 @@ public class BaseSetInfoController implements Initializable {
             }
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG.fxml()));
             Parent root = loader.load();
-            Scene sence = new Scene(root, 500, 300); // 页面大小
+            Scene sence = new Scene(root, 600, 300); // 页面大小
             Stage dialog = new Stage();
             dialog.setScene(sence);
+            dialog.setTitle(label+"-基础信息-修改");
             dialog.initStyle(StageStyle.UTILITY);
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();

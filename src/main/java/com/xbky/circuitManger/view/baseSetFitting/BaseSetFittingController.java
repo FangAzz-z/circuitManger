@@ -108,9 +108,10 @@ public class BaseSetFittingController implements Initializable {
     public void addData(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_FITTING_DIALOG.fxml()));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 500, 600); // 页面大小
+        Scene scene = new Scene(root, 500, 500); // 页面大小
         Stage dialog = new Stage();
         dialog.setScene(scene);
+        dialog.setTitle("配件入库信息-添加");
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
@@ -131,6 +132,7 @@ public class BaseSetFittingController implements Initializable {
         Scene scene = new Scene(root, 500, 600); // 页面大小
         Stage dialog = new Stage();
         dialog.setScene(scene);
+        dialog.setTitle("配件入库信息-修改");
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();

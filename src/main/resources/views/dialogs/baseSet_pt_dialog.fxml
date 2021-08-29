@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtAddController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtAddController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,28 +32,37 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField fx:id="tfId" prefHeight="0" prefWidth="0" promptText="id" visible="false"/>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <TextField fx:id="tfId" prefHeight="0" prefWidth="0" promptText="id" visible="false" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="产品类别" />
+                              <Label text="产品类别">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></Label>
                               <TextField fx:id="tfCategory" prefHeight="30.0" prefWidth="246.0" promptText="产品类别">
                                  <VBox.margin>
                                     <Insets left="25.0" right="25.0" />
                                  </VBox.margin></TextField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="产品型号" />
+                              <Label text="产品型号">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></Label>
                               <TextField fx:id="tfModel" prefHeight="30.0" prefWidth="246.0" promptText="产品型号">
                                  <VBox.margin>
                                     <Insets left="25.0" right="25.0" />
                                  </VBox.margin></TextField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="厂家品牌" />
+                              <Label text="厂家品牌">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></Label>
                               <TextField fx:id="tfBrand" prefHeight="30.0" prefWidth="246.0" promptText="厂家品牌">
                                  <VBox.margin>
                                     <Insets left="25.0" right="25.0" />
@@ -65,14 +75,36 @@
             </BorderPane>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#cancelSubmit" text="取消" />
+                  <Button mnemonicParsing="false" onAction="#cancelSubmit" text="取消">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
                   <Button mnemonicParsing="false" onAction="#submitData" text="添加" />
                </children>
                <VBox.margin>
                   <Insets right="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
             </HBox>
          </children>
+         <opaqueInsets>
+            <Insets bottom="10.0" left="10.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="10.0" />
+         </padding>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@/css/theme/helpers.css" />
+      <URL value="@/css/theme/typographic.css" />
+      <URL value="@/css/theme/material-color.css" />
+      <URL value="@/css/theme/master.css" />
+      <URL value="@/css/theme/shape.css" />
+      <URL value="@/css/theme/light.css" />
+      <URL value="@/css/theme/bootstrap.css" />
+      <URL value="@/css/theme/skeleton.css" />
+   </stylesheets>
 </AnchorPane>

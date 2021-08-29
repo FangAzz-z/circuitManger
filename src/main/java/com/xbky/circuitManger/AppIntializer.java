@@ -26,9 +26,9 @@ public class AppIntializer {
                         "update_time datetime)";
                 statement.execute(sql);
                 // 添加数据
-//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('冰箱','002','海尔')");
-//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('空调','003','格力')");
-//                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('洗衣机','007','美的')");
+                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('冰箱','002','海尔')");
+                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('空调','003','格力')");
+                statement.executeUpdate("insert into CM_PRODUCT_TYPE(category,model,brand) values('洗衣机','007','美的')");
             }
 
             //基础设置->产品状态

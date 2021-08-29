@@ -91,6 +91,7 @@ public class BaseSetPtController implements Initializable {
         sence = new Scene(root, 500, 600); // 页面大小
        // StageManager.initStyle(dialog);
         Stage dialog = new Stage();
+        dialog.setTitle("产品类别型号-添加");
         dialog.setScene(sence);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
@@ -133,6 +134,7 @@ public class BaseSetPtController implements Initializable {
         sence = new Scene(root, 500, 600); // 页面大小
         // StageManager.initStyle(dialog);
         Stage dialog = new Stage();
+        dialog.setTitle("产品类别型号-修改");
         dialog.setScene(sence);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);

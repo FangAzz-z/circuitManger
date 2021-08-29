@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -74,9 +75,11 @@ public class BaseSetUserController implements Initializable {
     public void addData(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_USER_DIALOG.fxml()));
         Parent root = loader.<Parent>load();
-        Scene scene = new Scene(root, 500, 600); // 页面大小
+        Scene scene = new Scene(root, 500, 500); // 页面大小
         // StageManager.initStyle(dialog);
         Stage dialog = new Stage();
+        dialog.setTitle("维修人员-添加");
+        dialog.getIcons().add(new Image("/icons/logo2.png"));
         dialog.setScene(scene);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
@@ -104,9 +107,10 @@ public class BaseSetUserController implements Initializable {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_USER_DIALOG.fxml()));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 500, 600); // 页面大小
+        Scene scene = new Scene(root, 500, 500); // 页面大小
         // StageManager.initStyle(dialog);
         Stage dialog = new Stage();
+        dialog.setTitle("维修人员-修改");
         dialog.setScene(scene);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
