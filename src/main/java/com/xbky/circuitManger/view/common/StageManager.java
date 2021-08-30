@@ -2,9 +2,16 @@ package com.xbky.circuitManger.view.common;
 
 import com.xbky.circuitManger.Main;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,5 +59,33 @@ public class StageManager {
         if (result.get() == javafx.scene.control.ButtonType.OK){
             alert.close();
         }
+    }
+
+    public static void infoWarn(String msg) {
+        Stage window = new Stage();
+        window.setTitle("信息");
+                window.setResizable(false);
+        window.initOwner(Main.mainStage);
+        window.getIcons().add(new Image("icons/logo2.png"));
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setMinWidth(300.0D);
+        Button button = new Button("关闭");
+                button.setOnAction(e -> window.close());
+        Label label = new Label(msg);
+        Separator sp = new Separator();
+        VBox layout = new VBox(5.0D);
+        HBox hLayout = new HBox();
+        layout.getChildren().addAll(new Node[] { label, sp, hLayout });
+        VBox.setMargin(label, new Insets(10.0D, 10.0D, 0.0D, 10.0D));
+        VBox.setMargin(hLayout, new Insets(0.0D, 0.0D, 10.0D, 0.0D));
+        HBox.setMargin(button, new Insets(0.0D, 10.0D, 0.0D, 0.0D));
+        hLayout.getChildren().add(button);
+        hLayout.setAlignment(Pos.CENTER_RIGHT);
+        layout.setAlignment(Pos.CENTER_LEFT);
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.setX(Main.mainStage.getX() + Main.mainStage.getWidth() / 2.0D - 200.0D);
+        window.setY(Main.mainStage.getY() + Main.mainStage.getHeight() / 2.0D - 38.0D);
+        window.show();
     }
 }

@@ -123,6 +123,7 @@ public class BaseSetUserController implements Initializable {
     }
 
     public void deleteData(ActionEvent actionEvent) {
+        StageManager.infoWarn("确定要删除？");
         Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
             StageManager.nullWarn();
