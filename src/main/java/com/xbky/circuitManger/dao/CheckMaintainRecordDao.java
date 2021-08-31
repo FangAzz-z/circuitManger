@@ -58,6 +58,7 @@ public class CheckMaintainRecordDao extends BaseDao {
             sql.append(String.format(",maintain_fitting = '%s'",record.getMaintainFitting()));
         }
         sql.append(String.format(" where id = '%s'",record.getId()));
+        sql.append(" order by update_time desc");
         return super.update(sql.toString(),null);
     }
 }

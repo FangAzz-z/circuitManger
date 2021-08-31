@@ -25,19 +25,19 @@ public class CheckMaintainAddController implements Initializable {
 
     }
 
-    public static Stage getDialog() {
+    public  Stage getDialog() {
         return dialog;
     }
 
-    public static void setDialog(Stage dialog) {
+    public  void setDialog(Stage dialog) {
         CheckMaintainAddController.dialog = dialog;
     }
 
-    public static Runnable getResultHandle() {
+    public  Runnable getResultHandle() {
         return resultHandle;
     }
 
-    public static void setResultHandle(Runnable resultHandle) {
+    public  void setResultHandle(Runnable resultHandle) {
         CheckMaintainAddController.resultHandle = resultHandle;
     }
 

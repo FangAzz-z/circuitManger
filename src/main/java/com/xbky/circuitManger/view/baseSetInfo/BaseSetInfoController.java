@@ -277,7 +277,7 @@ public class BaseSetInfoController implements Initializable {
     //处理结果
     public void refreshResultData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("CM_BASE_HANDLE_RESULT");
+        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("q");
         list.addAll(dataList);
         this.result_table.getSelectionModel().clearSelection();
         this.result_table.setItems(list);

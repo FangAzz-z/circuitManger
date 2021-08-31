@@ -50,6 +50,7 @@ public class MaintainUserDao extends BaseDao{
         if(ObjectUtil.isNotNull(mu.getPhone())){
             sql.append(String.format(" and phone like '%s'",mu.getPhone()+"%"));
         }
+        sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
     }
 }

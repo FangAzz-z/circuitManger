@@ -128,7 +128,7 @@ public class BaseDao {
     }
 
     public List<Map<String,Object>> commonQueryAll(String baseTable){
-        String sql = String.format("select * from %s",baseTable);
+        String sql = String.format("select * from %s order by update_time desc",baseTable);
         List<Map<String,Object>> result = queryForList(sql, null);
         return result;
     }

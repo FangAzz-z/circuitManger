@@ -50,6 +50,7 @@ public class ProductTypeDao extends BaseDao {
         if(ObjectUtil.isNotNull(pt.getBrand())){
             sql.append(String.format(" and brand like '%s'",pt.getBrand()+"%"));
         }
+        sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
     }
 

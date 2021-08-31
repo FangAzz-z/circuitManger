@@ -16,7 +16,7 @@ public class BaseInfoDao extends BaseDao {
     }
 
     public List<Map<String,Object>> queryByExample(String baseTable, String content){
-        String sql = String.format("select * from %s where content like '%s'",baseTable,content+"%");
+        String sql = String.format("select * from %s where content like '%s' order by update_time desc",baseTable,content+"%");
         return super.queryForList(sql, null);
     }
 

@@ -24,6 +24,7 @@ public class CheckFittingRecordDao extends BaseDao{
             sql.append(String.format(",fitting_name = '%s'",record.getFittingName()));
         }
         sql.append(String.format(" where id = '%s'",record.getId()));
+        sql.append(" order by update_time desc");
         return super.update(sql.toString(),null);
     }
 }

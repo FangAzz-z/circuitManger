@@ -45,6 +45,7 @@ public class FittingIntoInfoDao extends BaseDao{
         if(ObjectUtil.isNotNull(fii.getUnit())){
             sql.append(String.format(" and unit = '%s'",fii.getUnit()));
         }
+        sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
     }
 
