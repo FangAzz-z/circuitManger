@@ -35,7 +35,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label text="维修记录" />
-                        <TextArea prefHeight="100.0" prefWidth="600.0">
+                        <TextArea fx:id="taMaintainDesc" prefHeight="100.0" prefWidth="600.0">
                            <HBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </HBox.margin></TextArea>
@@ -44,7 +44,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label text="配件登记" />
-                        <TextArea prefHeight="100.0" prefWidth="600.0">
+                        <TextArea fx:id="taMaintainFitting" prefHeight="100.0" prefWidth="600.0">
                            <HBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </HBox.margin></TextArea>
@@ -52,11 +52,11 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="取消">
+                        <Button onAction="#cancelSubmit" mnemonicParsing="false" text="取消">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
-                        <Button mnemonicParsing="false" text="保存">
+                        <Button onAction="#submitData" mnemonicParsing="false" text="保存">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
@@ -90,7 +90,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <DatePicker promptText="接收日期">
+                        <DatePicker fx:id="dpReceiveDate" editable="false" promptText="接收日期">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></DatePicker>
@@ -98,7 +98,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <DatePicker promptText="完成日期">
+                        <DatePicker fx:id="dpCompleteDate" editable="false" promptText="完成日期">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></DatePicker>
@@ -106,50 +106,51 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField promptText="维修卡编号" />
+                        <TextField fx:id="tfMaintainCardNo" promptText="维修卡编号" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2"  GridPane.rowIndex="2">
+                     <children>
+                        <ComboBox fx:id="queryModel" prefWidth="150.0" promptText="产品型号" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="产品型号" />
+                        <ComboBox fx:id="queryCategory" prefWidth="150.0" promptText="产品类别" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="产品类别" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <children>
-                        <ComboBox prefWidth="150.0" promptText="产品品牌" />
+                        <ComboBox fx:id="queryBrand" prefWidth="150.0" promptText="产品品牌" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="维修人员" />
+                        <ComboBox fx:id="queryUser" prefWidth="150.0" promptText="维修人员" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="维修状态" />
+                        <ComboBox fx:id="queryStatus" prefWidth="150.0" promptText="维修状态" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="维修措施" />
+                        <ComboBox fx:id="queryShow" prefWidth="150.0" promptText="故障现象" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="维修方法" />
+                        <ComboBox fx:id="queryMethod" prefWidth="150.0" promptText="维修措施" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
-                        <ComboBox prefWidth="150.0" promptText="维修结果" />
+                        <ComboBox fx:id="queryResult" prefWidth="150.0" promptText="维修结果" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="tfId" disable="true" promptText="ID" visible="false" />
                </children>
             </GridPane>
          </center>

@@ -123,14 +123,15 @@ public class BaseSetUserController implements Initializable {
     }
 
     public void deleteData(ActionEvent actionEvent) {
-        StageManager.infoWarn("确定要删除？");
         Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
             StageManager.nullWarn();
             return;
         }
-        dao.commonDeleteById("CM_MAINTAIN_USER",map.get("id")+"");
-        refreshData();
+        if(StageManager.deleteTrue()) {
+            dao.commonDeleteById("CM_MAINTAIN_USER", map.get("id") + "");
+            refreshData();
+        }
     }
 
     public void reset(ActionEvent actionEvent) {

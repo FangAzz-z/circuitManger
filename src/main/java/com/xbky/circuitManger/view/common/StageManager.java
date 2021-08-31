@@ -61,6 +61,20 @@ public class StageManager {
         }
     }
 
+    public static boolean deleteTrue() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("提示");
+        alert.setContentText("确定要删除这一条记录吗");
+        alert.setHeaderText("");
+        alert.initOwner(Main.mainStage);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == javafx.scene.control.ButtonType.OK){
+           return true;
+        }else{
+            return false;
+        }
+    }
+
     public static void infoWarn(String msg) {
         Stage window = new Stage();
         window.setTitle("信息");

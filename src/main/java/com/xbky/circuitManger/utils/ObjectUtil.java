@@ -39,9 +39,9 @@ public class ObjectUtil {
      * @param param 参数集
      * @return true，有；false，没有
      */
-    public static boolean hasNull(String... param)
+    public static boolean hasNull(Object... param)
     {
-        for (String str : param)
+        for (Object str : param)
         {
             if (isNull(str))
             {
@@ -56,9 +56,9 @@ public class ObjectUtil {
      * @param param 参数集
      * @return true，有；false，没有
      */
-    public static boolean isAllNull(String... param)
+    public static boolean isAllNull(Object... param)
     {
-        for (String str : param)
+        for (Object str : param)
         {
             if (isNotNull(str))
             {

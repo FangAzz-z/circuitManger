@@ -182,8 +182,10 @@ public class BaseSetInfoController implements Initializable {
             StageManager.nullWarn("提示","请选中某一行");
             return;
         }
-        this.baseInfoDao.commonDeleteById("CM_BASE_PT_STATUS",(Long)map.get("id")+"");
-        refreshStatusData();
+        if(StageManager.deleteTrue()) {
+            this.baseInfoDao.commonDeleteById("CM_BASE_PT_STATUS", (Long) map.get("id") + "");
+            refreshStatusData();
+        }
     }
 
     
@@ -226,8 +228,10 @@ public class BaseSetInfoController implements Initializable {
             StageManager.nullWarn("提示","请选中某一行");
             return;
         }
-        this.baseInfoDao.commonDeleteById("CM_BASE_FAULT_SHOW",(Long)map.get("id")+"");
-        refreshShowData();
+        if(StageManager.deleteTrue()) {
+            this.baseInfoDao.commonDeleteById("CM_BASE_FAULT_SHOW", (Long) map.get("id") + "");
+            refreshShowData();
+        }
     }
 
     //维修措施
@@ -270,14 +274,16 @@ public class BaseSetInfoController implements Initializable {
             StageManager.nullWarn("提示","请选中某一行");
             return;
         }
-        this.baseInfoDao.commonDeleteById("CM_BASE_MAINTAIN_METHOD",map.get("id")+"");
-        refreshMethodData();
+        if(StageManager.deleteTrue()) {
+            this.baseInfoDao.commonDeleteById("CM_BASE_MAINTAIN_METHOD", map.get("id") + "");
+            refreshMethodData();
+        }
     }
 
     //处理结果
     public void refreshResultData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("q");
+        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("CM_BASE_HANDLE_RESULT");
         list.addAll(dataList);
         this.result_table.getSelectionModel().clearSelection();
         this.result_table.setItems(list);
@@ -315,7 +321,9 @@ public class BaseSetInfoController implements Initializable {
             StageManager.nullWarn("提示","请选中某一行");
             return;
         }
-        this.baseInfoDao.commonDeleteById("CM_BASE_HANDLE_RESULT",map.get("id")+"");
-        refreshResultData();
+        if(StageManager.deleteTrue()) {
+            this.baseInfoDao.commonDeleteById("CM_BASE_HANDLE_RESULT", map.get("id") + "");
+            refreshResultData();
+        }
     }
 }

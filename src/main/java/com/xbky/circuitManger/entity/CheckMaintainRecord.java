@@ -5,21 +5,26 @@ import java.util.Date;
 public class CheckMaintainRecord {
     private Long id;
     private String maintainId;
-    private Date receiveDate;
-    private Date completeDate;
+    private String receiveDate;
+    private String completeDate;
     private String maintainCardNo;
     private String maintainCardModel;
     private String maintainCardCategory;
     private String maintainCardBrand;
     private String maintainUser;
-    private String wxStatus;
-    private String wxShow;
-    private String wxMethod;
-    private String wxResult;
+    private String wxStatus = "";
+    private String wxShow = "";
+    private String wxMethod = "";
+    private String wxResult = "";
     private String maintainDesc;
     private String maintainFitting;
     private Date createTime;
     private Date updateTime;
+
+    private String receiveStartTime;
+    private String receiveEndTime;
+    private String completeStartTime;
+    private String completeEndTime;
 
 
     public Long getId() {
@@ -38,19 +43,19 @@ public class CheckMaintainRecord {
         this.maintainId = maintainId;
     }
 
-    public Date getReceiveDate() {
+    public String getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(Date receiveDate) {
+    public void setReceiveDate(String receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public Date getCompleteDate() {
+    public String getCompleteDate() {
         return completeDate;
     }
 
-    public void setCompleteDate(Date completeDate) {
+    public void setCompleteDate(String completeDate) {
         this.completeDate = completeDate;
     }
 
@@ -158,5 +163,36 @@ public class CheckMaintainRecord {
         this.wxResult = wxResult;
     }
 
+    public String getReceiveStartTime() {
+        return receiveStartTime;
+    }
+
+    public void setReceiveStartTime(String receiveStartTime) {
+        this.receiveStartTime = receiveStartTime;
+    }
+
+    public String getReceiveEndTime() {
+        return receiveEndTime;
+    }
+
+    public void setReceiveEndTime(String receiveEndTime) {
+        this.receiveEndTime = receiveEndTime;
+    }
+
+    public String getCompleteStartTime() {
+        return completeStartTime;
+    }
+
+    public void setCompleteStartTime(String completeStartTime) {
+        this.completeStartTime = completeStartTime;
+    }
+
+    public String getCompleteEndTime() {
+        return completeEndTime;
+    }
+
+    public void setCompleteEndTime(String completeEndTime) {
+        this.completeEndTime = completeEndTime;
+    }
 
 }

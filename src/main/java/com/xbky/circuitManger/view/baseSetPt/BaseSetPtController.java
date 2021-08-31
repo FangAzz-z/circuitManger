@@ -114,8 +114,10 @@ public class BaseSetPtController implements Initializable {
             nullWarn();
             return;
         }
-        prodectTypeService.deleteById((Long)map.get("id"));
-        refreshData();
+        if(StageManager.deleteTrue()) {
+            prodectTypeService.deleteById((Long) map.get("id"));
+            refreshData();
+        }
     }
 
     /**

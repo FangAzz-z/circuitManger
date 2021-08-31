@@ -149,8 +149,10 @@ public class BaseSetFittingController implements Initializable {
             nullWarn();
             return;
         }
-        dao.commonDeleteById("CM_FITTING_INTO_INFO",map.get("id")+"");
-        refreshData();
+        if(StageManager.deleteTrue()) {
+            dao.commonDeleteById("CM_FITTING_INTO_INFO", map.get("id") + "");
+            refreshData();
+        }
     }
 
 }

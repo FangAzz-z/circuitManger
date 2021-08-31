@@ -66,7 +66,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField prefWidth="246.0" promptText="维修单号">
+                  <TextField fx:id="queryMaintainOrder" prefWidth="246.0" promptText="维修单号">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -79,7 +79,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <ComboBox prefWidth="150.0" promptText="产品类别" GridPane.rowIndex="1">
+                  <ComboBox fx:id="queryCategory" prefWidth="150.0" promptText="产品类别" GridPane.rowIndex="1">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -87,9 +87,10 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <ComboBox prefWidth="150.0" promptText="维修卡板品牌" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox prefWidth="150.0" promptText="维修状态" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField promptText="维修卡版编号" GridPane.columnIndex="1">
+                  <ComboBox fx:id="queryBrand" prefWidth="150.0" promptText="维修卡板品牌" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                   <ComboBox fx:id="queryUser" prefWidth="150.0" promptText="维修人员" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="queryStatus" prefWidth="150.0" promptText="维修状态" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="queryCardNo" promptText="维修卡版编号" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -100,9 +101,9 @@
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <DatePicker />
+                        <DatePicker fx:id="queryReceiveDateStart" />
                         <Label text="~" />
-                        <DatePicker />
+                        <DatePicker fx:id="queryReceiveDateEnd" />
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -114,9 +115,9 @@
                            <padding>
                               <Insets right="5.0" />
                            </padding></Label>
-                        <DatePicker />
+                        <DatePicker fx:id="queryDoneDateStart" />
                         <Label text="~" />
-                        <DatePicker />
+                        <DatePicker fx:id="queryDoneDateEnd" />
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
