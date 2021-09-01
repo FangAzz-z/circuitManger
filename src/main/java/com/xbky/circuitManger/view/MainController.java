@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,8 @@ public class MainController implements Initializable {
 
     @FXML
     public Label title;
+    @FXML
+    public ImageView imageViewTest;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -141,5 +145,15 @@ public class MainController implements Initializable {
     }
 
     public void baseSet(MouseEvent mouseEvent) {
+    }
+
+    public void pressedTest(MouseEvent mouseEvent) {
+        System.out.println("hello");
+        imageViewTest.setImage(new Image("/icons/wx2.png"));
+    }
+
+    public void released(MouseEvent mouseEvent) {
+        imageViewTest.setImage(new Image("/icons/wx.png"));
+
     }
 }
