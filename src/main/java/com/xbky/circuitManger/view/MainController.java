@@ -1,22 +1,27 @@
 package com.xbky.circuitManger.view;
 
+import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.view.common.FxmlView;
+import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class MainController implements Initializable {
@@ -26,92 +31,70 @@ public class MainController implements Initializable {
 
     @FXML
     public Label title;
+
     @FXML
-    public ImageView imageViewTest;
+    public GridPane secondPage;
+    @FXML
+    public GridPane firstPage;
+
+    //主界面按钮
+    @FXML
+    private Button buWxManager;
+
+    @FXML
+    private Button buCxDown;
+
+    @FXML
+    private Button buTxConnect;
+
+    @FXML
+    private Button buPrinter;
+
+    @FXML
+    private Button buBkTest;
+
+    @FXML
+    private Button buAppExit;
+
+    @FXML
+    public Button buBaseChange;
+
+    @FXML
+    private Button buWxCheck;
+
+    @FXML
+    private Button buSystemSet;
+
+    @FXML
+    private Button buGoBack;
+
+    private Stage secondStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        List<Button> buttonList = Arrays.asList(buWxManager,buCxDown,buTxConnect,buPrinter,buBkTest,buAppExit,buBaseChange,buWxCheck,buSystemSet,buGoBack);
+        buttonList.forEach(button->{
+            //鼠标进入
+            button.setOnMouseEntered(event->{
+                button.setStyle("-fx-border-color: #e0e3e2;-fx-background-color: transparent;-fx-border-width:3;");
+                ((ImageView)button.getGraphic()).setFitWidth(160);
+                ((ImageView)button.getGraphic()).setFitHeight(160);
+            });
+            //鼠标退出
+            button.setOnMouseExited(event->{
+                button.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
+                ((ImageView)button.getGraphic()).setFitWidth(150);
+                ((ImageView)button.getGraphic()).setFitHeight(150);
+            });
+            button.setOnMousePressed(event -> {
+                ((ImageView)button.getGraphic()).setFitWidth(140);
+                ((ImageView)button.getGraphic()).setFitHeight(140);
 
-    }
-
-    /**
-     *  基本设置->维修产品类型
-     */
-    public void setPt(MouseEvent mouseEvent) {
-
-        updateBody(FxmlView.BASESET_PT);
-    }
-    /**
-     *  基本设置->基础信息
-     */
-    public void setInfo(MouseEvent mouseEvent) {
-        updateBody(FxmlView.BASESET_INFO);
-    }
-    /**
-     *  基本设置->人员管理
-     */
-    public void setUser(MouseEvent mouseEvent) {
-        updateBody(FxmlView.BASESET_USER);
-    }
-    /**
-     *  基本设置->配件入库信息
-     */
-    public void setFtting(MouseEvent mouseEvent) {
-        updateBody(FxmlView.BASESET_FITTING);
+            });
+        });
     }
 
-    /**
-     *  维修登记管理->维修登记单
-     */
-    public void checkMaintain(ActionEvent actionEvent) {
-        updateBody(FxmlView.CHECK_MAINTAIN);
-    }
-    /**
-     *  维修登记管理->配件登记单
-     */
-    public void checkFitting(ActionEvent actionEvent) {
-        updateBody(FxmlView.CHECK_FITTING);
-    }
 
-    /**
-     *  系统设置->数据备份
-     */
-    public void dataBackUp(ActionEvent actionEvent) {
-        updateBody(FxmlView.SYSTEM_DATA);
-    }
-
-    /**
-     *  系统设置->使用方信息变更
-     */
-    public void infoChange(ActionEvent actionEvent) {
-        updateBody(FxmlView.SYSTEM_INFO_CHANGE);
-    }
-
-    /**
-     *  系统设置->打印机设置
-     */
-    public void printer(ActionEvent actionEvent) {
-        updateBody(FxmlView.SYSTEM_PRINTER);
-    }
-
-    /**
-     *  外部程序调用
-     */
-    public void program(ActionEvent actionEvent) {
-        updateBody(FxmlView.PRODUCE_PRO);
-    }
-
-    public void ptu(ActionEvent actionEvent) {
-        updateBody(FxmlView.PRODUCE_PTU);
-    }
-
-    public void term(ActionEvent actionEvent) {
-        updateBody(FxmlView.PRODUCE_TERM);
-    }
-
-    public void pTouch(ActionEvent actionEvent) {
-        updateBody(FxmlView.PRODUCE_PTOUCH);
-    }
 
 
 
@@ -134,20 +117,7 @@ public class MainController implements Initializable {
         return rootNode;
     }
 
-
-    public void altLayout(MouseEvent mouseEvent) {
-    }
-
-    public void queryManager(MouseEvent mouseEvent) {
-    }
-
-    public void jfxTextField(MouseEvent mouseEvent) {
-    }
-
-    public void baseSet(MouseEvent mouseEvent) {
-    }
-
-    public void pressedTest(MouseEvent mouseEvent) {
+/*    public void pressedTest(MouseEvent mouseEvent) {
         System.out.println("hello");
         imageViewTest.setImage(new Image("/icons/wx2.png"));
     }
@@ -155,5 +125,71 @@ public class MainController implements Initializable {
     public void released(MouseEvent mouseEvent) {
         imageViewTest.setImage(new Image("/icons/wx.png"));
 
+    }*/
+
+    /**
+     * 维修管理
+     * @param actionEvent
+     */
+    public void wxManager(ActionEvent actionEvent) {
+        this.firstPage.setVisible(false);
+        this.secondPage.setVisible(true);
     }
+
+    public void cxDown(ActionEvent actionEvent) {
+        StageManager.nullWarn("暂无配置");
+    }
+
+    public void txConnect(ActionEvent actionEvent) {
+        StageManager.nullWarn("暂无配置");
+    }
+
+    public void printerZd(ActionEvent actionEvent) {
+        StageManager.nullWarn("暂无配置");
+    }
+
+    public void bkTest(ActionEvent actionEvent) {
+        StageManager.nullWarn("暂无配置");
+    }
+
+    public void appExit(ActionEvent actionEvent) {
+        Main.closeAllPopups();
+    }
+
+    public void wxCheck(ActionEvent actionEvent) {
+        openModule(FxmlView.MAIN_CHECK);
+    }
+
+    public void systemSet(ActionEvent actionEvent) {
+        openModule(FxmlView.MAIN_SYSTEM);
+    }
+
+    /**
+     * 返回上一级
+     * @param actionEvent
+     */
+    public void goBack(ActionEvent actionEvent) {
+        this.firstPage.setVisible(true);
+        this.secondPage.setVisible(false);
+    }
+
+    public void baseChange(ActionEvent actionEvent) {
+        openModule(FxmlView.MAIN_BASE_SET);
+    }
+
+    private void openModule(FxmlView view) {
+        if (secondStage != null) {
+            secondStage.close();
+        }
+        secondStage = new Stage();
+        secondStage.setTitle(view.title()); // 页面标题
+        secondStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
+        secondStage .initStyle(StageStyle.UTILITY);
+        secondStage.initOwner(Main.mainStage);
+        Parent root = loadViewNodeHierarchy(view.fxml());
+        Scene primarySence = new Scene(root, 1200, 640); // 页面大小
+        secondStage.setScene(primarySence);
+        secondStage.show();
+    }
+
 }

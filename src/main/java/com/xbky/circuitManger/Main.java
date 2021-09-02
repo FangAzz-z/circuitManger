@@ -1,6 +1,5 @@
 package com.xbky.circuitManger;
 
-import com.xbky.circuitManger.view.common.FxmlView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Optional;
 
@@ -18,15 +16,16 @@ public class Main extends Application {
     public static Stage mainStage = null;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStag) throws Exception{
 
         AppIntializer.init();
+        Stage primaryStage = new Stage();
         mainStage = primaryStage;
-//        LoginManager.loadLogin();
+ //       LoginManager.loadLogin();
         primaryStage.setTitle("产品维修管理软件"); // 页面标题
         primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
-        Parent root = FXMLLoader.load(getClass().getResource("/views2/main2.fxml")); // 页面对应的fxml
-        Scene primarySence = new Scene(root, 1600, 800); // 页面大小
+        Parent root = FXMLLoader.load(getClass().getResource("/views/appMain.fxml")); // 页面对应的fxml
+        Scene primarySence = new Scene(root, 1800, 900); // 页面大小
         primaryStage.setScene( primarySence );
         primaryStage.setOnCloseRequest(event -> {
             closeAllPopups();

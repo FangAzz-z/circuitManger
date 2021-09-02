@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" prefHeight="653.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.MainBaseSetController">
+    <children>
+        <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <VBox fx:id="drawer" alignment="TOP_CENTER" prefHeight="651.0" prefWidth="250.0" stylesheets="@/css/theme/drawer.css">
+                        <ScrollPane fx:id="scroll" fitToWidth="true" styleClass="scroll" stylesheets="@/css/theme/custom-scroll.css">
+                            <content>
+                                <VBox fx:id="views" styleClass="drawer-content">
+                                    <children>
+                                        <Button fx:id="baseSetPt" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#setPt" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修产品类别型号">
+                                            <graphic>
+                                                <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="baseSetInfo" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onMouseClicked="#setInfo" prefHeight="50.0" prefWidth="271.0" styleClass="drawer-item" text="维修基础信息">
+                                            <graphic>
+                                                <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="baseSetUser" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#setUser" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="维修人员管理">
+                                            <graphic>
+                                                <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" styleClass="icon" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="baseSetFitting" alignment="BASELINE_LEFT" graphicTextGap="20.0" onMouseClicked="#setFitting" prefHeight="50.0" prefWidth="250.0" styleClass="drawer-item" text="配件入库信息">
+                                            <graphic>
+                                                <SVGPath content="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zM11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" styleClass="icon" />
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </content>
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </ScrollPane>
+                    <styleClass>
+                        <String fx:value="border" />
+                        <String fx:value="border-r-1" />
+                        <String fx:value="drawer" />
+                    </styleClass>
+                </VBox>
+                <VBox fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="drawer" HBox.hgrow="ALWAYS">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="904.0" style="-fx-border-width: 0 0 1 0;" styleClass="border">
+                            <children>
+                                <Button fx:id="hamburger" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"  prefWidth="40.0" styleClass="hamburger" text="Button">
+                                    <graphic>
+                                        <SVGPath content="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" styleClass="icon" />
+                                    </graphic>
+                                </Button>
+                                <Label fx:id="title" styleClass="h4" text="初始页" textFill="#0000008c">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Label>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                </HBox>
+                            </children>
+                        </HBox>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <ScrollPane fx:id="body" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" StackPane.alignment="TOP_LEFT">
+                                    <!--                                    <content>-->
+                                    <!--                                       &lt;!&ndash; <fx:include source="../module/profile.fxml" />&ndash;&gt;-->
+                                    <!--                                    </content>-->
+                                </ScrollPane>
+                            </children>
+                        </StackPane>
+                    </children>
+                </VBox>
+            </children>
+            <styleClass>
+                <String fx:value="border-top-1" />
+                <String fx:value="border" />
+            </styleClass>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/theme/material-color.css" />
+        <URL value="@../css/theme/skeleton.css" />
+        <URL value="@../css/theme/light.css" />
+        <URL value="@../css/theme/bootstrap.css" />
+        <URL value="@../css/theme/shape.css" />
+        <URL value="@../css/theme/typographic.css" />
+        <URL value="@../css/theme/helpers.css" />
+        <URL value="@../css/theme/master.css" />
+    </stylesheets>
+</StackPane>

@@ -99,23 +99,23 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/produce_programmm.fxml";}
     },
-    PRODUCE_PTU{
+    MAIN_BASE_SET{
         @Override
-        public String title() {return "PTU程序调用";}
+        public String title() {return "基础设置";}
         @Override
-        public String fxml() {return "/views/produce_ptu.fxml";}
+        public String fxml() {return "/views/mainBaseSet.fxml";}
     },
-    PRODUCE_TERM{
+    MAIN_CHECK{
         @Override
-        public String title() {return "Term程序调用";}
+        public String title() {return "维修登记单";}
         @Override
-        public String fxml() {return "/views/produce_term.fxml";}
+        public String fxml() {return "/views/mainCheck.fxml";}
     },
-    PRODUCE_PTOUCH{
+    MAIN_SYSTEM{
         @Override
-        public String title() {return "P-touchEditor程序调用";}
+        public String title() {return "系统维护";}
         @Override
-        public String fxml() {return "/views/produce_ptouch.fxml";}
+        public String fxml() {return "/views/mainSystem.fxml";}
     }
     ;
 

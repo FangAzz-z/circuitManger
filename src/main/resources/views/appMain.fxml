@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPane" prefHeight="1000" prefWidth="1600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.MainController">
+   <center>
+       <StackPane>
+       <children>
+      <GridPane fx:id="firstPage" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="150.0" right="150.0" />
+         </BorderPane.margin>
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="buWxManager" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#wxManager" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/wxgl.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="维修管理">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="buCxDown" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#cxDown" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/cxxz.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                   <Label text="程序下载">
+                   <VBox.margin>
+                       <Insets top="10.0" />
+                   </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <Button fx:id="buTxConnect" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#txConnect" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/txlj.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                   <Label text="通讯连接">
+                       <VBox.margin>
+                           <Insets top="10.0" />
+                       </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                   </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="buPrinter" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#printerZd" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/dy.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                   <Label text="打印终端连接">
+                       <VBox.margin>
+                           <Insets top="10.0" />
+                       </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                   </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="buBkTest" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#bkTest" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/cs.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                   <Label text="维修板卡测试">
+                       <VBox.margin>
+                           <Insets top="10.0" />
+                       </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                   </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="buAppExit" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#appExit" style="-fx-background-color: transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/exit.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                   <Label text="退出">
+                       <VBox.margin>
+                           <Insets top="10.0" />
+                       </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                   </Label>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+       <GridPane fx:id="secondPage" visible="false" BorderPane.alignment="CENTER">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <BorderPane.margin>
+               <Insets bottom="50.0" left="150.0" right="150.0" />
+           </BorderPane.margin>
+           <children>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                   <children>
+                       <Button fx:id="buBaseChange" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#baseChange" style="-fx-background-color: transparent" text="Button">
+                           <graphic>
+                               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                   <image>
+                                       <Image url="@../icons/jcsz.png" />
+                                   </image></ImageView>
+                           </graphic>
+                       </Button>
+                       <Label text="基础设置">
+                           <VBox.margin>
+                               <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                               <Font size="24.0" />
+                           </font>
+                       </Label>
+                   </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                   <children>
+                       <Button fx:id="buWxCheck" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#wxCheck" style="-fx-background-color: transparent" text="Button">
+                           <graphic>
+                               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                   <image>
+                                       <Image url="@../icons/wxdj.png" />
+                                   </image></ImageView>
+                           </graphic>
+                       </Button>
+                       <Label text="维修登记">
+                           <VBox.margin>
+                               <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                               <Font size="24.0" />
+                           </font>
+                       </Label>
+
+                   </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                   <children>
+                       <Button fx:id="buSystemSet" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#systemSet" style="-fx-background-color: transparent" text="Button">
+                           <graphic>
+                               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                   <image>
+                                       <Image url="@../icons/xtwh.png" />
+                                   </image></ImageView>
+                           </graphic>
+                       </Button>
+                       <Label text="系统维护">
+                           <VBox.margin>
+                               <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                               <Font size="24.0" />
+                           </font>
+                       </Label>
+                   </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                   <children>
+                       <Button fx:id="buGoBack" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent" text="Button">
+                           <graphic>
+                               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                   <image>
+                                       <Image url="@../icons/fh.png" />
+                                   </image></ImageView>
+                           </graphic>
+                       </Button>
+                       <Label text="返回上一级">
+                           <VBox.margin>
+                               <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                               <Font size="24.0" />
+                           </font>
+                       </Label>
+                   </children>
+               </VBox>
+           </children>
+       </GridPane>
+       </children>
+       </StackPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 8px;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <HBox prefHeight="80.0" prefWidth="1106.0" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>

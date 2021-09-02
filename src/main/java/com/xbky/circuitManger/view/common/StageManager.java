@@ -75,6 +75,17 @@ public class StageManager {
         }
     }
 
+    public static  Parent loadViewNodeHierarchy(String fxmlFilePath) {
+        Parent rootNode = null;
+        try {
+            rootNode = FXMLLoader.load(StageManager.class.getResource(fxmlFilePath));
+            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
+        } catch (Exception exception) {
+            log.info("", exception);
+        }
+        return rootNode;
+    }
+
     public static void infoWarn(String msg) {
         Stage window = new Stage();
         window.setTitle("信息");
