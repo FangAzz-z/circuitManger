@@ -3,6 +3,7 @@ package com.xbky.circuitManger.view.check;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.*;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
+import com.xbky.circuitManger.utils.DialogUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -202,5 +204,15 @@ public class CheckMaintainController implements Initializable {
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+    }
+
+    @FXML
+    void exportSearchData(ActionEvent event) {
+        String dirPath = DialogUtil.showExportFileDialog("");
+
+        if (Objects.isNull(dirPath)) {
+            DialogUtil.showAlertMsgDialog("请选择一个目录");
+            return;
+        }
     }
 }

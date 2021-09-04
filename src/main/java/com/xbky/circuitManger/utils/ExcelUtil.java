@@ -34,14 +34,14 @@ public class ExcelUtil {
     }
 
     public static void main(String[] args) {
-//        File file = new File("D:\\work\\test.xlsx");
+        File file = new File("D:\\work\\test.xlsx");
 
-//        DemoData data = new DemoData();
-//        data.setName("hah");
-//        data.setYear("2021");
-//        data.setStatus("有效");
-//
-//        writeToExcel("测试", file, DemoData.class, Arrays.asList(data));
+        DemoData data = new DemoData();
+        data.setName("hah");
+        data.setYear("2021");
+        data.setStatus("有效");
+
+        writeToExcel("测试", file, DemoData.class, Arrays.asList(data));
 
 //        List<DemoData> result = readSync(file, DemoData.class);
 //
