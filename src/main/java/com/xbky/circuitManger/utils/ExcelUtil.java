@@ -2,7 +2,10 @@ package com.xbky.circuitManger.utils;
 
 import com.xbky.circuitManger.annotation.Column;
 import com.xbky.circuitManger.annotation.DateFormat;
+
+import com.xbky.circuitManger.importexcel.BaseImportObj;
 import com.xbky.circuitManger.view.common.StageManager;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
@@ -23,22 +26,30 @@ public class ExcelUtil {
 
     private static final String FILE_SUFFIX = ".xls";
 
-    public static <T> void writeToExcelFromDataBase(String fileName, File directory, LinkedHashMap<String, String> headMap, List<Map<String, Object>> dataMapList, Class<T> cls) {
+    public static <T> void chooseDirectoryToWriteFromDataBase(String fileName, LinkedHashMap<String, String> headMap, List<Map<String, Object>> dataMapList, Class<T> cls) {
 
-        try {
-            List<T> dataList = covertDatabaseRecordToEntity(dataMapList, cls);
-            writeToExcel(fileName, directory, headMap, dataList);
-        } catch (Exception e) {
-            logger.error("导出数据库记录到excel错误", e);
+        File directory = DialogUtil.showExportFileDialog("选择xls文件");
+        if (directory == null) {
+            StageManager.nullWarn("导出文件目录不能为空");
+            return;
         }
+
+        List<T> dataList = null;
+        try {
+            dataList = covertDatabaseRecordToEntity(dataMapList, cls);
+        } catch (Exception e) {
+            logger.error("数据库对象转实体类是错误", e);
+            StageManager.nullWarn("错误信息提示", "导出文件错误");
+            return;
+        }
+
+        writeToExcel(fileName, directory, headMap, dataList);
     }
 
     public static <T> List<T> covertDatabaseRecordToEntity(List<Map<String, Object>> dataMapList, Class<T> cls) throws IllegalAccessException, InstantiationException {
 
         List<T> result = new ArrayList<>(dataMapList.size());
         for (Map<String, Object> data : dataMapList) {
-
-            System.out.println(data.get("create_time"));
 
             Field[] fields = cls.getDeclaredFields();
             T t = cls.newInstance();
@@ -71,13 +82,12 @@ public class ExcelUtil {
 
     public static <T> void writeToExcel(String fileName, File directory, LinkedHashMap<String, String> headMap, List<T> dataList) {
 
-
         if (directory == null || !directory.exists() || !directory.isDirectory() || !directory.canWrite()) {
-            StageManager.nullWarn("错误信息提示",String.format("选择的目录 %s 不可用 ", directory == null ? ObjectUtil.EMPTY_STRING : directory.getPath()));
+            StageManager.nullWarn("错误信息提示", String.format("选择的目录 %s 不可用 ", directory == null ? ObjectUtil.EMPTY_STRING : directory.getPath()));
             return;
         }
 
-        String filePath = directory.getPath() + "/" + fileName + ObjectUtil.dateFormatEn(new Date(), "yyyyMMddHHmmss")+ FILE_SUFFIX;
+        String filePath = directory.getPath() + File.separator + fileName + ObjectUtil.dateFormatEn(new Date(), "yyyyMMddHHmmss") + FILE_SUFFIX;
 
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet(fileName);
@@ -123,10 +133,13 @@ public class ExcelUtil {
 
             out.flush();
 
-           StageManager.nullWarn("错误信息提示",String.format("导出文件到 %s 成功", filePath));
+            StageManager.infoWarn(String.format("导出文件到 %s 成功", filePath));
+        } catch (ExcelException e) {
+            logger.error("导出excel文件错误", e);
+            StageManager.nullWarn("错误信息提示", e.getMessage());
         } catch (Exception e) {
             logger.error("导出excel文件错误", e);
-            StageManager.nullWarn("错误信息提示",String.format("导出excel文件到 %s错误", filePath));
+            StageManager.nullWarn("错误信息提示", String.format("导出excel文件到 %s错误", filePath));
         } finally {
             closeOutStream(out);
             closeWorkbook(workbook);
@@ -162,16 +175,37 @@ public class ExcelUtil {
             DateFormat annotation = f.getAnnotation(DateFormat.class);
             if (annotation != null) {
                 cell.setCellValue(ObjectUtil.dateFormatEn((Date) value, annotation.format()));
+            } else {
+                cell.setCellValue(ObjectUtil.dateFormatForStand((Date) value));
             }
         } else {
-            throw new RuntimeException("不支持的类型 " + type.getTypeName());
+            throw new ExcelException("不支持的类型 " + type.getTypeName());
         }
     }
 
 
-    public static <T> List<T> readFromExcel(File file, Map<String, String> headMap, Class<T> cls) {
+    public static <T extends BaseImportObj> List<T> chooseFileToRead(Map<String, String> headMap, Class<T> cls) {
+        File file = DialogUtil.showChooseExcelFileDialog("选择xls文件");
+
+        if (file == null) {
+            StageManager.nullWarn("导入文件不能为空");
+            return Collections.emptyList();
+        }
+        return readFromExcel(file, headMap, cls);
+    }
+
+    public static <T extends BaseImportObj> List<T> readFromExcel(File file, Map<String, String> headMap, Class<T> cls) {
 
         if (file == null || !file.exists() || !file.canRead()) {
+            StageManager.nullWarn("错误信息提示", String.format("文件 %s 不能读取", file == null ? ObjectUtil.EMPTY_STRING : file.getPath()));
+            return Collections.emptyList();
+        }
+
+        // 获取Excel后缀名
+        String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1, file.getName().length());
+
+        if (!SUPPORT_EXTENSION.equalsIgnoreCase(extension)) {
+            StageManager.nullWarn("错误信息提示", String.format("不支持的文件类型 %s", extension));
             return Collections.emptyList();
         }
 
@@ -179,23 +213,21 @@ public class ExcelUtil {
         FileInputStream inputStream = null;
 
         try {
-            // 获取Excel后缀名
-            String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1, file.getName().length());
-
-            if (!SUPPORT_EXTENSION.equalsIgnoreCase(extension)) {
-                throw new RuntimeException("不支持的文件类型  " + extension);
-            }
-
             // 获取Excel工作簿
             inputStream = new FileInputStream(file);
             workbook = new HSSFWorkbook(inputStream);
 
             // 读取excel中的数据
             return readFromExcel(workbook, headMap, cls);
+        } catch (ExcelException e) {
+            logger.error("解析Excel {} 失败 ", file.getPath());
+            logger.error("", e);
+            StageManager.nullWarn("错误信息提示", e.getMessage());
+            return Collections.emptyList();
         } catch (Exception e) {
             logger.error("解析Excel {} 失败 ", file.getPath());
             logger.error("", e);
-            StageManager.nullWarn("错误信息提示","解析excel文件失败");
+            StageManager.nullWarn("错误信息提示", "解析excel文件失败");
             return Collections.emptyList();
         } finally {
             closeWorkbook(workbook);
@@ -210,11 +242,13 @@ public class ExcelUtil {
 
             Cell cell = firstRow.getCell(cellIndex);
             if (cell == null) {
+                cellIndex++;
                 continue;
             }
             String cellValue = cell.getStringCellValue();
             String fileName = headMap.get(cellValue);
             if (ObjectUtil.isBlank(fileName)) {
+                cellIndex++;
                 continue;
             }
             resultMap.put(fileName, cellIndex);
@@ -224,7 +258,7 @@ public class ExcelUtil {
         return resultMap;
     }
 
-    private static <T> List<T> readFromExcel(Workbook workbook, Map<String, String> headMap, Class<T> cls) {
+    private static <T extends BaseImportObj> List<T> readFromExcel(Workbook workbook, Map<String, String> headMap, Class<T> cls) {
         List<T> resultDataList = new ArrayList<>();
         // 解析sheet
         Sheet sheet = workbook.getSheetAt(0);
@@ -238,7 +272,7 @@ public class ExcelUtil {
         int firstRowNum = sheet.getFirstRowNum();
         Row firstRow = sheet.getRow(firstRowNum);
         if (null == firstRow) {
-            throw new RuntimeException("excel头文件不存在");
+            throw new ExcelException("excel头文件不存在");
         }
 
         Map<String, Integer> fieldIndexMap = getFieldIndexMap(firstRow, headMap);
@@ -248,14 +282,23 @@ public class ExcelUtil {
         while (rowStart < sheet.getPhysicalNumberOfRows()) {
             Row row = sheet.getRow(rowStart);
 
-            if (null == row) {
+            if (row == null) {
+                rowStart++;
                 continue;
             }
 
             T resultData = convertRowToData(row, fieldIndexMap, cls);
-            if (null == resultData) {
+            if (resultData == null) {
+                rowStart++;
                 continue;
             }
+
+            String validMessage = resultData.valid();
+
+            if (!ObjectUtil.isBlank(validMessage)) {
+                throw new ExcelException(validMessage);
+            }
+
             resultDataList.add(resultData);
             rowStart++;
         }
@@ -320,7 +363,7 @@ public class ExcelUtil {
                 field.set(t, ObjectUtil.parseFromDateStr(value, annotation.format()));
             }
         } else {
-            throw new RuntimeException("不支持的类型 " + type.getTypeName());
+            throw new ExcelException("不支持的类型 " + type.getTypeName());
         }
     }
 
@@ -380,7 +423,7 @@ public class ExcelUtil {
     public static void main(String[] args) throws Exception {
 
 
-        File file = new File("D:\\work\\test.xls");
+        File file = new File("D:\\维修产品类别型号20210905123914.xls");
 
 //        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
 //        headMap.put("name", "名称");
@@ -398,15 +441,6 @@ public class ExcelUtil {
 //        data.setDelete(0);
 //
 //        writeToExcel("test", file, headMap, Arrays.asList(data));
-        Map<String, String> headMap = new HashMap<>();
-        headMap.put("名称", "name");
-        headMap.put("出生年份", "year");
-        headMap.put("状态", "status");
-        headMap.put("删除状态", "status");
-        headMap.put("创建时间", "createTime");
-        List<DemoData> rs = readFromExcel(file, headMap, DemoData.class);
-
-        System.out.println(rs.get(0).getCreateTime());
     }
 }
 

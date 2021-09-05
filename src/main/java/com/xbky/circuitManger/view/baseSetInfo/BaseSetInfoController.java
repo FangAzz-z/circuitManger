@@ -2,9 +2,10 @@ package com.xbky.circuitManger.view.baseSetInfo;
 
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.BaseInfoDao;
-import com.xbky.circuitManger.entity.ProductType;
+import com.xbky.circuitManger.export.BaseFaultShowExportObj;
+import com.xbky.circuitManger.importexcel.BaseFaultShowImportObj;
+import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
-import com.xbky.circuitManger.view.baseSetPt.BaseSetPtAddController;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
@@ -24,11 +25,11 @@ import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class BaseSetInfoController implements Initializable {
 
@@ -97,20 +98,21 @@ public class BaseSetInfoController implements Initializable {
         refreshResultData();
 
     }
-    private void commonAdd(Runnable handle,String label) {
+
+    private void commonAdd(Runnable handle, String label) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG.fxml()));
             Parent root = loader.<Parent>load();
             Scene sence = new Scene(root, 600, 300); // 页面大小
             Stage dialog = new Stage();
             dialog.setScene(sence);
-            dialog.setTitle(label+"-基础信息-添加");
+            dialog.setTitle(label + "-基础信息-添加");
             dialog.initStyle(StageStyle.UTILITY);
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
             BaseSetInfoAddController controller = loader.getController();
             controller.setDialog(dialog);
-            controller.setBaseData("",label,"");
+            controller.setBaseData("", label, "");
             controller.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
@@ -118,10 +120,10 @@ public class BaseSetInfoController implements Initializable {
         }
     }
 
-    private void commonModify( Map<String,Object> map,Runnable handle,String label) {
+    private void commonModify(Map<String, Object> map, Runnable handle, String label) {
         try {
             if (ObjectUtil.isNull(map)) {
-                StageManager.nullWarn("提示","请选中某一行");
+                StageManager.nullWarn("提示", "请选中某一行");
                 return;
             }
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG.fxml()));
@@ -129,13 +131,13 @@ public class BaseSetInfoController implements Initializable {
             Scene sence = new Scene(root, 600, 300); // 页面大小
             Stage dialog = new Stage();
             dialog.setScene(sence);
-            dialog.setTitle(label+"-基础信息-修改");
+            dialog.setTitle(label + "-基础信息-修改");
             dialog.initStyle(StageStyle.UTILITY);
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
-            BaseSetInfoAddController  controller = loader.getController();
+            BaseSetInfoAddController controller = loader.getController();
             controller.setDialog(dialog);
-            controller.setBaseData(map.get("id")+"",label,(String)map.get("content"));
+            controller.setBaseData(map.get("id") + "", label, (String) map.get("content"));
             controller.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
@@ -144,24 +146,26 @@ public class BaseSetInfoController implements Initializable {
     }
 
     //维修产品状态
-    public void refreshStatusData(){
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_PT_STATUS");
+    public void refreshStatusData() {
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_PT_STATUS");
         list.addAll(dataList);
         this.status_table.getSelectionModel().clearSelection();
         this.status_table.setItems(list);
         this.status_table.refresh();
     }
+
     public void statusReset(ActionEvent actionEvent) {
         this.status_text_content.clear();
     }
+
     public void statusQuery(ActionEvent actionEvent) {
         if (ObjectUtil.isAllNull(this.status_text_content.getText())) {
             refreshStatusData();
             return;
         }
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_PT_STATUS",this.status_text_content.getText());
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_PT_STATUS", this.status_text_content.getText());
         list.addAll(dataList);
         this.status_table.getSelectionModel().clearSelection();
         this.status_table.setItems(list);
@@ -169,45 +173,51 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void statusAdd(ActionEvent actionEvent) {
-        commonAdd(()->{refreshStatusData();},"维修产品状态");
+        commonAdd(() -> {
+            refreshStatusData();
+        }, "维修产品状态");
     }
 
     public void statusModify(ActionEvent actionEvent) {
-        commonModify((Map)this.status_table.getSelectionModel().getSelectedItem(),()->{refreshStatusData();},"维修产品状态");
+        commonModify((Map) this.status_table.getSelectionModel().getSelectedItem(), () -> {
+            refreshStatusData();
+        }, "维修产品状态");
     }
 
     public void statusDelete(ActionEvent actionEvent) {
-        Map<String,Object> map = (Map)this.status_table.getSelectionModel().getSelectedItem();
+        Map<String, Object> map = (Map) this.status_table.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            StageManager.nullWarn("提示","请选中某一行");
+            StageManager.nullWarn("提示", "请选中某一行");
             return;
         }
-        if(StageManager.deleteTrue()) {
+        if (StageManager.deleteTrue()) {
             this.baseInfoDao.commonDeleteById("CM_BASE_PT_STATUS", (Long) map.get("id") + "");
             refreshStatusData();
         }
     }
 
-    
+
     //故障现象
-    public void refreshShowData(){
-        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("CM_BASE_FAULT_SHOW");
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
+    public void refreshShowData() {
+        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_FAULT_SHOW");
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
         list.addAll(dataList);
         this.show_table.getSelectionModel().clearSelection();
         this.show_table.setItems(list);
         this.show_table.refresh();
     }
+
     public void showReset(ActionEvent actionEvent) {
         this.show_text_content.clear();
     }
+
     public void showQuery(ActionEvent actionEvent) {
         if (ObjectUtil.isAllNull(this.show_text_content.getText())) {
             refreshShowData();
             return;
         }
-        List<Map<String,Object>> dataList =  this.baseInfoDao.queryByExample("CM_BASE_FAULT_SHOW",this.show_text_content.getText());
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
         list.addAll(dataList);
         this.show_table.getSelectionModel().clearSelection();
         this.show_table.setItems(list);
@@ -215,45 +225,51 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void showAdd(ActionEvent actionEvent) {
-        commonAdd(()->{refreshShowData();},"故障现象");
+        commonAdd(() -> {
+            refreshShowData();
+        }, "故障现象");
     }
 
     public void showModify(ActionEvent actionEvent) {
-        commonModify((Map)this.show_table.getSelectionModel().getSelectedItem(),()->{refreshShowData();},"故障现象");
+        commonModify((Map) this.show_table.getSelectionModel().getSelectedItem(), () -> {
+            refreshShowData();
+        }, "故障现象");
     }
 
     public void showDelete(ActionEvent actionEvent) {
-        Map<String,Object> map = (Map)this.show_table.getSelectionModel().getSelectedItem();
+        Map<String, Object> map = (Map) this.show_table.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            StageManager.nullWarn("提示","请选中某一行");
+            StageManager.nullWarn("提示", "请选中某一行");
             return;
         }
-        if(StageManager.deleteTrue()) {
+        if (StageManager.deleteTrue()) {
             this.baseInfoDao.commonDeleteById("CM_BASE_FAULT_SHOW", (Long) map.get("id") + "");
             refreshShowData();
         }
     }
 
     //维修措施
-    public void refreshMethodData(){
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("CM_BASE_MAINTAIN_METHOD");
+    public void refreshMethodData() {
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_MAINTAIN_METHOD");
         list.addAll(dataList);
         this.method_table.getSelectionModel().clearSelection();
         this.method_table.setItems(list);
         this.method_table.refresh();
-        
+
     }
+
     public void methodReset(ActionEvent actionEvent) {
         this.method_text_content.clear();
     }
+
     public void methodQuery(ActionEvent actionEvent) {
         if (ObjectUtil.isAllNull(this.method_text_content.getText())) {
             refreshMethodData();
             return;
         }
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.queryByExample("CM_BASE_MAINTAIN_METHOD",this.method_text_content.getText());
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_MAINTAIN_METHOD", this.method_text_content.getText());
         list.addAll(dataList);
         this.method_table.getSelectionModel().clearSelection();
         this.method_table.setItems(list);
@@ -261,35 +277,40 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void methodAdd(ActionEvent actionEvent) {
-        commonAdd(()->{refreshMethodData();},"维修措施");
+        commonAdd(() -> {
+            refreshMethodData();
+        }, "维修措施");
     }
 
     public void methodModify(ActionEvent actionEvent) {
-        commonModify((Map)this.method_table.getSelectionModel().getSelectedItem(),()->{refreshMethodData();},"维修措施");
+        commonModify((Map) this.method_table.getSelectionModel().getSelectedItem(), () -> {
+            refreshMethodData();
+        }, "维修措施");
     }
 
     public void methodDelete(ActionEvent actionEvent) {
-        Map<String,Object> map = (Map)this.method_table.getSelectionModel().getSelectedItem();
+        Map<String, Object> map = (Map) this.method_table.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            StageManager.nullWarn("提示","请选中某一行");
+            StageManager.nullWarn("提示", "请选中某一行");
             return;
         }
-        if(StageManager.deleteTrue()) {
+        if (StageManager.deleteTrue()) {
             this.baseInfoDao.commonDeleteById("CM_BASE_MAINTAIN_METHOD", map.get("id") + "");
             refreshMethodData();
         }
     }
 
     //处理结果
-    public void refreshResultData(){
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.commonQueryAll("CM_BASE_HANDLE_RESULT");
+    public void refreshResultData() {
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_HANDLE_RESULT");
         list.addAll(dataList);
         this.result_table.getSelectionModel().clearSelection();
         this.result_table.setItems(list);
         this.result_table.refresh();
 
     }
+
     public void resultReset(ActionEvent actionEvent) {
         this.result_text_content.clear();
     }
@@ -299,8 +320,8 @@ public class BaseSetInfoController implements Initializable {
             refreshResultData();
             return;
         }
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  this.baseInfoDao.queryByExample("CM_BASE_HANDLE_RESULT",this.result_text_content.getText());
+        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
+        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_HANDLE_RESULT", this.result_text_content.getText());
         list.addAll(dataList);
         this.result_table.getSelectionModel().clearSelection();
         this.result_table.setItems(list);
@@ -308,22 +329,51 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void resultAdd(ActionEvent actionEvent) {
-        commonAdd(()->{refreshResultData();},"处理结果");
+        commonAdd(() -> {
+            refreshResultData();
+        }, "处理结果");
     }
 
     public void resultModify(ActionEvent actionEvent) {
-        commonModify((Map)this.result_table.getSelectionModel().getSelectedItem(),()->{refreshResultData();},"处理结果");
+        commonModify((Map) this.result_table.getSelectionModel().getSelectedItem(), () -> {
+            refreshResultData();
+        }, "处理结果");
     }
 
     public void resultDelete(ActionEvent actionEvent) {
-        Map<String,Object> map = (Map)this.result_table.getSelectionModel().getSelectedItem();
+        Map<String, Object> map = (Map) this.result_table.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            StageManager.nullWarn("提示","请选中某一行");
+            StageManager.nullWarn("提示", "请选中某一行");
             return;
         }
-        if(StageManager.deleteTrue()) {
+        if (StageManager.deleteTrue()) {
             this.baseInfoDao.commonDeleteById("CM_BASE_HANDLE_RESULT", map.get("id") + "");
             refreshResultData();
+        }
+    }
+
+    @FXML
+    void methodImport(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void exportFaultShow(ActionEvent event) {
+        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("故障原因", BaseFaultShowExportObj.getHeadMap(), dataList, BaseFaultShowExportObj.class);
+    }
+
+    @FXML
+    void importFaultShow(ActionEvent event) {
+
+        List<BaseFaultShowImportObj> data = ExcelUtil.chooseFileToRead(BaseFaultShowImportObj.getHeadMap(), BaseFaultShowImportObj.class);
+
+        if (!data.isEmpty()) {
+            int count = this.baseInfoDao.batchInert("CM_BASE_FAULT_SHOW", data.stream().map(t -> t.getContent()).collect(Collectors.toList()));
+            logger.info("导入故障数据成功 count = {}", count);
+            StageManager.infoWarn(String.format("导入成功"));
+            refreshShowData();
         }
     }
 }

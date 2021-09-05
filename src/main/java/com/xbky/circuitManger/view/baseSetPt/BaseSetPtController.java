@@ -194,15 +194,9 @@ public class BaseSetPtController implements Initializable {
 
     @FXML
     void exportSearchData(ActionEvent event) {
-        File directory = DialogUtil.showExportFileDialog("");
-
-        if (Objects.isNull(directory)) {
-            StageManager.nullWarn("请选择一个目录");
-            return;
-        }
         ProductType searchParam = getSearchParam();
         List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(searchParam);
 
-        ExcelUtil.writeToExcelFromDataBase(FxmlView.BASESET_PT.title(), directory, ProductTypeExportObj.getExportHeadMap(), dataList, ProductTypeExportObj.class);
+        ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title(), ProductTypeExportObj.getHeadMap(), dataList, ProductTypeExportObj.class);
     }
 }

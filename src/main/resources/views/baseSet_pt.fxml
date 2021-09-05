@@ -24,6 +24,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
 <BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtController">
     <left>
@@ -122,7 +123,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                  <Button mnemonicParsing="false" onAction="#exportSearchData"  prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导出">
+                  <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="success" text="导出">
                      <font>
                         <Font size="15.0" />
                      </font>

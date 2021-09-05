@@ -29,7 +29,48 @@ public class ProductTypeExportObj {
     @DateFormat
     private Date updateTime;
 
-    public static LinkedHashMap<String, String> getExportHeadMap() {
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public static LinkedHashMap<String, String> getHeadMap() {
         LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
         headMap.put("category", "类别");
         headMap.put("model", "型号");
@@ -39,5 +80,4 @@ public class ProductTypeExportObj {
 
         return headMap;
     }
-
 }

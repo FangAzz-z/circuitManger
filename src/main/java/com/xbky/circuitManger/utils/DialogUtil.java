@@ -9,8 +9,8 @@ import java.io.File;
 
 public class DialogUtil {
 
-    public static File showChooseFileDialog(String title) {
-        if (isBlank(title)) {
+    public static File showChooseExcelFileDialog(String title) {
+        if (ObjectUtil.isBlank(title)) {
             title = "选择excel文件";
         }
 
@@ -18,16 +18,15 @@ public class DialogUtil {
         fileChooser.setTitle(title);
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Excel", "*.xlsx"),
-                new FileChooser.ExtensionFilter("XLS", "*.xls"),
-                new FileChooser.ExtensionFilter("XLSX", "*.xlsx"));
+                new FileChooser.ExtensionFilter("All Excel", "*.xls"),
+                new FileChooser.ExtensionFilter("XLS", "*.xls"));
 
         return  fileChooser.showOpenDialog(new Stage());
     }
 
     public static File showExportFileDialog(String title) {
 
-        if (isBlank(title)) {
+        if (ObjectUtil.isBlank(title)) {
             title = "选择导出目录";
         }
 
@@ -38,10 +37,4 @@ public class DialogUtil {
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         return directory;
     }
-
-
-    private static  boolean isBlank(String input) {
-        return input == null || input.trim().length() == 0;
-    }
-
 }

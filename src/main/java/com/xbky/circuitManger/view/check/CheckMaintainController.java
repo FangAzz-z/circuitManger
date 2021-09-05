@@ -3,7 +3,8 @@ package com.xbky.circuitManger.view.check;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.*;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
-import com.xbky.circuitManger.utils.DialogUtil;
+import com.xbky.circuitManger.export.CheckMaintainRecordExportObj;
+import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -17,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -176,6 +175,16 @@ public class CheckMaintainController implements Initializable {
     }
 
     public void query(ActionEvent actionEvent) {
+        CheckMaintainRecord record = getSearchParam();
+        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
+        List<Map<String,Object>> dataList = this.dao.queryByExample(record);
+        list.addAll(dataList);
+        this.userTable.getSelectionModel().clearSelection();
+        this.userTable.setItems(list);
+        this.userTable.refresh();
+    }
+
+    private CheckMaintainRecord getSearchParam() {
         CheckMaintainRecord record = new CheckMaintainRecord();
         record.setMaintainId(this.queryMaintainOrder.getText());
         record.setMaintainCardNo(this.queryCardNo.getText());
@@ -198,16 +207,16 @@ public class CheckMaintainController implements Initializable {
         if(this.queryStatus.getSelectionModel().getSelectedItem()!=null) {
             record.setWxStatus(this.queryStatus.getSelectionModel().getSelectedItem().toString());
         }
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.dao.queryByExample(record);
-        list.addAll(dataList);
-        this.userTable.getSelectionModel().clearSelection();
-        this.userTable.setItems(list);
-        this.userTable.refresh();
+
+        return record;
     }
 
     @FXML
     void exportSearchData(ActionEvent event) {
+        CheckMaintainRecord record = getSearchParam();
+        List<Map<String,Object>> dataList = this.dao.queryByExample(record);
+
+        ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.CHECK_MAINTAIN.title(), CheckMaintainRecordExportObj.getHeadMap(),dataList, CheckMaintainRecordExportObj.class);
 
     }
 }

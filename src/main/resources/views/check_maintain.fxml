@@ -140,14 +140,6 @@
                <right>
                       <HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="286.0" spacing="10.0" stylesheets="@../css/theme/drawer.css" BorderPane.alignment="CENTER_RIGHT">
                           <children>
-                        <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="btn-success" text="导出">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <effect>
-                              <Bloom />
-                           </effect>
-                        </Button>
                               <Button ellipsisString="" mnemonicParsing="false" onAction="#addData" prefHeight="30.0" prefWidth="60.0" styleClass="primary" text="添加" textFill="WHITE">
                                   <font>
                                       <Font size="15.0" />
@@ -172,6 +164,14 @@
                                       <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                                   </effect>
                               </Button>
+                        <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="success" text="导出">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </Button>
                           </children>
                           <padding>
                               <Insets right="10.0" />
