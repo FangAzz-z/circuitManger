@@ -25,7 +25,7 @@ public class DialogUtil {
         return  fileChooser.showOpenDialog(new Stage());
     }
 
-    public static String showExportFileDialog(String title) {
+    public static File showExportFileDialog(String title) {
 
         if (isBlank(title)) {
             title = "选择导出目录";
@@ -36,11 +36,11 @@ public class DialogUtil {
 
         File directory = directoryChooser.showDialog(new Stage());
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        return directory.getPath();
+        return directory;
     }
 
 
-    public static void showAlertMsgDialog(String message) {
+    public static void showAlertErrorMsgDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.titleProperty().set("错误信息提示");
         alert.headerTextProperty().set(message);

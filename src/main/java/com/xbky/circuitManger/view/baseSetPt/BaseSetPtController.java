@@ -3,6 +3,9 @@ package com.xbky.circuitManger.view.baseSetPt;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.ProductType;
+import com.xbky.circuitManger.export.ProductTypeExportObj;
+import com.xbky.circuitManger.utils.DialogUtil;
+import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -20,12 +23,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -171,15 +172,37 @@ public class BaseSetPtController implements Initializable {
             refreshData();
             return;
         }
-        ProductType pt = new ProductType();
-        pt.setCategory(this.qTfCategory.getText());
-        pt.setModel(this.qTfModel.getText());
-        pt.setBrand(this.qTfBrand.getText());
+
+        ProductType pt = getSearchParam();
+
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
         List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(pt);
         list.addAll(dataList);
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+    }
+
+    private ProductType getSearchParam() {
+        ProductType pt = new ProductType();
+        pt.setCategory(this.qTfCategory.getText());
+        pt.setModel(this.qTfModel.getText());
+        pt.setBrand(this.qTfBrand.getText());
+
+        return pt;
+    }
+
+    @FXML
+    void exportSearchData(ActionEvent event) {
+        File directory = DialogUtil.showExportFileDialog("");
+
+        if (Objects.isNull(directory)) {
+            DialogUtil.showAlertErrorMsgDialog("请选择一个目录");
+            return;
+        }
+        ProductType searchParam = getSearchParam();
+        List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(searchParam);
+
+        ExcelUtil.writeToExcelFromDataBase(FxmlView.BASESET_PT.title(), directory, ProductTypeExportObj.getExportHeadMap(), dataList, ProductTypeExportObj.class);
     }
 }

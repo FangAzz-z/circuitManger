@@ -40,7 +40,7 @@ public class ProductTypeDao extends BaseDao {
         return super.update(sql.toString(),null);
     }
     public List<Map<String,Object>> queryByExample(ProductType pt){
-        StringBuffer sql = new StringBuffer("select id,category,model,brand from CM_PRODUCT_TYPE where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,category,model,brand , create_time, update_time from CM_PRODUCT_TYPE where 1=1 ");
         if(ObjectUtil.isNotNull(pt.getCategory())){
             sql.append(String.format(" and category like '%s'",pt.getCategory()+"%"));
         }

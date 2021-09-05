@@ -1,12 +1,15 @@
 package com.xbky.circuitManger.utils;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class ObjectUtil {
-    private static String standTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    public static String standTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    public static String EMPTY_STRING = "";
+
     public static boolean isNull(Object param)
     {
         return param == null || "".equals(param);
@@ -28,6 +31,20 @@ public class ObjectUtil {
         return dateFormatEn(time, standTimeFormat);
     }
 
+
+    public static Date parseFromDateStr(String dateStr) {
+        return parseFromDateStr(dateStr, standTimeFormat);
+    }
+
+    public static Date parseFromDateStr(String dateStr, String dateFormat)  {
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+        try {
+            return sdf.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static boolean isNotNull(Object param)
     {
@@ -71,6 +88,10 @@ public class ObjectUtil {
     public static long getLong(Object obj)
     {
         return isNull(obj) ? null : Long.parseLong(obj.toString());
+    }
+
+    public  static boolean isBlank(String str) {
+        return str == null || str.trim().length() == 0;
     }
 
 }
