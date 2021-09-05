@@ -84,6 +84,17 @@ public class AppIntializer {
                 String sql = "create table CM_CHECK_FITTING_RECORD(id bigint(11) primary key auto_increment, fitting_model varchar(50),fitting_num varchar(50),fitting_no varchar(50),fitting_name varchar(50),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
+            //程序配置地址
+            if(!isExist(statement,"CM_PROGRAM_LOCATION")){
+                log.info("数据表->CM_PROGRAM_LOCATION 初始化");
+                String sql = "create table CM_PROGRAM_LOCATION(id bigint(11) primary key auto_increment, program_name varchar(50),program_location varchar(255),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+                // 添加数据
+                statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('程序下载','',now(),now())");
+                statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('通讯连接','',now(),now())");
+                statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('打印终端连接','C:\\Program Files (x86)\\Brother\\Ptedit52\\ptedit52.exe',now(),now())");
+                statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('维修板卡测试','C:/GETrans/wPTU_801/bin/AC/ptuac.bat',now(),now())");
+            }
             statement.close();
             DBUtil.closeConnection();
         }catch (SQLException e) {

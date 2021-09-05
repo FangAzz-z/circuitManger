@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view;
 
 import com.xbky.circuitManger.Main;
+import com.xbky.circuitManger.service.ProgramService;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Statement;
 import java.util.*;
 
 
@@ -69,6 +71,8 @@ public class MainController implements Initializable {
     private Button buGoBack;
 
     private Stage secondStage;
+    ProgramService service = new ProgramService();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -145,11 +149,19 @@ public class MainController implements Initializable {
     }
 
     public void printerZd(ActionEvent actionEvent) {
-        StageManager.nullWarn("暂无配置");
+        try {
+            service.programRun("打印终端连接");
+        } catch (Exception e) {
+            StageManager.nullWarn(e.getMessage());
+        }
     }
 
     public void bkTest(ActionEvent actionEvent) {
-        StageManager.nullWarn("暂无配置");
+        try {
+            service.programRun("维修板卡测试");
+        } catch (Exception e) {
+            StageManager.nullWarn(e.getMessage());
+        }
     }
 
     public void appExit(ActionEvent actionEvent) {
