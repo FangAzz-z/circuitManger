@@ -49,12 +49,21 @@ public class StageManager {
     public static void nullWarn(String content){
         nullWarn("提示",content);
     }
-    public static void nullWarn(String title,String context) {
+    public static void nullWarn(String content,Stage stage) {
+        nullWarn("提示",content,stage);
+    }
+    public static void nullWarn(String title,String content) {
+        nullWarn( title,content,Main.mainStage);
+    }
+
+    public static void nullWarn(String title,String context,Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setContentText(context);
         alert.setHeaderText("");
-        alert.initOwner(Main.mainStage);
+        alert.initOwner(stage);
+        alert.setX(stage.getX() + stage.getWidth() / 2.0D );
+        alert.setY(stage.getY() + stage.getHeight() / 2.0D);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == javafx.scene.control.ButtonType.OK){
             alert.close();

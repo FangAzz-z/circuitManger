@@ -1,7 +1,10 @@
 package com.xbky.circuitManger.view;
 
 import com.xbky.circuitManger.Main;
+import com.xbky.circuitManger.dao.SystemUserDao;
+import com.xbky.circuitManger.dao.SystemUserRoleDao;
 import com.xbky.circuitManger.service.ProgramService;
+import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
@@ -15,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
@@ -24,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Statement;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class MainController implements Initializable {
@@ -38,6 +43,23 @@ public class MainController implements Initializable {
     public GridPane secondPage;
     @FXML
     public GridPane firstPage;
+
+    @FXML
+    public VBox wxCheck;
+    @FXML
+    public VBox baseChange;
+    @FXML
+    public VBox bkTest;
+    @FXML
+    public VBox printer;
+    @FXML
+    public VBox txConnect;
+    @FXML
+    public VBox cxDown;
+    @FXML
+    public VBox wxManager;
+    @FXML
+    public VBox systemSet;
 
     //主界面按钮
     @FXML
@@ -72,7 +94,7 @@ public class MainController implements Initializable {
 
     private Stage secondStage;
     ProgramService service = new ProgramService();
-
+    SystemUserRoleDao loginDao = new SystemUserRoleDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,6 +118,28 @@ public class MainController implements Initializable {
 
             });
         });
+
+        if(!"admin".equals(LoginController.loginName)) {
+            systemSet.setVisible(false);
+            Map<String, VBox> moduleMap = new HashMap<>();
+            moduleMap.put("维修管理", wxManager);
+            moduleMap.put("程序下载", cxDown);
+            moduleMap.put("通讯连接", txConnect);
+            moduleMap.put("打印终端连接", printer);
+            moduleMap.put("维修板卡测试", bkTest);
+            moduleMap.put("基础设置", baseChange);
+            moduleMap.put("维修登记", wxCheck);
+
+
+            List<Map<String, Object>> roleList = loginDao.getDataByUser(LoginController.loginName);
+            if (ObjectUtil.isNotEmpty(roleList)) {
+                moduleMap.entrySet().forEach(a->a.getValue().setVisible(false));
+                roleList.forEach(a->{
+                    moduleMap.get(ObjectUtil.getString(a.get("module_name"))).setVisible(true);
+                });
+            }
+        }
+
     }
 
 
@@ -210,6 +254,28 @@ public class MainController implements Initializable {
         Scene primarySence = new Scene(root, 1200, 640); // 页面大小
         secondStage.setScene(primarySence);
         secondStage.show();
+    }
+
+    public void setModule(){
+        if(!"admin".equals(LoginController.loginName)) {
+            Map<String, VBox> moduleMap = new HashMap<>();
+            moduleMap.put("维修管理", wxManager);
+            moduleMap.put("程序下载", cxDown);
+            moduleMap.put("通讯连接", txConnect);
+            moduleMap.put("打印终端连接", printer);
+            moduleMap.put("维修板卡测试", bkTest);
+            moduleMap.put("基础设置", baseChange);
+            moduleMap.put("维修登记", wxCheck);
+
+
+            List<Map<String, Object>> roleList = loginDao.getDataByModule(LoginController.loginName);
+            if (ObjectUtil.isNotEmpty(roleList)) {
+                moduleMap.entrySet().forEach(a->a.getValue().setVisible(false));
+                roleList.forEach(a->{
+                    moduleMap.get(ObjectUtil.getString(a.get("module_name"))).setVisible(true);
+                });
+            }
+        }
     }
 
 }

@@ -1,12 +1,16 @@
 package com.xbky.circuitManger.view;
 
 import com.xbky.circuitManger.Main;
+import com.xbky.circuitManger.dao.SystemUserDao;
+import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
+import com.xbky.circuitManger.view.common.StageManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,35 +21,22 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
     @FXML
-    private HBox hbPhoneLogin;
-
+    public PasswordField tfPassword;
     @FXML
-    private VBox vbPhoneLoginContainer;
-
-    @FXML
-    private VBox vbWxLoginContainer;
-
-    @FXML
-    private Text txtGetCode;
-
-    @FXML
-    private TextField tfPhone;
-
-    @FXML
-    private TextField tfCode;
+    public TextField tfName;
 
     private Stage stage;
 
-    @FXML
-    private ImageView ivLoading;
+    SystemUserDao dao = new SystemUserDao();
 
-    @FXML
-    private ImageView ivScanCode;
+    public static  String loginName;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -62,11 +53,28 @@ public class LoginController implements Initializable {
 
     public void loginSystem(MouseEvent mouseEvent) {
         try {
+            if(ObjectUtil.hasNull(tfName.getText(),tfPassword.getText())){
+                StageManager.nullWarn("用户名或密码不能为空",stage);
+                return;
+            }
+            List<Map<String,Object>> loginList= dao.getUserByName(tfName.getText());
+            if(ObjectUtil.isEmpty(loginList)){
+                StageManager.nullWarn("用户不存在",stage);
+                return;
+            }
+            if(!tfPassword.getText().equals(ObjectUtil.getString(loginList.get(0).get("user_password")))){
+                StageManager.nullWarn("密码错误",stage);
+                return;
+            }
+            loginName = tfName.getText();
             stage.hide();
             Stage primaryStage = Main.mainStage;
             primaryStage.setTitle("产品维修管理软件"); // 页面标题
             primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
-            Parent root = FXMLLoader.load(getClass().getResource(FxmlView.MAIN.fxml())); // 页面对应的fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.MAIN.fxml()));
+            Parent root = loader.load(getClass().getResource(FxmlView.MAIN.fxml())); // 页面对应的fxml
+//            MainController controller = loader.getController();
+//            controller.setModule();
             Scene primarySence = new Scene(root, 1600, 800); // 页面大小
             primaryStage.setScene(primarySence);
             primaryStage.setOnCloseRequest(event -> {

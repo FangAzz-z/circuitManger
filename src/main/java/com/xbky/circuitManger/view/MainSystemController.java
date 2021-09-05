@@ -55,12 +55,12 @@ public class MainSystemController implements Initializable {
 
     @FXML
     void roleManger(ActionEvent event) {
-
+        updateBody(FxmlView.SYSTEM_USER_ROLE);
     }
 
     @FXML
     void systemUserManger(ActionEvent event) {
-
+        updateBody(FxmlView.SYSTEM_USER);
     }
 
     private void updateBody(FxmlView view) {

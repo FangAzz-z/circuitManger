@@ -2,7 +2,8 @@ package com.xbky.circuitManger.entity;
 
 import java.util.Date;
 
-public class MaintainUser {
+public class
+MaintainUser {
 
     private Long id;
 

@@ -7,7 +7,7 @@ public enum FxmlView {
         @Override
         public String title() {return "初始页";}
         @Override
-        public String fxml() {return "/views/main.fxml";}
+        public String fxml() {return "/views/appMain.fxml";}
     },
     BASESET_PT{
         @Override
@@ -116,6 +116,30 @@ public enum FxmlView {
         public String title() {return "系统维护";}
         @Override
         public String fxml() {return "/views/mainSystem.fxml";}
+    },
+    SYSTEM_USER{
+        @Override
+        public String title() {return "系统用户管理";}
+        @Override
+        public String fxml() {return "/views/system_user.fxml";}
+    },
+    SYSTEM_USER_ROLE{
+        @Override
+        public String title() {return "用户权限管理";}
+        @Override
+        public String fxml() {return "/views/system_user_role.fxml";}
+    },
+    SYSTEM_USER_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/system_user_dialog.fxml";}
+    },
+    SYSTEM_USER_ROLE_DIALOG{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/system_user_role_dialog.fxml";}
     }
     ;
 

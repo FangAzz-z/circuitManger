@@ -54,7 +54,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0">
                                     <children>
-                                        <TextField fx:id="tfPhone" maxWidth="268.0" prefHeight="40.0" prefWidth="268.0" promptText="请输入用户名" style="-fx-background-color: #F1F1F1; -fx-border-radius: 4px;" HBox.hgrow="ALWAYS">
+                                        <TextField fx:id="tfName" maxWidth="268.0" prefHeight="40.0" prefWidth="268.0" promptText="请输入用户名" style="-fx-background-color: #F1F1F1; -fx-border-radius: 4px;" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>

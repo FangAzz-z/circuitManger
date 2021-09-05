@@ -95,6 +95,20 @@ public class AppIntializer {
                 statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('打印终端连接','C:\\Program Files (x86)\\Brother\\Ptedit52\\ptedit52.exe',now(),now())");
                 statement.executeUpdate("insert into CM_PROGRAM_LOCATION(program_name,program_location,create_time,update_time) values('维修板卡测试','C:/GETrans/wPTU_801/bin/AC/ptuac.bat',now(),now())");
             }
+
+            //程序配置地址
+            if(!isExist(statement,"CM_SYSTEM_USER")){
+                log.info("数据表->CM_SYSTEM_USER 初始化");
+                String sql = "create table CM_SYSTEM_USER(id bigint(11) primary key auto_increment, user_name varchar(50),user_password varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+                // 添加数据
+                statement.executeUpdate("insert into CM_SYSTEM_USER(user_name,user_password,create_time,update_time) values('admin','admin',now(),now())");
+            }
+            if(!isExist(statement,"CM_SYSTEM_USER_MODULE")){
+                log.info("数据表->CM_SYSTEM_USER_MODULE 初始化");
+                String sql = "create table CM_SYSTEM_USER_MODULE(id bigint(11) primary key auto_increment, user_name varchar(50),module_name varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+            }
             statement.close();
             DBUtil.closeConnection();
         }catch (SQLException e) {

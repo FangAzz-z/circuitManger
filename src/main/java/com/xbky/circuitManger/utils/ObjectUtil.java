@@ -3,6 +3,7 @@ package com.xbky.circuitManger.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -96,6 +97,16 @@ public class ObjectUtil {
 
     public  static boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;
+    }
+
+    public static <E> boolean isNotEmpty(Collection<E> coll)
+    {
+        return coll != null && !coll.isEmpty();
+    }
+
+    public static <E> boolean isEmpty(Collection<E> coll)
+    {
+        return !isNotEmpty(coll);
     }
 
 }
