@@ -2,6 +2,7 @@ package com.xbky.circuitManger.utils;
 
 import com.xbky.circuitManger.annotation.Column;
 import com.xbky.circuitManger.annotation.DateFormat;
+import com.xbky.circuitManger.view.common.StageManager;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class ExcelUtil {
 
 
         if (directory == null || !directory.exists() || !directory.isDirectory() || !directory.canWrite()) {
-            DialogUtil.showAlertErrorMsgDialog(String.format("选择的目录 %s 不可用 ", directory == null ? ObjectUtil.EMPTY_STRING : directory.getPath()));
+            StageManager.nullWarn("错误信息提示",String.format("选择的目录 %s 不可用 ", directory == null ? ObjectUtil.EMPTY_STRING : directory.getPath()));
             return;
         }
 
@@ -122,10 +123,10 @@ public class ExcelUtil {
 
             out.flush();
 
-            DialogUtil.showAlertInfoMsgDialog(String.format("导出文件到 %s 成功", filePath));
+           StageManager.nullWarn("错误信息提示",String.format("导出文件到 %s 成功", filePath));
         } catch (Exception e) {
             logger.error("导出excel文件错误", e);
-            DialogUtil.showAlertErrorMsgDialog(String.format("导出excel文件到 %s错误", filePath));
+            StageManager.nullWarn("错误信息提示",String.format("导出excel文件到 %s错误", filePath));
         } finally {
             closeOutStream(out);
             closeWorkbook(workbook);
@@ -194,7 +195,7 @@ public class ExcelUtil {
         } catch (Exception e) {
             logger.error("解析Excel {} 失败 ", file.getPath());
             logger.error("", e);
-            DialogUtil.showAlertErrorMsgDialog("解析excel文件失败");
+            StageManager.nullWarn("错误信息提示","解析excel文件失败");
             return Collections.emptyList();
         } finally {
             closeWorkbook(workbook);
