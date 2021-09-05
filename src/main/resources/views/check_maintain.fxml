@@ -147,13 +147,13 @@
                                       <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                                   </effect>
                               </Button>
-                        <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="success" text="导出">
+                        <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导出">
                            <font>
                               <Font size="15.0" />
                            </font>
-                           <effect>
-                              <Bloom />
-                           </effect>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
                         </Button>
                           </children>
                           <padding>

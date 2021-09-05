@@ -64,9 +64,9 @@
   -fx-background-radius :  100px 100px 50px 50px;
 }
 
-.info {
-  -fx-background-radius : 100px 100px 100px 0px;
-}
+/*.info {*/
+/*  -fx-background-radius : 100px 100px 100px 0px;*/
+/*}*/
 
 .parallelogram-l {
   -fx-shape : "M 450 300 L 200 300 L 250 400 L 500 400 L 450 300 ";
