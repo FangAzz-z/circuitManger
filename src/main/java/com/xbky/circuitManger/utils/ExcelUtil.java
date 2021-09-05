@@ -296,7 +296,7 @@ public class ExcelUtil {
             String validMessage = resultData.valid();
 
             if (!ObjectUtil.isBlank(validMessage)) {
-                throw new ExcelException(validMessage);
+                throw new ExcelException(String.format("第 %d 行 %s", rowStart + 1, validMessage));
             }
 
             resultDataList.add(resultData);

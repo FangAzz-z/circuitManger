@@ -27,7 +27,7 @@ public class BaseFaultShowImportObj implements BaseImportObj {
     @Override
     public String valid() {
         if (ObjectUtil.isBlank(this.content)) {
-            return "故障内容不能为空";
+            return "故障原因不能为空";
         }
 
         return ObjectUtil.EMPTY_STRING;
