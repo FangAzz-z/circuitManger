@@ -48,6 +48,14 @@ public class DialogUtil {
         alert.showAndWait();
     }
 
+    public static void showAlertInfoMsgDialog(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.titleProperty().set("信息提示");
+        alert.headerTextProperty().set(info);
+
+        alert.showAndWait();
+    }
+
     private static  boolean isBlank(String input) {
         return input == null || input.trim().length() == 0;
     }

@@ -121,6 +121,8 @@ public class ExcelUtil {
             workbook.write(out);// 写文件
 
             out.flush();
+
+            DialogUtil.showAlertInfoMsgDialog(String.format("导出文件到 %s 成功", filePath));
         } catch (Exception e) {
             logger.error("导出excel文件错误", e);
             DialogUtil.showAlertErrorMsgDialog(String.format("导出excel文件到 %s错误", filePath));
