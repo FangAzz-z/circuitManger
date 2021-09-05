@@ -208,11 +208,6 @@ public class CheckMaintainController implements Initializable {
 
     @FXML
     void exportSearchData(ActionEvent event) {
-        String dirPath = DialogUtil.showExportFileDialog("");
 
-        if (Objects.isNull(dirPath)) {
-            DialogUtil.showAlertMsgDialog("请选择一个目录");
-            return;
-        }
     }
 }
