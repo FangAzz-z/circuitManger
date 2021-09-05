@@ -39,6 +39,21 @@ public class DialogUtil {
         return directory;
     }
 
+    public static File showExportExeFileDialog(String title) {
+
+        if (isBlank(title)) {
+            title = "选择程序目录";
+        }
+
+        FileChooser exeChooser = new FileChooser();
+        exeChooser.setTitle(title);
+        exeChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        exeChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("bat", "*.bat"),
+                new FileChooser.ExtensionFilter("exe", "*.exe"));
+
+        return  exeChooser.showOpenDialog(new Stage());
+    }
 
     private static  boolean isBlank(String input) {
         return input == null || input.trim().length() == 0;

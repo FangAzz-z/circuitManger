@@ -16,7 +16,7 @@ public class MainSystemController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateBody(FxmlView.SYSTEM_DATA);
+        updateBody(FxmlView.PRODUCE_PRO);
     }
 
     @FXML
@@ -47,7 +47,7 @@ public class MainSystemController implements Initializable {
     }
 
     /**
-     *  外部程序调用
+     *  系统设置->程序配置
      */
     public void program(ActionEvent actionEvent) {
         updateBody(FxmlView.PRODUCE_PRO);

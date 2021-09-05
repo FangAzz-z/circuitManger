@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.baseSetPt.BaseSetPtController">
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" BorderPane.alignment="CENTER">
             <children>
@@ -55,6 +41,9 @@
                             <effect>
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
                         </Button>
                     </children>
                     <opaqueInsets>
@@ -122,7 +111,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
-                  <Button mnemonicParsing="false" onAction="#exportSearchData"  prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导出">
+                  <Button mnemonicParsing="false" onAction="#exportSearchData" prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导出">
                      <font>
                         <Font size="15.0" />
                      </font>

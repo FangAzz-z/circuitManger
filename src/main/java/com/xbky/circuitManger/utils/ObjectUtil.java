@@ -89,6 +89,10 @@ public class ObjectUtil {
     {
         return isNull(obj) ? null : Long.parseLong(obj.toString());
     }
+    public static String getString(Object obj)
+    {
+        return obj == null ? null : obj.toString();
+    }
 
     public  static boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;
