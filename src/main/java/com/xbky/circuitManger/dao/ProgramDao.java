@@ -3,7 +3,7 @@ package com.xbky.circuitManger.dao;
 public class ProgramDao extends BaseDao  {
 
     public int modifyByName(String programName,String programLocation){
-        String sql = String.format("update CM_PROGRAM_LOCATION set program_location = '?' where program_name = '%s'",programLocation,programName);
+        String sql = String.format("update CM_PROGRAM_LOCATION set program_location = '%s' where program_name = '%s'",programLocation,programName);
         return super.update(sql, null);
     }
 

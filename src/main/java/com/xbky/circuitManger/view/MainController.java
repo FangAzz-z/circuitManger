@@ -141,11 +141,19 @@ public class MainController implements Initializable {
     }
 
     public void cxDown(ActionEvent actionEvent) {
-        StageManager.nullWarn("暂无配置");
+        try {
+            service.programRun("程序下载");
+        } catch (Exception e) {
+            StageManager.nullWarn(e.getMessage());
+        }
     }
 
     public void txConnect(ActionEvent actionEvent) {
-        StageManager.nullWarn("暂无配置");
+        try {
+            service.programRun("通讯连接");
+        } catch (Exception e) {
+            StageManager.nullWarn(e.getMessage());
+        }
     }
 
     public void printerZd(ActionEvent actionEvent) {
