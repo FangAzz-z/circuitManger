@@ -197,7 +197,7 @@ public class BaseSetPtController implements Initializable {
         File directory = DialogUtil.showExportFileDialog("");
 
         if (Objects.isNull(directory)) {
-            DialogUtil.showAlertErrorMsgDialog("请选择一个目录");
+            StageManager.nullWarn("请选择一个目录");
             return;
         }
         ProductType searchParam = getSearchParam();

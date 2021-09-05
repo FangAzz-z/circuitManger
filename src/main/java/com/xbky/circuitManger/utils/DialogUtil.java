@@ -40,22 +40,6 @@ public class DialogUtil {
     }
 
 
-    public static void showAlertErrorMsgDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.titleProperty().set("错误信息提示");
-        alert.headerTextProperty().set(message);
-
-        alert.showAndWait();
-    }
-
-    public static void showAlertInfoMsgDialog(String info) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.titleProperty().set("信息提示");
-        alert.headerTextProperty().set(info);
-
-        alert.showAndWait();
-    }
-
     private static  boolean isBlank(String input) {
         return input == null || input.trim().length() == 0;
     }
