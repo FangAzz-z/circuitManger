@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.check.CheckMaintainController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.check.CheckMaintainController">
     <center>
         <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -38,6 +48,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
+                <Pagination fx:id="pageSet" prefHeight="550.0" prefWidth="200.0">
+                   <VBox.margin>
+                      <Insets left="10.0" right="5.0" />
+                   </VBox.margin>
+                </Pagination>
             </children>
         </VBox>
     </center>

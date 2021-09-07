@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
 
     SystemUserDao dao = new SystemUserDao();
 
-    public static  String loginName;
+    public static  String loginName = "admin";
 
     public void setStage(Stage stage) {
         this.stage = stage;

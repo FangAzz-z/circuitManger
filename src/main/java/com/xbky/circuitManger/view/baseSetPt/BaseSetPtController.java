@@ -40,6 +40,10 @@ public class BaseSetPtController implements Initializable {
     @FXML
     public TextField qTfBrand;
     @FXML
+    public Pagination pageSet;
+    @FXML
+    public TableColumn updateTime;
+    @FXML
     private TableView userTable;
     @FXML
     private TableColumn id;
@@ -69,16 +73,30 @@ public class BaseSetPtController implements Initializable {
         this.category.setCellValueFactory(new MapValueFactory<String>("category"));
         this.model.setCellValueFactory(new MapValueFactory<String>("model"));
         this.brand.setCellValueFactory(new MapValueFactory<String>("brand"));
-        refreshData();
-    }
+        this.updateTime.setCellValueFactory(new MapValueFactory<String>("update_time"));
 
-    public  void refreshData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  prodectTypeService.queryAll();
+        Map<String,Object> map =  prodectTypeService.commonQueryAll("CM_PRODUCT_TYPE",0,10);
+        List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+        this.pageSet.setCurrentPageIndex(0);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+    }
+
+    public  void refreshData(){
+        this.pageSet.setCurrentPageIndex(0);
+        createPage(0);
+    }
+    public TableView<Map<String,Object>> createPage(int pageIndex) {
+        Map<String, Object> result = prodectTypeService.commonQueryAll("CM_PRODUCT_TYPE",pageIndex,10);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        userTable.setItems(items);
+        return userTable;
     }
 
     /**

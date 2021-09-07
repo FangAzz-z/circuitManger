@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.dao;
 
 import com.xbky.circuitManger.utils.DBUtil;
+import com.xbky.circuitManger.utils.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -132,6 +133,23 @@ public class BaseDao {
         List<Map<String,Object>> result = queryForList(sql, null);
         return result;
     }
+    public int queryCount(String baseTable){
+        String sql = String.format("select count(1) from %s",baseTable);
+        Map<String,Object> result = queryForMap(sql, null);
+        return ObjectUtil.getInt(result.get("count(1)"));
+    }
+
+    public Map<String,Object> commonQueryAll(String baseTable,int pageNo,int pageSize){
+        String sql = String.format("select * from %s order by update_time desc limit %s,%s",baseTable,pageNo*10,pageSize);
+        int count = queryCount(baseTable);
+        int total = (count/(pageSize+1))+1;
+        List<Map<String,Object>> result = queryForList(sql, null);
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", result);
+        map.put("total", total);
+        return map;
+    }
+
     public int commonDeleteById(String baseTable,String id){
         String sql = String.format("delete from %s where id = %s",baseTable,id);
         Object[] obj = new Object[]{id};

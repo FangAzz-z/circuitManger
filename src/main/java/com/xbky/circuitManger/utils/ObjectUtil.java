@@ -90,6 +90,10 @@ public class ObjectUtil {
     {
         return isNull(obj) ? null : Long.parseLong(obj.toString());
     }
+    public static int getInt(Object obj)
+    {
+        return isNull(obj) ? null : Integer.parseInt(obj.toString());
+    }
     public static String getString(Object obj)
     {
         return obj == null ? null : obj.toString();

@@ -4,6 +4,7 @@ import com.xbky.circuitManger.entity.ProductType;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,26 @@ public class ProductTypeDao extends BaseDao {
         }
         sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
+    }
+
+    public Map<String,Object> queryByExample(ProductType pt,int pageNo,int pageSize){
+        StringBuffer sql = new StringBuffer("select id,category,model,brand , create_time, update_time from CM_PRODUCT_TYPE where 1=1 ");
+        if(ObjectUtil.isNotNull(pt.getCategory())){
+            sql.append(String.format(" and category like '%s'",pt.getCategory()+"%"));
+        }
+        if(ObjectUtil.isNotNull(pt.getModel())){
+            sql.append(String.format(" and model like '%s'",pt.getModel()+"%"));
+        }
+        if(ObjectUtil.isNotNull(pt.getBrand())){
+            sql.append(String.format(" and brand like '%s'",pt.getBrand()+"%"));
+        }
+        int total =  super.queryForList(sql.toString(), null).size();
+        sql.append(String.format(" limit %s,%s order by update_time desc",pageNo*pageSize,pageSize));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data", list);
+        map.put("total", total);
+        return map;
     }
 
     private List<ProductType> fillElement(List<Map<String,Object>> tempList){

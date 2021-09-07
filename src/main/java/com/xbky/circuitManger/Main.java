@@ -23,8 +23,8 @@ public class Main extends Application {
         AppIntializer.init();
         Stage primaryStage = new Stage();
         mainStage = primaryStage;
-       LoginManager.loadLogin();
-/*        primaryStage.setTitle("产品维修管理软件"); // 页面标题
+     //  LoginManager.loadLogin();
+        primaryStage.setTitle("产品维修管理软件"); // 页面标题
         primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
         Parent root = FXMLLoader.load(getClass().getResource("/views/appMain.fxml")); // 页面对应的fxml
         Scene primarySence = new Scene(root, 1800, 900); // 页面大小
@@ -32,7 +32,7 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(event -> {
             closeAllPopups();
         });
-        primaryStage.show();*/
+        primaryStage.show();
     }
 
 

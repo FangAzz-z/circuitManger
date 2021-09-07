@@ -14,15 +14,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -85,6 +88,9 @@ public class CheckMaintainController implements Initializable {
     public TextField queryMaintainOrder;
     @FXML
     public TextField queryCardNo;
+    @FXML
+    public Pagination pageSet;
+
     CheckMaintainRecordDao dao = new CheckMaintainRecordDao();
 
     @Override
@@ -138,11 +144,24 @@ public class CheckMaintainController implements Initializable {
 
     private void refreshData() {
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  dao.queryAll();
+       Map<String,Object> map =  dao.commonQueryAll("CM_CHECK_MAINTAIN_RECORD",0,10);
+        List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+
+        this.pageSet.setCurrentPageIndex(0);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+    }
+
+    private TableView<Map<String,Object>> createPage(int pageIndex) {
+        Map<String, Object> result = dao.commonQueryAll("CM_CHECK_MAINTAIN_RECORD",pageIndex,10);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        userTable.setItems(items);
+        return userTable;
     }
 
     public void modifyData(ActionEvent actionEvent) {
