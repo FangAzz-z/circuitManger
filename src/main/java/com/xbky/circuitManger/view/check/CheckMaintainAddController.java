@@ -3,6 +3,7 @@ package com.xbky.circuitManger.view.check;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
+import com.xbky.circuitManger.utils.ImageUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.baseSetUser.BaseSetUserAddController;
 import com.xbky.circuitManger.view.common.FxmlView;
@@ -168,5 +169,12 @@ public class CheckMaintainAddController implements Initializable {
         if (resultHandle != null) {
             resultHandle.run();
         }
+    }
+
+    public void printLabel(ActionEvent actionEvent) {
+        if(this.queryStatus.getSelectionModel().getSelectedItem()==null) {
+           StageManager.nullWarn("状态不能为空");
+        }
+        ImageUtil.printToLabel(ObjectUtil.getWxId()+this.queryStatus.getSelectionModel().getSelectedItem().toString());
     }
 }

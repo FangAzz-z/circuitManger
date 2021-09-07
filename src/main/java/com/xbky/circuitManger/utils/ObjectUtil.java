@@ -3,6 +3,7 @@ package com.xbky.circuitManger.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
@@ -113,4 +114,19 @@ public class ObjectUtil {
         return !isNotEmpty(coll);
     }
 
+
+    public static Long getTodaySeconds() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, 0);
+        // 坑就在这里
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return (System.currentTimeMillis()-cal.getTimeInMillis()) / 100;
+    }
+
+    public static String getWxId(){
+        return  "WX" + new SimpleDateFormat("YYMMdd").format(new Date())+"-"+ ObjectUtil.getTodaySeconds();
+    }
 }

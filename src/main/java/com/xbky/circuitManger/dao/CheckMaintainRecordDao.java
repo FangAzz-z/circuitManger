@@ -4,6 +4,8 @@ import com.xbky.circuitManger.entity.CheckMaintainRecord;
 import com.xbky.circuitManger.utils.IdMaker;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ public class CheckMaintainRecordDao extends BaseDao {
         String sql = String.format("insert into CM_CHECK_MAINTAIN_RECORD(maintain_id,receive_date,complete_date,maintain_card_no,maintain_card_model," +
                 "maintain_card_category,maintain_card_brand,maintain_user,maintain_desc,maintain_fitting,wx_status,wx_show,wx_method," +
                 "wx_result,create_time,update_time)values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',now(),now())",
-                IdMaker.instance.getStringId("D"), record.getReceiveDate(),
+                ObjectUtil.getWxId(), record.getReceiveDate(),
                 record.getCompleteDate(), record.getMaintainCardNo(), record.getMaintainCardModel(),
                 record.getMaintainCardCategory(), record.getMaintainCardBrand(), record.getMaintainUser(),
                 record.getMaintainDesc(), record.getMaintainFitting(),record.getWxStatus(),record.getWxShow(),record.getWxMethod(),record.getWxResult());
