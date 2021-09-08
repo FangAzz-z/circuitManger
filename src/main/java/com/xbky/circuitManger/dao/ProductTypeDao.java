@@ -66,8 +66,9 @@ public class ProductTypeDao extends BaseDao {
         if(ObjectUtil.isNotNull(pt.getBrand())){
             sql.append(String.format(" and brand like '%s'",pt.getBrand()+"%"));
         }
-        int total =  super.queryForList(sql.toString(), null).size();
-        sql.append(String.format(" limit %s,%s order by update_time desc",pageNo*pageSize,pageSize));
+        int count =  super.queryForList(sql.toString(), null).size();
+        int total = (count/(pageSize+1))+1;
+        sql.append(String.format(" order by update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
         List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", list);

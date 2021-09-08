@@ -64,7 +64,6 @@ public class BaseSetPtController implements Initializable {
 
     public void deleteUsers(ActionEvent actionEvent) {
 
-
     }
 
     @Override
@@ -74,9 +73,13 @@ public class BaseSetPtController implements Initializable {
         this.model.setCellValueFactory(new MapValueFactory<String>("model"));
         this.brand.setCellValueFactory(new MapValueFactory<String>("brand"));
         this.updateTime.setCellValueFactory(new MapValueFactory<String>("update_time"));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+        refreshData();
+    }
 
+    public void refreshData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        Map<String,Object> map =  prodectTypeService.commonQueryAll("CM_PRODUCT_TYPE",0,10);
+        Map<String,Object> map =  prodectTypeService.queryByExample(getSearchParam(),0,10);
         List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
         this.userTable.getSelectionModel().clearSelection();
@@ -84,18 +87,16 @@ public class BaseSetPtController implements Initializable {
         this.userTable.refresh();
         this.pageSet.setCurrentPageIndex(0);
         this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
-        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+
     }
 
-    public  void refreshData(){
-        this.pageSet.setCurrentPageIndex(0);
-        createPage(0);
-    }
     public TableView<Map<String,Object>> createPage(int pageIndex) {
-        Map<String, Object> result = prodectTypeService.commonQueryAll("CM_PRODUCT_TYPE",pageIndex,10);
+        Map<String, Object> result = prodectTypeService.queryByExample(getSearchParam(),pageIndex,10);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
-        userTable.setItems(items);
+        this.userTable.getSelectionModel().clearSelection();
+        this.userTable.setItems(items);
+        this.userTable.refresh();
         return userTable;
     }
 
@@ -115,7 +116,7 @@ public class BaseSetPtController implements Initializable {
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
-        BaseSetPtAddController  controller = (BaseSetPtAddController) loader.getController();
+        BaseSetPtAddController  controller = loader.getController();
         controller.setDialog(dialog);
         controller.setResultHandld(()->{refreshData();});
         dialog.show();
@@ -130,7 +131,7 @@ public class BaseSetPtController implements Initializable {
     public void deleteData(ActionEvent actionEvent) {
         Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            nullWarn();
+            StageManager.nullWarn("请选中某一行");
             return;
         }
         if(StageManager.deleteTrue()) {
@@ -147,7 +148,7 @@ public class BaseSetPtController implements Initializable {
     public void modifyData(ActionEvent actionEvent) throws IOException {
         Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
         if (ObjectUtil.isNull(map)) {
-            nullWarn();
+            StageManager.nullWarn("请选中某一行");
             return;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_PT_DIALOG.fxml()));
@@ -167,18 +168,6 @@ public class BaseSetPtController implements Initializable {
         dialog.show();
     }
 
-    public void nullWarn() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("提示");
-        alert.setContentText("请选中某一行");
-        alert.setHeaderText("");
-        alert.initOwner( Main.mainStage);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == javafx.scene.control.ButtonType.OK){
-            alert.close();
-        }
-    }
-
     public void resetData(ActionEvent actionEvent) {
         this.qTfCategory.clear();
         this.qTfModel.clear();
@@ -186,19 +175,7 @@ public class BaseSetPtController implements Initializable {
     }
 
     public void queryData(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.qTfCategory.getText(), this.qTfModel.getText(), this.qTfBrand.getText())) {
-            refreshData();
-            return;
-        }
-
-        ProductType pt = getSearchParam();
-
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(pt);
-        list.addAll(dataList);
-        this.userTable.getSelectionModel().clearSelection();
-        this.userTable.setItems(list);
-        this.userTable.refresh();
+        refreshData();
     }
 
     private ProductType getSearchParam() {
@@ -206,7 +183,6 @@ public class BaseSetPtController implements Initializable {
         pt.setCategory(this.qTfCategory.getText());
         pt.setModel(this.qTfModel.getText());
         pt.setBrand(this.qTfBrand.getText());
-
         return pt;
     }
 
@@ -214,7 +190,6 @@ public class BaseSetPtController implements Initializable {
     void exportSearchData(ActionEvent event) {
         ProductType searchParam = getSearchParam();
         List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(searchParam);
-
         ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title(), ProductTypeExportObj.getHeadMap(), dataList, ProductTypeExportObj.class);
     }
 }
