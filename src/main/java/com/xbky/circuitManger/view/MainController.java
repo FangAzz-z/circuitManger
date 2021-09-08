@@ -4,6 +4,7 @@ import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.SystemUserDao;
 import com.xbky.circuitManger.dao.SystemUserRoleDao;
 import com.xbky.circuitManger.service.ProgramService;
+import com.xbky.circuitManger.utils.ImageUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -202,7 +203,8 @@ public class MainController implements Initializable {
 
     public void printerZd(ActionEvent actionEvent) {
         try {
-            service.programRun("打印终端连接");
+           ImageUtil.printToLabel(ObjectUtil.getWxId()+" 维修完成");
+           // service.programRun("打印终端连接");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
         }
