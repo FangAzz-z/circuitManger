@@ -43,7 +43,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets />
                      </HBox.margin>
                         </Button>
                     </children>
