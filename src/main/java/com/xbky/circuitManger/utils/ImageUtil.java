@@ -6,6 +6,16 @@ import org.slf4j.LoggerFactory;
 import sun.awt.SunHints;
 
 import javax.imageio.ImageIO;
+import javax.print.*;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.MediaPrintableArea;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.print.event.PrintJobEvent;
+import javax.print.event.PrintJobListener;
 
 
 import java.awt.*;
@@ -71,17 +81,20 @@ public class ImageUtil {
         ImageIO.write(image, "png", os);
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         printQRCode(is);*/
-       printToLabel("WX210907-234323 维修完毕");
+        printToLabelV2("WX210907-234323 维修完毕");
 
     }
-//    public static void printToLabel(){
-//        qrCodePrint("/images/"+System.currentTimeMillis()+".bmp",500,100,500,100);
-//    }
+
     public static void printToLabel(String content){
-        String path = saveBmp(getImageUrl(content),"images/"+System.currentTimeMillis()+".bmp");
- //       System.out.println(path);
+        String path = saveBmp(getImageUrl(content),"images/"+System.currentTimeMillis()+".png");
         qrCodePrint(path,590,840,590,840);
     }
+
+    public static void printToLabelV2(String content) {
+        String path = saveBmp(getImageUrl(content),"images/"+System.currentTimeMillis()+".png");
+        drawImage(null,path,100,true);
+    }
+
     public static void qrCodePrint(String path, int pageWidth, int pageHeight, int showWidth, int showHeight) {
         // 通俗理解就是书、文档
         Book book = new Book();
@@ -123,5 +136,118 @@ public class ImageUtil {
         }
     }
 
+    public static void drawImage(String printerName,String fileName, int h, boolean aleartPrint){
+        if ((fileName == null) || (fileName.trim() == "")) {
+            throw new RuntimeException("文件名为空");
+
+        }
+        try{
+            DocFlavor dof = null;
+
+            if (fileName.endsWith(".gif")) {
+                dof = DocFlavor.INPUT_STREAM.GIF;
+
+            } else if (fileName.endsWith(".jpg")) {
+                dof = DocFlavor.INPUT_STREAM.JPEG;
+
+            } else if (fileName.endsWith(".png")) {
+                dof = DocFlavor.INPUT_STREAM.PNG;
+
+            }
+            PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+            pras.add(OrientationRequested.PORTRAIT);
+            pras.add(new Copies(1));
+            DocAttributeSet das = new HashDocAttributeSet();
+            das.add(new MediaPrintableArea(0, 0, 100, h, 1000));
+            FileInputStream fin = new FileInputStream(fileName);
+            Doc doc = new SimpleDoc(fin, dof, das);
+            print(printerName, aleartPrint, dof, pras, doc);
+            fin.close();
+
+        }catch (IOException ie){
+            ie.printStackTrace();
+
+        }catch (PrintException pe){
+            pe.printStackTrace();
+
+        }
+
+    }
+    private static void print(String printerName, boolean aleartPrint, DocFlavor dof, PrintRequestAttributeSet pras, Doc doc) throws PrintException{
+        //PrintService service = PrintServiceLookup.lookupDefaultPrintService();//默认打印机
+        // 定位打印服务
+        PrintService service = null;
+        if (printerName != null) {
+            //获得本台电脑连接的所有打印机
+            PrintService[] printServices = PrinterJob.lookupPrintServices();
+            if(printServices == null || printServices.length == 0) {
+                System.out.print("打印失败，未找到可用打印机，请检查。");
+                return ;
+            }
+            //匹配指定打印机
+            for (int i = 0;i < printServices.length; i++) {
+                if (printServices[i].getName().contains(printerName)) {
+                    service = printServices[i];
+                    break;
+                }
+            }
+            if(service==null){
+                System.out.print("打印失败，未找到名称为" + printerName + "的打印机，请检查。");
+                return ;
+            }
+        }
+        if (aleartPrint){
+            PrintService[] printServices = PrintServiceLookup.lookupPrintServices(dof, pras);
+            service = ServiceUI.printDialog(null, 400, 400, printServices, service, dof, pras);
+        }
+        if (service != null){
+            DocPrintJob job = service.createPrintJob();
+            job.addPrintJobListener(new PrintJobListener(){
+                @Override
+                public void printJobRequiresAttention(PrintJobEvent arg0)
+                {
+                    System.out.println("printJobRequiresAttention");
+                }
+                @Override
+                public void printJobNoMoreEvents(PrintJobEvent arg0)
+                {
+                    System.out.println("打印机已接收");
+                }
+                @Override
+                public void printJobFailed(PrintJobEvent arg0)
+                {
+                    System.out.println("打印机无法完成作业,必须重新提交");
+                }
+                @Override
+                public void printJobCompleted(PrintJobEvent arg0)
+                {
+                    System.out.println("打印结束");
+                }
+                @Override
+                public void printJobCanceled(PrintJobEvent arg0)
+                {
+                    System.out.println("作业已被用户或者程序取消");
+                }
+                @Override
+                public void printDataTransferCompleted(PrintJobEvent arg0)
+                {
+                    System.out.println("数据已成功传输打印机");
+                }
+            });
+            try{
+                job.print(doc, pras);
+            }catch (PrintException pe){
+                pe.printStackTrace();
+            }
+        }else{
+            if (aleartPrint) {
+                throw new RuntimeException("打印机未连接,请选择打印机");
+            }
+            throw new RuntimeException("请设置默认打印机");
+        }
+    }
 
 }
+
+
+
