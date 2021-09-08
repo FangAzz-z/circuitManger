@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,10 +33,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class BaseSetInfoController implements Initializable {
-
     Logger logger = LoggerFactory.getLogger(BaseSetInfoController.class);
 
-    BaseInfoDao baseInfoDao = new BaseInfoDao();
 
     //故障现象
     @FXML
@@ -79,6 +78,17 @@ public class BaseSetInfoController implements Initializable {
     @FXML
     public TableView result_table;
 
+    @FXML
+    public Pagination pageSet_result;
+    @FXML
+    public Pagination pageSet_method;
+    @FXML
+    public Pagination pageSet_show;
+    @FXML
+    public Pagination pageSet_status;
+
+    BaseInfoDao dao = new BaseInfoDao();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.status_id.setCellValueFactory(new MapValueFactory<String>("id"));
@@ -92,11 +102,25 @@ public class BaseSetInfoController implements Initializable {
 
         this.result_id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.result_content.setCellValueFactory(new MapValueFactory<String>("content"));
+        this.pageSet_result.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_HANDLE_RESULT",result_text_content.getText(),result_table));
+        this.pageSet_method.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_MAINTAIN_METHOD",method_text_content.getText(),method_table));
+        this.pageSet_show.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_FAULT_SHOW",show_text_content.getText(),show_table));
+        this.pageSet_status.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_PT_STATUS",status_text_content.getText(),status_table));
         refreshStatusData();
         refreshShowData();
         refreshMethodData();
         refreshResultData();
 
+    }
+
+    public TableView<Map<String,Object>> createPage(int pageIndex,String tablename,String content,TableView tableView) {
+        Map<String, Object> result = dao.queryByExample(tablename,content,pageIndex,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        tableView.getSelectionModel().clearSelection();
+        tableView.setItems(items);
+        tableView.refresh();
+        return tableView;
     }
 
     private void commonAdd(Runnable handle, String label) {
@@ -147,12 +171,14 @@ public class BaseSetInfoController implements Initializable {
 
     //维修产品状态
     public void refreshStatusData() {
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_PT_STATUS");
-        list.addAll(dataList);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_PT_STATUS",status_text_content.getText(),0,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.pageSet_status.setPageCount(ObjectUtil.getInt(result.get("total")));
         this.status_table.getSelectionModel().clearSelection();
-        this.status_table.setItems(list);
+        this.status_table.setItems(items);
         this.status_table.refresh();
+        this.pageSet_status.setCurrentPageIndex(0);
     }
 
     public void statusReset(ActionEvent actionEvent) {
@@ -160,16 +186,7 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void statusQuery(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.status_text_content.getText())) {
-            refreshStatusData();
-            return;
-        }
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_PT_STATUS", this.status_text_content.getText());
-        list.addAll(dataList);
-        this.status_table.getSelectionModel().clearSelection();
-        this.status_table.setItems(list);
-        this.status_table.refresh();
+        refreshStatusData();
     }
 
     public void statusAdd(ActionEvent actionEvent) {
@@ -191,7 +208,7 @@ public class BaseSetInfoController implements Initializable {
             return;
         }
         if (StageManager.deleteTrue()) {
-            this.baseInfoDao.commonDeleteById("CM_BASE_PT_STATUS", (Long) map.get("id") + "");
+            this.dao.commonDeleteById("CM_BASE_PT_STATUS", (Long) map.get("id") + "");
             refreshStatusData();
         }
     }
@@ -199,12 +216,14 @@ public class BaseSetInfoController implements Initializable {
 
     //故障现象
     public void refreshShowData() {
-        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_FAULT_SHOW");
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        list.addAll(dataList);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_FAULT_SHOW",show_text_content.getText(),0,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.pageSet_show.setPageCount(ObjectUtil.getInt(result.get("total")));
         this.show_table.getSelectionModel().clearSelection();
-        this.show_table.setItems(list);
+        this.show_table.setItems(items);
         this.show_table.refresh();
+        this.pageSet_show.setCurrentPageIndex(0);
     }
 
     public void showReset(ActionEvent actionEvent) {
@@ -212,16 +231,7 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void showQuery(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.show_text_content.getText())) {
-            refreshShowData();
-            return;
-        }
-        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        list.addAll(dataList);
-        this.show_table.getSelectionModel().clearSelection();
-        this.show_table.setItems(list);
-        this.show_table.refresh();
+        refreshShowData();
     }
 
     public void showAdd(ActionEvent actionEvent) {
@@ -243,19 +253,22 @@ public class BaseSetInfoController implements Initializable {
             return;
         }
         if (StageManager.deleteTrue()) {
-            this.baseInfoDao.commonDeleteById("CM_BASE_FAULT_SHOW", (Long) map.get("id") + "");
+            this.dao.commonDeleteById("CM_BASE_FAULT_SHOW", (Long) map.get("id") + "");
             refreshShowData();
         }
     }
 
     //维修措施
     public void refreshMethodData() {
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_MAINTAIN_METHOD");
-        list.addAll(dataList);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_MAINTAIN_METHOD",method_text_content.getText(),0,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.pageSet_method.setPageCount(ObjectUtil.getInt(result.get("total")));
         this.method_table.getSelectionModel().clearSelection();
-        this.method_table.setItems(list);
+        this.method_table.setItems(items);
         this.method_table.refresh();
+        this.pageSet_method.setCurrentPageIndex(0);
+
 
     }
 
@@ -264,16 +277,7 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void methodQuery(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.method_text_content.getText())) {
-            refreshMethodData();
-            return;
-        }
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_MAINTAIN_METHOD", this.method_text_content.getText());
-        list.addAll(dataList);
-        this.method_table.getSelectionModel().clearSelection();
-        this.method_table.setItems(list);
-        this.method_table.refresh();
+        refreshMethodData();
     }
 
     public void methodAdd(ActionEvent actionEvent) {
@@ -295,20 +299,21 @@ public class BaseSetInfoController implements Initializable {
             return;
         }
         if (StageManager.deleteTrue()) {
-            this.baseInfoDao.commonDeleteById("CM_BASE_MAINTAIN_METHOD", map.get("id") + "");
+            this.dao.commonDeleteById("CM_BASE_MAINTAIN_METHOD", map.get("id") + "");
             refreshMethodData();
         }
     }
 
     //处理结果
     public void refreshResultData() {
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.commonQueryAll("CM_BASE_HANDLE_RESULT");
-        list.addAll(dataList);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_HANDLE_RESULT",result_text_content.getText(),0,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.pageSet_result.setPageCount(ObjectUtil.getInt(result.get("total")));
         this.result_table.getSelectionModel().clearSelection();
-        this.result_table.setItems(list);
+        this.result_table.setItems(items);
         this.result_table.refresh();
-
+        this.pageSet_result.setCurrentPageIndex(0);
     }
 
     public void resultReset(ActionEvent actionEvent) {
@@ -316,16 +321,7 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void resultQuery(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.result_text_content.getText())) {
-            refreshResultData();
-            return;
-        }
-        ObservableList<Map<String, Object>> list = FXCollections.observableArrayList();
-        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_HANDLE_RESULT", this.result_text_content.getText());
-        list.addAll(dataList);
-        this.result_table.getSelectionModel().clearSelection();
-        this.result_table.setItems(list);
-        this.result_table.refresh();
+        refreshResultData();
     }
 
     public void resultAdd(ActionEvent actionEvent) {
@@ -347,7 +343,7 @@ public class BaseSetInfoController implements Initializable {
             return;
         }
         if (StageManager.deleteTrue()) {
-            this.baseInfoDao.commonDeleteById("CM_BASE_HANDLE_RESULT", map.get("id") + "");
+            this.dao.commonDeleteById("CM_BASE_HANDLE_RESULT", map.get("id") + "");
             refreshResultData();
         }
     }
@@ -360,17 +356,15 @@ public class BaseSetInfoController implements Initializable {
 
     @FXML
     void exportFaultShow(ActionEvent event) {
-        List<Map<String, Object>> dataList = this.baseInfoDao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
+        List<Map<String, Object>> dataList = this.dao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
         ExcelUtil.chooseDirectoryToWriteFromDataBase("故障原因", BaseFaultShowExportObj.getHeadMap(), dataList, BaseFaultShowExportObj.class);
     }
 
     @FXML
     void importFaultShow(ActionEvent event) {
-
         List<BaseFaultShowImportObj> data = ExcelUtil.chooseFileToRead(BaseFaultShowImportObj.getHeadMap(), BaseFaultShowImportObj.class);
-
         if (!data.isEmpty()) {
-            int count = this.baseInfoDao.batchInert("CM_BASE_FAULT_SHOW", data.stream().map(t -> t.getContent()).collect(Collectors.toList()));
+            int count = this.dao.batchInert("CM_BASE_FAULT_SHOW", data.stream().map(t -> t.getContent()).collect(Collectors.toList()));
             logger.info("导入故障数据成功 count = {}", count);
             StageManager.infoWarn(String.format("导入成功"));
             refreshShowData();

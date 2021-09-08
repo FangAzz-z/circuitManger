@@ -58,13 +58,8 @@ public class BaseSetPtController implements Initializable {
 
     private static Scene sence = null;
 
-    ProductTypeDao prodectTypeService = new  ProductTypeDao();
+    ProductTypeDao dao = new  ProductTypeDao();
 
-
-
-    public void deleteUsers(ActionEvent actionEvent) {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,19 +74,18 @@ public class BaseSetPtController implements Initializable {
 
     public void refreshData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        Map<String,Object> map =  prodectTypeService.queryByExample(getSearchParam(),0,10);
+        Map<String,Object> map =  dao.queryByExample(getSearchParam(),0,10);
         List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
         this.pageSet.setCurrentPageIndex(0);
-        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
-
     }
 
     public TableView<Map<String,Object>> createPage(int pageIndex) {
-        Map<String, Object> result = prodectTypeService.queryByExample(getSearchParam(),pageIndex,10);
+        Map<String, Object> result = dao.queryByExample(getSearchParam(),pageIndex,10);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
         this.userTable.getSelectionModel().clearSelection();
@@ -135,7 +129,7 @@ public class BaseSetPtController implements Initializable {
             return;
         }
         if(StageManager.deleteTrue()) {
-            prodectTypeService.deleteById((Long) map.get("id"));
+            dao.deleteById((Long) map.get("id"));
             refreshData();
         }
     }
@@ -189,7 +183,7 @@ public class BaseSetPtController implements Initializable {
     @FXML
     void exportSearchData(ActionEvent event) {
         ProductType searchParam = getSearchParam();
-        List<Map<String,Object>> dataList = this.prodectTypeService.queryByExample(searchParam);
+        List<Map<String,Object>> dataList = this.dao.queryByExample(searchParam);
         ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title(), ProductTypeExportObj.getHeadMap(), dataList, ProductTypeExportObj.class);
     }
 }

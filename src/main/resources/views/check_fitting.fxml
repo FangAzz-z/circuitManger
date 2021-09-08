@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Pagination?>
 <BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.check.CheckFittingController">
     <left>
         <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
@@ -89,6 +90,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
+                <Pagination fx:id="pageSet" prefHeight="550.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                    </VBox.margin>
+                </Pagination>
             </children>
         </VBox>
     </center>

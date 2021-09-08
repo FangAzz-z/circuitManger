@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -56,6 +57,9 @@ public class BaseSetFittingController implements Initializable {
     @FXML
     public TableColumn unit;
 
+    @FXML
+    public Pagination pageSet;
+
     FittingIntoInfoDao dao = new FittingIntoInfoDao();
     private  static Stage dialog = null;
     private  static Runnable resultHandle = null;
@@ -67,17 +71,30 @@ public class BaseSetFittingController implements Initializable {
         this.name.setCellValueFactory(new MapValueFactory<String>("fitting_name"));
         this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
         this.unit.setCellValueFactory(new MapValueFactory<>("unit"));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
     }
 
 
-    private void refreshData() {
+    public void refreshData(){
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  dao.commonQueryAll("CM_FITTING_INTO_INFO");
+        Map<String,Object> map =  dao.queryByExample(getSearchParam(),0,10);
+        List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+        this.pageSet.setCurrentPageIndex(0);
+    }
+    public TableView<Map<String,Object>> createPage(int pageIndex) {
+        Map<String, Object> result = dao.queryByExample(getSearchParam(),pageIndex,10);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.userTable.getSelectionModel().clearSelection();
+        this.userTable.setItems(items);
+        this.userTable.refresh();
+        return userTable;
     }
 
     public void reset(ActionEvent actionEvent) {
@@ -88,21 +105,7 @@ public class BaseSetFittingController implements Initializable {
     }
 
     public void query(ActionEvent actionEvent) {
-        if (ObjectUtil.isAllNull(this.tfNo.getText(), this.tfName.getText(), this.tfModel.getText())) {
-            refreshData();
-            return;
-        }
-        FittingIntoInfo fii = new FittingIntoInfo();
-        fii.setFittingNo(this.tfNo.getText());
-        fii.setFittingName(this.tfName.getText());
-        fii.setFittingModel(this.tfModel.getText());
-        fii.setUnit(this.tfUnit.getText());
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.dao.queryByExample(fii);
-        list.addAll(dataList);
-        this.userTable.getSelectionModel().clearSelection();
-        this.userTable.setItems(list);
-        this.userTable.refresh();
+        refreshData();
     }
 
     public void addData(ActionEvent actionEvent) throws IOException {
@@ -141,6 +144,15 @@ public class BaseSetFittingController implements Initializable {
         controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("unit")));
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
+    }
+
+    public FittingIntoInfo getSearchParam(){
+        FittingIntoInfo fii = new FittingIntoInfo();
+        fii.setFittingNo(this.tfNo.getText());
+        fii.setFittingName(this.tfName.getText());
+        fii.setFittingModel(this.tfModel.getText());
+        fii.setUnit(this.tfUnit.getText());
+        return fii;
     }
 
     public void deleteData(ActionEvent actionEvent) {

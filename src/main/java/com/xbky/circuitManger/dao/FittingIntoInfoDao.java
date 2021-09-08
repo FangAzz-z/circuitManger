@@ -3,6 +3,7 @@ package com.xbky.circuitManger.dao;
 import com.xbky.circuitManger.entity.FittingIntoInfo;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,30 @@ public class FittingIntoInfoDao extends BaseDao{
         }
         sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
+    }
+
+    public Map<String,Object> queryByExample(FittingIntoInfo fii,int pageNo,int pageSize){
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,unit from CM_FITTING_INTO_INFO where 1=1 ");
+        if(ObjectUtil.isNotNull(fii.getFittingNo())){
+            sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
+        }
+        if(ObjectUtil.isNotNull(fii.getFittingModel())){
+            sql.append(String.format(" and fitting_model like '%s'",fii.getFittingModel()+"%"));
+        }
+        if(ObjectUtil.isNotNull(fii.getFittingName())){
+            sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
+        }
+        if(ObjectUtil.isNotNull(fii.getUnit())){
+            sql.append(String.format(" and unit = '%s'",fii.getUnit()));
+        }
+        int count =  super.queryForList(sql.toString(), null).size();
+        int total =  (count  +  pageSize  - 1) / pageSize;
+        sql.append(String.format(" order by update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data", list);
+        map.put("total", total);
+        return map;
     }
 
 }

@@ -3,6 +3,7 @@ package com.xbky.circuitManger.dao;
 import com.xbky.circuitManger.entity.MaintainUser;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,5 +53,32 @@ public class MaintainUserDao extends BaseDao{
         }
         sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
+    }
+
+    public Map<String,Object> queryByExample(MaintainUser mu ,int pageNo,int pageSize){
+        StringBuffer sql = new StringBuffer("select id,name,sex,department,job,phone from CM_MAINTAIN_USER where 1=1 ");
+        if(ObjectUtil.isNotNull(mu.getName())){
+            sql.append(String.format(" and name like '%s'",mu.getName()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getDepartment())){
+            sql.append(String.format(" and department like '%s'",mu.getDepartment()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getJob())){
+            sql.append(String.format(" and job like '%s'",mu.getJob()+"%"));
+        }
+        if(ObjectUtil.isNotNull(mu.getSex())){
+            sql.append(String.format(" and sex = '%s'",mu.getSex()));
+        }
+        if(ObjectUtil.isNotNull(mu.getPhone())){
+            sql.append(String.format(" and phone like '%s'",mu.getPhone()+"%"));
+        }
+        int count =  super.queryForList(sql.toString(), null).size();
+        int total =  (count  +  pageSize  - 1) / pageSize;
+        sql.append(String.format(" order by update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data", list);
+        map.put("total", total);
+        return map;
     }
 }

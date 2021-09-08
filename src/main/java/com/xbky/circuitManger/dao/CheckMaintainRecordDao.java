@@ -6,6 +6,7 @@ import com.xbky.circuitManger.utils.ObjectUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,5 +112,45 @@ public class CheckMaintainRecordDao extends BaseDao {
         }
         sql.append(" order by update_time desc");
         return super.queryForList(sql.toString(), null);
+    }
+
+    public Map<String, Object> queryByExample(CheckMaintainRecord record,int pageNo,int pageSize){
+        StringBuffer sql = new StringBuffer("select id, maintain_id maintainId,receive_date receiveDate,complete_date completeDate," +
+                "maintain_card_no maintainCardNo,maintain_card_model maintainCardModel,maintain_card_category maintainCardCategory," +
+                "maintain_card_brand maintainCardBrand,maintain_user maintainUser,maintain_desc " +
+                "maintainDesc,wx_status wxStatus,wx_show wxShow,wx_method wxMethod,wx_result wxResult,maintain_fitting maintainFitting " +
+                "from CM_CHECK_MAINTAIN_RECORD where 1=1 ");
+        if(ObjectUtil.isNotNull(record.getMaintainId())){
+            sql.append(String.format(" and maintain_id = '%s'",record.getMaintainId()));
+        }
+        if(ObjectUtil.isNotNull(record.getReceiveStartTime())&&ObjectUtil.isNotNull(record.getReceiveEndTime())){
+            sql.append(String.format(" and receive_date between '%s' and '%s' ",record.getReceiveStartTime(),record.getReceiveEndTime()));
+        }
+        if (ObjectUtil.isNotNull(record.getCompleteStartTime()) && ObjectUtil.isNotNull(record.getCompleteEndTime())) {
+            sql.append(String.format(" and complete_date between '%s' and '%s' ",record.getCompleteStartTime(),record.getCompleteEndTime()));
+        }
+        if (ObjectUtil.isNotNull(record.getMaintainCardNo())) {
+            sql.append(String.format(" and maintain_card_no like '%s'",record.getMaintainCardNo()+"%"));
+        }
+        if(ObjectUtil.isNotNull(record.getMaintainCardModel())){
+            sql.append(String.format(" and maintain_card_model = '%s'",record.getMaintainCardModel()));
+        }
+        if(ObjectUtil.isNotNull(record.getMaintainCardCategory())){
+            sql.append(String.format(" and maintain_card_category = '%s'",record.getMaintainCardCategory()));
+        }
+        if(ObjectUtil.isNotNull(record.getMaintainCardBrand())){
+            sql.append(String.format(" and maintain_card_brand = '%s'",record.getMaintainCardBrand()));
+        }
+        if(ObjectUtil.isNotNull(record.getWxStatus())){
+            sql.append(String.format(" and wxStatus = '%s'",record.getWxStatus()));
+        }
+        int count =  super.queryForList(sql.toString(), null).size();
+        int total =  (count  +  pageSize  - 1) / pageSize;
+        sql.append(String.format(" order by update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data", list);
+        map.put("total", total);
+        return map;
     }
 }

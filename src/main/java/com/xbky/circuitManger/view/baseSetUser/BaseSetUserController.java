@@ -57,6 +57,8 @@ public class BaseSetUserController implements Initializable {
     public TextField textPhone;
     @FXML
     public RadioButton rbAll;
+    @FXML
+    public Pagination pageSet;
 
 
     MaintainUserDao dao = new MaintainUserDao();
@@ -69,6 +71,7 @@ public class BaseSetUserController implements Initializable {
         this.department.setCellValueFactory(new MapValueFactory<String>("department"));
         this.job.setCellValueFactory(new MapValueFactory<String>("job"));
         this.phone.setCellValueFactory(new MapValueFactory<String>("phone"));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
     }
 
@@ -89,14 +92,26 @@ public class BaseSetUserController implements Initializable {
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
     }
+    public TableView<Map<String,Object>> createPage(int pageIndex) {
+        Map<String, Object> result = dao.queryByExample(getSearchParam(),pageIndex,10);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        this.userTable.getSelectionModel().clearSelection();
+        this.userTable.setItems(items);
+        this.userTable.refresh();
+        return userTable;
+    }
 
     private void refreshData() {
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList =  dao.commonQueryAll("CM_MAINTAIN_USER");
+        Map<String,Object> map =  dao.queryByExample(getSearchParam(),0,10);
+        List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
+        this.pageSet.setCurrentPageIndex(0);
     }
 
     public void modifyData(ActionEvent actionEvent) throws IOException {
@@ -143,11 +158,11 @@ public class BaseSetUserController implements Initializable {
     }
 
     public void query(ActionEvent actionEvent) {
+        refreshData();
+    }
+
+    private MaintainUser getSearchParam(){
         String radioValue = ((RadioButton)this.gender.getSelectedToggle()).getAccessibleText();
-        if (ObjectUtil.isAllNull(this.textName.getText(), this.textDepartment.getText(), this.textJob.getText())&&"全部".equals(radioValue)) {
-            refreshData();
-            return;
-        }
         MaintainUser mu = new MaintainUser();
         mu.setName(this.textName.getText());
         mu.setDepartment(this.textDepartment.getText());
@@ -156,12 +171,6 @@ public class BaseSetUserController implements Initializable {
         if(!"全部".equals(radioValue)){
             mu.setSex(radioValue);
         }
-
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.dao.queryByExample(mu);
-        list.addAll(dataList);
-        this.userTable.getSelectionModel().clearSelection();
-        this.userTable.setItems(list);
-        this.userTable.refresh();
+        return mu;
     }
 }

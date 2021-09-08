@@ -111,6 +111,7 @@ public class CheckMaintainController implements Initializable {
         this.wxResult.setCellValueFactory(new MapValueFactory<>("wx_result"));
         this.maintainDesc.setCellValueFactory(new MapValueFactory<>("maintain_desc"));
         this.maintainFitting.setCellValueFactory(new MapValueFactory<>("maintain_fitting"));
+        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
 
         List<String> statusList =  dao.commonQueryAll("CM_BASE_PT_STATUS").stream().map(a->((String)a.get("content"))).collect(Collectors.toList());
@@ -144,20 +145,19 @@ public class CheckMaintainController implements Initializable {
 
     private void refreshData() {
         ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-       Map<String,Object> map =  dao.commonQueryAll("CM_CHECK_MAINTAIN_RECORD",0,10);
+       Map<String,Object> map =  dao.queryByExample(getSearchParam(),0,10);
         List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
-
         this.pageSet.setCurrentPageIndex(0);
-        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
-        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+
     }
 
     private TableView<Map<String,Object>> createPage(int pageIndex) {
-        Map<String, Object> result = dao.commonQueryAll("CM_CHECK_MAINTAIN_RECORD",pageIndex,10);
+        Map<String, Object> result = dao.queryByExample(getSearchParam(),pageIndex,10);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
         userTable.setItems(items);
@@ -194,13 +194,7 @@ public class CheckMaintainController implements Initializable {
     }
 
     public void query(ActionEvent actionEvent) {
-        CheckMaintainRecord record = getSearchParam();
-        ObservableList<Map<String,Object>> list = FXCollections.observableArrayList();
-        List<Map<String,Object>> dataList = this.dao.queryByExample(record);
-        list.addAll(dataList);
-        this.userTable.getSelectionModel().clearSelection();
-        this.userTable.setItems(list);
-        this.userTable.refresh();
+        refreshData();
     }
 
     private CheckMaintainRecord getSearchParam() {
@@ -226,7 +220,6 @@ public class CheckMaintainController implements Initializable {
         if(this.queryStatus.getSelectionModel().getSelectedItem()!=null) {
             record.setWxStatus(this.queryStatus.getSelectionModel().getSelectedItem().toString());
         }
-
         return record;
     }
 
