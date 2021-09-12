@@ -203,7 +203,7 @@ public class MainController implements Initializable {
 
     public void printerZd(ActionEvent actionEvent) {
         try {
-           ImageUtil.printToLabelV2(ObjectUtil.getWxId()+" 维修完成");
+           ImageUtil.printToLabel(ObjectUtil.getWxId()+" 维修完成");
            // service.programRun("打印终端连接");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());

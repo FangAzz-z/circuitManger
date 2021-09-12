@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.utils;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -123,10 +124,17 @@ public class ObjectUtil {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        return (System.currentTimeMillis()-cal.getTimeInMillis()) / 100;
+        return (System.currentTimeMillis()-cal.getTimeInMillis()) / 1000;
     }
 
     public static String getWxId(){
         return  "WX" + new SimpleDateFormat("YYMMdd").format(new Date())+"-"+ ObjectUtil.getTodaySeconds();
+    }
+
+    public static String getDay()
+    {
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date);
     }
 }

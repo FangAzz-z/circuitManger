@@ -4,16 +4,12 @@ package com.xbky.circuitManger.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.awt.SunHints;
+import sun.font.FontDesignMetrics;
 
 import javax.imageio.ImageIO;
 import javax.print.*;
-import javax.print.attribute.DocAttributeSet;
-import javax.print.attribute.HashDocAttributeSet;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.MediaPrintableArea;
-import javax.print.attribute.standard.OrientationRequested;
+import javax.print.attribute.*;
+import javax.print.attribute.standard.*;
 import javax.print.event.PrintJobEvent;
 import javax.print.event.PrintJobListener;
 
@@ -28,27 +24,31 @@ import java.net.URL;
 public class ImageUtil {
     private static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
 
+    private static int img_wight = 320;
+    private static int img_height = 64;
+
     public static BufferedImage getImageUrl(String content) {
-        BufferedImage image = new BufferedImage(500, 100, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(img_wight, img_height, BufferedImage.TYPE_INT_RGB);
         Graphics2D title = image.createGraphics();
         //设置区域颜色
         title.setColor(new Color(255, 255, 255));
         //填充区域并确定区域大小位置
-        title.fillRect(0, 0, 500, 100);
+        title.fillRect(0, 0, img_wight, img_height);
         //设置字体颜色，先设置颜色，再填充内容
         title.setColor(Color.black);
         //设置字体
-        Font titleFont = new Font("仿宋", Font.BOLD, 32);
+        Font titleFont = new Font("微软雅黑", Font.BOLD, 22);
         title.setFont(titleFont);
-        int x = 55;
-        if(content.length() == 20) {
-            x = 37;
-        }
+
         title.setRenderingHint(SunHints.KEY_TEXT_ANTIALIASING, SunHints.VALUE_TEXT_ANTIALIAS_ON);
         title.setRenderingHint(SunHints.KEY_ANTIALIASING,SunHints.VALUE_ANTIALIAS_ON);
-        title.drawString(content, x, 61);
+        FontDesignMetrics metrics = FontDesignMetrics.getMetrics(titleFont);
+        int x = (img_wight-metrics.stringWidth(content))/2;
+        int y = (img_height-metrics.getHeight())/2+metrics.getAscent();
+        title.drawString(content, x, y);
         return image;
     }
+
     // /image/image
     private static String saveBmp( final BufferedImage bi, final String path ) {
         try {
@@ -81,67 +81,24 @@ public class ImageUtil {
         ImageIO.write(image, "png", os);
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         printQRCode(is);*/
-        printToLabelV2("WX210907-234323 维修完毕");
+        printToLabel("WX210907-23432 维修完成");
 
     }
 
-    public static void printToLabel(String content){
+
+    public static void printToLabel(String content) {
         String path = saveBmp(getImageUrl(content),"images/"+System.currentTimeMillis()+".png");
-        qrCodePrint(path,590,840,590,840);
+        //Brother PT-2430PC
+        drawImage("Brother PT-2430PC",path,false);
     }
 
-    public static void printToLabelV2(String content) {
-        String path = saveBmp(getImageUrl(content),"images/"+System.currentTimeMillis()+".png");
-        drawImage(null,path,100,true);
-    }
 
-    public static void qrCodePrint(String path, int pageWidth, int pageHeight, int showWidth, int showHeight) {
-        // 通俗理解就是书、文档
-        Book book = new Book();
-        // 设置成竖打
-        PageFormat pf = new PageFormat();
-        pf.setOrientation(PageFormat.PORTRAIT);
-        // 通过Paper设置页面的空白边距和可打印区域。必须与实际打印纸张大小相符。
-        Paper p = new Paper();
-        p.setSize(pageWidth,pageHeight);//纸张大小 A4(595x842)
-        p.setImageableArea(0,0, pageWidth,pageHeight);//打印区域
-        pf.setPaper(p);
-        // 把 PageFormat 和 Printable 添加到书中，组成一个页面
-        book.append((graphics, pageFormat, pageIndex) -> {//通过一个匿名内部内实现Printable接口，不懂的自行查看jdk8的新特性
-            try {
-                URL url = new URL(path);//也可以通过file构建一个本地图片File对象传递给ImageIO.read()方法
-                Image image= null;
-                image = ImageIO.read(url);
-            //将图片绘制到graphics对象中（为什么把需要打印的内容drawImage就可以实现打印自己取看值传递一引用传递的区别）
-            graphics.drawImage(image,0,0,showWidth,showHeight,null);
-            } catch (IOException e) {
-                logger.error("",e);
-            }
-            return 0;//返回0（PAGE_EXISTS）则执行打印，返回1（NO_SUCH_PAGE）则不执行打印
-        }, pf);
-        // 获取打印服务对象
-        PrinterJob job = PrinterJob.getPrinterJob();
-        // 设置打印类
-        job.setPageable(book);
-        try {
-            //可以用printDialog显示打印对话框，在用户确认后打印；也可以直接打印
-            boolean a=job.printDialog();
-            if(a){
-                job.print();
-            }else{
-                job.cancel();
-            }
-        } catch (PrinterException e) {
-            logger.error("",e);
-        }
-    }
-
-    public static void drawImage(String printerName,String fileName, int h, boolean aleartPrint){
+    public static void drawImage(String printerName,String fileName, boolean aleartPrint){
         if ((fileName == null) || (fileName.trim() == "")) {
             throw new RuntimeException("文件名为空");
 
         }
-        try{
+        try {
             DocFlavor dof = null;
 
             if (fileName.endsWith(".gif")) {
@@ -153,23 +110,31 @@ public class ImageUtil {
             } else if (fileName.endsWith(".png")) {
                 dof = DocFlavor.INPUT_STREAM.PNG;
 
+            } else if (fileName.endsWith(".bmp")) {
+                dof = new DocFlavor.INPUT_STREAM("image/bmp");
             }
             PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-            pras.add(OrientationRequested.PORTRAIT);
+            pras.add(OrientationRequested.LANDSCAPE);
             pras.add(new Copies(1));
             DocAttributeSet das = new HashDocAttributeSet();
-            das.add(new MediaPrintableArea(0, 0, 100, h, 1000));
+            MediaPrintableArea mp = new MediaPrintableArea(0, 0, 320, 64, MediaPrintableArea.MM);
+            das.add(mp);
+            System.out.println(mp.getWidth(Size2DSyntax.MM) + " " + mp.getHeight(Size2DSyntax.MM));
+            MediaSizeExp ms = new MediaSizeExp(45, 9, Size2DSyntax.MM);// 45,9
+            pras.add(ms);
             FileInputStream fin = new FileInputStream(fileName);
             Doc doc = new SimpleDoc(fin, dof, das);
             print(printerName, aleartPrint, dof, pras, doc);
             fin.close();
 
-        }catch (IOException ie){
+        } catch (IOException ie) {
             ie.printStackTrace();
 
-        }catch (PrintException pe){
+        } catch (PrintException pe) {
             pe.printStackTrace();
 
+        } catch (Exception e) {
+            logger.error("", e);
         }
 
     }

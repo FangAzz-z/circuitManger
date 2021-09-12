@@ -8,9 +8,13 @@ import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,9 +23,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +40,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class CheckMaintainController implements Initializable {
+    Logger logger = LoggerFactory.getLogger(CheckMainListController.class);
 
     @FXML
     public TableColumn id;
@@ -124,7 +133,20 @@ public class CheckMaintainController implements Initializable {
         queryBrand.setItems(FXCollections.observableArrayList(brand));
         queryUser.setItems(FXCollections.observableArrayList(userName));
         queryStatus.setItems(FXCollections.observableArrayList(statusList));
+
+        //行选择事件
+        userTable.setRowFactory( tv -> {
+            TableRow<Map<String,Object>> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Map<String,Object> map = row.getItem();
+                    detailData(map);
+                }
+            });
+            return row ;
+        });
     }
+
 
     public void addData(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_MAINTAIN_DIALOG.fxml()));
@@ -141,6 +163,27 @@ public class CheckMaintainController implements Initializable {
         controller.setDialog(dialog);
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
+    }
+
+    public void detailData(Map<String,Object> map) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/mainCheckList.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 550, 600); // 页面大小
+            // StageManager.initStyle(dialog);
+            Stage dialog = new Stage();
+            dialog.setTitle("详细"); // 页面标题
+            dialog.setScene(scene);
+            dialog.initStyle(StageStyle.UTILITY);
+            dialog.initOwner(Main.mainStage);
+            dialog.centerOnScreen();
+            CheckMainListController controller = loader.getController();
+            controller.setDialog(dialog);
+            controller.setListItems(map);
+            dialog.show();
+        } catch (Exception e) {
+            logger.error("",e);
+        }
     }
 
     private void refreshData() {
