@@ -4,6 +4,9 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 public class jacobUtil {
     static void testMethod(String content,String path){
 
@@ -33,7 +36,38 @@ public class jacobUtil {
         }
     }
 
-    public static void main(String[] args) {
-        testMethod("WX210907-88888 维修完成","D:\\Program Files\\Brother bPAC3 SDK\\Templates\\wx2.lbx");
+    public static void main(String[] args) throws IOException {
+        modifyFileContent("D:\\workspace\\study-project\\circuitManger\\html\\test.html","xxxxx", "WX210907-23432 finnish");
+        String url ="D:\\workspace\\study-project\\circuitManger\\html\\test.html";
+        String str = "cmd /cstart iexplore " + url;
+        Runtime.getRuntime().exec(str);
+
+//        testMethod("WX210907-88888 维修完成","D:\\Program Files\\Brother bPAC3 SDK\\Templates\\wx2.lbx");
+    }
+    private static boolean modifyFileContent(String fileName, String oldstr, String newStr) {
+        RandomAccessFile raf = null;
+        try {
+            raf = new RandomAccessFile(fileName, "rw");
+            String line = null;
+            long lastPoint = 0; //记住上一次的偏移量
+            while ((line = raf.readLine()) != null) {
+                final long ponit = raf.getFilePointer();
+                if(line.contains(oldstr)){
+                    String str=line.replace(oldstr, newStr);
+                    raf.seek(lastPoint);
+                    raf.writeBytes(str);
+                }
+                lastPoint = ponit;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                raf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 }

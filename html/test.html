@@ -1,0 +1,60 @@
+<!--
+'*************************************************************************
+'
+'		b-PAC 3.1 Component Sample (JS_NamePlate.html)
+'
+'		(C)Copyright Brother Industries, Ltd. 2013
+'
+'*************************************************************************/
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>b-PAC 3.0 Javascript Sample</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script language="javascript" type="text/javascript">
+
+    <!--
+    var DATA_FOLDER = "D:\\Program Files\\Brother bPAC3 SDK\\Templates\\";
+    //------------------------------------------------------------------------------
+    //   Function name   :   DoPrint
+    //   Description     :   Print, Preview Module
+    //------------------------------------------------------------------------------
+    function DoPrint(strExport)
+    {
+	 var theForm = document.getElementById("myForm");
+        var strPath = DATA_FOLDER + "wx2.lbx";
+		var objDoc = new ActiveXObject("bpac.Document");
+		if(objDoc.Open(strPath) != false)
+		{
+			objDoc.GetObject("wxId").Text = theForm.txtName.value;
+			if(strExport == "")
+			{
+				//objDoc.SetMediaByName(objDoc.Printer.GetMediaName(), true);
+				objDoc.StartPrint("", 0);
+				var a = objDoc.PrintOut(1, 0);
+				alert(a);
+				objDoc.Close();
+				objDoc.EndPrint();
+			}
+		}
+    }
+	function getQueryString(name) {
+		var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) {
+			return unescape(r[2]);
+		}
+		return null;
+	}	
+    -->
+    </script>
+</head>
+<body style="color:White;background-color:#8080c0">
+	<form id = "myForm" action = "">
+	<p>
+	value :
+    <input id="txtName" type="text" style="width: 320px" value="WX210907-23432 finnish"/>  <input id="btnPrint" type="button" value="print" onclick="DoPrint('')"/>
+	</form>
+	<body>
+</html>
