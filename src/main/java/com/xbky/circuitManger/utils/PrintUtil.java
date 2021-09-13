@@ -35,10 +35,12 @@ public class PrintUtil {
                     sb.append(b);
                     //这里可以写自己想对每一行的处理代码
                 }
+                br.close();
                 String s = sb.toString();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(toFileName),StandardCharsets.UTF_8));
                 bw.write(s);
                 bw.flush();
+                bw.close();
             } catch (IOException e) {
                 logger.error("",e);
             }
@@ -47,7 +49,7 @@ public class PrintUtil {
         }
 
     }
-    private static boolean modifyFileContent(String fileName, String oldstr, String newStr) {
+    private static boolean modifyFileContent(String fileName, String oldStr, String newStr) {
         RandomAccessFile raf = null;
         try {
             raf = new RandomAccessFile(fileName, "rw");
@@ -55,13 +57,37 @@ public class PrintUtil {
             long lastPoint = 0; //记住上一次的偏移量
             while ((line = raf.readLine()) != null) {
                 final long ponit = raf.getFilePointer();
-                if(line.contains(oldstr)){
-                    String str=line.replace(oldstr, newStr);
+                if(line.contains(oldStr)){
+                    String str=line.replace(oldStr, newStr);
                     raf.seek(lastPoint);
-                    raf.write(str.getBytes());
+                    raf.writeUTF(str);
                 }
                 lastPoint = ponit;
             }
+
+//            String temp = "";
+//            int len = oldStr.length();
+//            StringBuffer tempBuf = new StringBuffer();
+//                File file = new File(fileName);
+//                FileInputStream fis = new FileInputStream(file);
+//                InputStreamReader isr = new InputStreamReader(fis);
+//                BufferedReader br = new BufferedReader(isr);
+//                StringBuffer buf = new StringBuffer();
+//                // 替换所有匹配的字符串
+//                for (temp = null; (temp = br.readLine()) != null; temp = null) {
+//                    if (temp.indexOf(oldStr) != -1) {
+//                        temp = temp.replace(oldStr, newStr);
+//                    }
+//                    buf.append(temp);
+//                    buf.append(System.getProperty("line.separator"));
+//                }
+//
+//                br.close();
+//                FileOutputStream fos = new FileOutputStream(file);
+//                PrintWriter pw = new PrintWriter(fos);
+//                pw.write(buf.toString().toCharArray());
+//                pw.flush();
+//                pw.close();
         } catch (Exception e) {
             logger.error("",e);
         } finally {
