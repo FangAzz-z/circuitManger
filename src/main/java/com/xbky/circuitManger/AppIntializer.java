@@ -1,9 +1,16 @@
 package com.xbky.circuitManger;
 
 import com.xbky.circuitManger.utils.DBUtil;
+import org.h2.store.fs.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -111,6 +118,8 @@ public class AppIntializer {
             }
             statement.close();
             DBUtil.closeConnection();
+            buildHtml();
+            buildLbx();
         }catch (SQLException e) {
             log.error("", e);
         }
@@ -119,5 +128,66 @@ public class AppIntializer {
     private static boolean isExist(Statement statement,String tableName) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = '%s'",tableName));
         return resultSet.next();
+    }
+
+    // /image/image
+    private static void buildHtml() {
+        try {
+            log.info("html模板生产->start");
+            InputStream input = AppIntializer.class.getClassLoader().getResourceAsStream("html/test0.html");
+            File rootFile = new File("html/");
+            if(!rootFile.exists()){
+                rootFile.mkdir();
+            }
+            File test = new File("html/test.html");
+            if(!test.exists()){
+                test.createNewFile();
+            }
+            File test0 = new File("html/test0.html");
+            if(!test.exists()){
+                test0.createNewFile();
+            }
+
+            BufferedReader br =  new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+            String b="";
+            StringBuffer sb = new StringBuffer();
+            while((b = br.readLine())!=null){
+                    //得到文件内容放到sb中
+                    sb.append(b);
+                    //这里可以写自己想对每一行的处理代码
+            }
+            String s = sb.toString();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test),StandardCharsets.UTF_8));
+            bw.write(s);
+            bw.flush();
+            BufferedWriter bw0 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test0),StandardCharsets.UTF_8));
+            bw0.write(s);
+            bw0.flush();
+            log.info("html模板生产->end");
+        } catch (IOException e) {
+            log.error("",e);
+        }
+    }
+    private static void buildLbx() {
+        try{
+            log.info("lbx模板生产->start");
+            InputStream input = AppIntializer.class.getClassLoader().getResourceAsStream("html/wx2.lbx");
+            File rootFile = new File("html/");
+            if(!rootFile.exists()){
+                rootFile.mkdir();
+            }
+            File test = new File("html/wx2.lbx");
+            if(!test.exists()){
+                test.createNewFile();
+            }
+            byte[] buffer = new byte[4048];
+            input.read(buffer);
+            FileOutputStream bw = new FileOutputStream(test);
+            bw.write(buffer);
+            bw.flush();
+            log.info("lbx模板生产->end");
+        } catch (IOException e) {
+            log.error("",e);
+        }
     }
 }
