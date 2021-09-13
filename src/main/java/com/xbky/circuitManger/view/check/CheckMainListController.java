@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view.check;
 
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.utils.PrintUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ public class CheckMainListController implements Initializable {
 
     private  static Stage dialog = null;
 
+    private static String printLabel ="";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,6 +32,7 @@ public class CheckMainListController implements Initializable {
     }
 
     public void printLabel(ActionEvent actionEvent) {
+        PrintUtil.print(printLabel);
     }
 
     public void exit(ActionEvent actionEvent) {
@@ -71,6 +74,7 @@ public class CheckMainListController implements Initializable {
         strList.add(str12);
         strList.add(str13);
         listView.setItems(FXCollections.observableArrayList(strList));
+        printLabel = ObjectUtil.getString(map.get("maintain_id"))+" "+ObjectUtil.getString(map.get("wx_status"));
     }
 
     public static Stage getDialog() {

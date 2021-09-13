@@ -5,6 +5,7 @@ import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
 import com.xbky.circuitManger.utils.ImageUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.utils.PrintUtil;
 import com.xbky.circuitManger.view.baseSetUser.BaseSetUserAddController;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -23,7 +24,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -57,6 +61,8 @@ public class CheckMaintainAddController implements Initializable {
     public TextField tfMaintainCardNo;
     @FXML
     public TextField tfId;
+    @FXML
+    public TextField wxId;
 
     CheckMaintainRecordDao dao = new CheckMaintainRecordDao();
 
@@ -112,6 +118,9 @@ public class CheckMaintainAddController implements Initializable {
             StageManager.nullWarn("维修卡编号不能为空");
             return;
         }
+        if(this.queryStatus.getSelectionModel().getSelectedItem()==null) {
+            StageManager.nullWarn("状态不能为空");
+        }
         if(ObjectUtil.isAllNull(queryUser.getSelectionModel().getSelectedItem())){
             StageManager.nullWarn("维修人员不能为空");
             return;
@@ -157,6 +166,11 @@ public class CheckMaintainAddController implements Initializable {
         if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
             record.setMaintainCardCategory(this.queryCategory.getSelectionModel().getSelectedItem().toString());
         }
+        if(ObjectUtil.isNull(this.wxId.getText()))
+            record.setMaintainId(ObjectUtil.getWxId());
+        else {
+            record.setMaintainId(this.wxId.getText());
+        }
         if(ObjectUtil.isNull(tfId.getText())) {
             dao.add(record);
         }else{
@@ -172,9 +186,96 @@ public class CheckMaintainAddController implements Initializable {
     }
 
     public void printLabel(ActionEvent actionEvent) {
-        if(this.queryStatus.getSelectionModel().getSelectedItem()==null) {
-           StageManager.nullWarn("状态不能为空");
+        CheckMaintainRecord record = new CheckMaintainRecord();
+        if(ObjectUtil.isAllNull(tfMaintainCardNo.getText())){
+            StageManager.nullWarn("维修卡编号不能为空");
+            return;
         }
-        ImageUtil.printToLabel(ObjectUtil.getWxId()+this.queryStatus.getSelectionModel().getSelectedItem().toString());
+        if(this.queryStatus.getSelectionModel().getSelectedItem()==null) {
+            StageManager.nullWarn("状态不能为空");
+        }
+        if(ObjectUtil.isAllNull(queryUser.getSelectionModel().getSelectedItem())){
+            StageManager.nullWarn("维修人员不能为空");
+            return;
+        }
+        if(ObjectUtil.isAllNull(this.queryCategory.getSelectionModel().getSelectedItem())){
+            StageManager.nullWarn("产品类别不能为空");
+            return;
+        }
+        if(ObjectUtil.isAllNull(this.queryModel.getSelectionModel().getSelectedItem())){
+            StageManager.nullWarn("产品型号不能为空");
+            return;
+        }
+        if(ObjectUtil.isAllNull(this.queryBrand.getSelectionModel().getSelectedItem())){
+            StageManager.nullWarn("维修卡板品牌不能为空");
+            return;
+        }
+        if(this.queryStatus.getSelectionModel().getSelectedItem()!=null) {
+            record.setWxStatus(this.queryStatus.getSelectionModel().getSelectedItem().toString());
+        }
+        if(this.queryUser.getSelectionModel().getSelectedItem()!=null) {
+            record.setMaintainUser(this.queryUser.getSelectionModel().getSelectedItem().toString());
+        }
+        if(this.queryBrand.getSelectionModel().getSelectedItem()!=null) {
+            record.setMaintainCardBrand(this.queryBrand.getSelectionModel().getSelectedItem().toString());
+        }
+        record.setMaintainCardNo(this.tfMaintainCardNo.getText());
+        record.setCompleteDate(this.dpCompleteDate.getEditor().getText());
+        record.setReceiveDate(this.dpReceiveDate.getEditor().getText());
+        if(this.queryResult.getSelectionModel().getSelectedItem()!=null) {
+            record.setWxResult(this.queryResult.getSelectionModel().getSelectedItem().toString());
+        }
+        record.setMaintainDesc(this.taMaintainDesc.getText());
+        record.setMaintainFitting(this.taMaintainFitting.getText());
+        if(this.queryMethod.getSelectionModel().getSelectedItem()!=null) {
+            record.setWxMethod(this.queryMethod.getSelectionModel().getSelectedItem().toString());
+        }
+        if(this.queryShow.getSelectionModel().getSelectedItem()!=null) {
+            record.setWxShow(this.queryShow.getSelectionModel().getSelectedItem().toString());
+        }
+        if(this.queryModel.getSelectionModel().getSelectedItem()!=null) {
+            record.setMaintainCardModel(this.queryModel.getSelectionModel().getSelectedItem().toString());
+        }
+        if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
+            record.setMaintainCardCategory(this.queryCategory.getSelectionModel().getSelectedItem().toString());
+        }
+        if(ObjectUtil.isNull(this.wxId.getText()))
+            record.setMaintainId(ObjectUtil.getWxId());
+        else {
+            record.setMaintainId(this.wxId.getText());
+        }
+        if(ObjectUtil.isNull(tfId.getText())) {
+            dao.add(record);
+        }else{
+            record.setId(ObjectUtil.getLong(tfId.getText()));
+            dao.modify(record);
+        }
+        if(dialog!=null) {
+            dialog.close();
+        }
+        if (resultHandle != null) {
+            resultHandle.run();
+        }
+        PrintUtil.print(record.getMaintainId()+" "+record.getWxStatus());
+    }
+
+    public void setBaseData(Map<String,Object> map){
+        this.tfId.setText(ObjectUtil.getString(map.get("id")));
+        this.queryBrand.setValue(ObjectUtil.getString(map.get("maintain_card_brand")));
+        this.wxId.setText(ObjectUtil.getString(map.get("maintain_id")));
+        this.queryModel.setValue(ObjectUtil.getString(map.get("maintain_card_model")));
+        this.tfMaintainCardNo.setText(ObjectUtil.getString(map.get("maintain_card_no")));
+        this.queryCategory.setValue(ObjectUtil.getString(map.get("maintain_card_category")));
+        this.queryShow.setValue(ObjectUtil.getString(map.get("wx_show")));
+        this.queryStatus.setValue(ObjectUtil.getString(map.get("wx_status")));
+        this.queryMethod.setValue(ObjectUtil.getString(map.get("wx_method")));
+        this.queryResult.setValue(ObjectUtil.getString(map.get("wx_result")));
+        if(ObjectUtil.isNotNull(ObjectUtil.getString(map.get("receive_date"))))
+            this.dpReceiveDate.setValue(LocalDate.parse(ObjectUtil.getString(map.get("receive_date")).substring(0,10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        if(ObjectUtil.isNotNull(ObjectUtil.getString(map.get("complete_date"))))
+            this.dpCompleteDate.setValue(LocalDate.parse(ObjectUtil.getString(map.get("complete_date")).substring(0,10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        this.queryUser.setValue(ObjectUtil.getString(map.get("maintain_user")));
+        this.taMaintainDesc.setText(ObjectUtil.getString(map.get("maintain_desc")));
+        this.taMaintainFitting.setText(ObjectUtil.getString(map.get("maintain_fitting")));
     }
 }

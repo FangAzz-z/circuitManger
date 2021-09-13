@@ -52,19 +52,18 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0">
                      <children>
-                        <Button onAction="#cancelSubmit" mnemonicParsing="false" text="取消">
+                        <Button mnemonicParsing="false" onAction="#cancelSubmit" text="取消">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
-                        <Button onAction="#submitData" mnemonicParsing="false" text="保存">
+                        <Button mnemonicParsing="false" onAction="#submitData" text="保存">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="printToLabel" onAction="#printLabel" mnemonicParsing="false" text="打印标签">
+                        <Button fx:id="printToLabel" mnemonicParsing="false" onAction="#printLabel" text="打印后保存">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
-                        <Button mnemonicParsing="false" text="打印后保存" />
                      </children>
                      <VBox.margin>
                         <Insets right="30.0" top="10.0" />
@@ -109,7 +108,7 @@
                         <TextField fx:id="tfMaintainCardNo" promptText="维修卡编号" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2"  GridPane.rowIndex="2">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
                         <ComboBox fx:id="queryModel" prefWidth="150.0" promptText="产品型号" />
                      </children>
@@ -151,6 +150,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <TextField fx:id="tfId" disable="true" promptText="ID" visible="false" />
+                  <TextField fx:id="wxId" visible="false" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </center>

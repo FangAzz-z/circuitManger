@@ -207,8 +207,27 @@ public class CheckMaintainController implements Initializable {
         return userTable;
     }
 
-    public void modifyData(ActionEvent actionEvent) {
-
+    public void modifyData(ActionEvent actionEvent) throws IOException {
+        Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
+        if (ObjectUtil.isNull(map)) {
+            StageManager.nullWarn("请选中某一行");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_MAINTAIN_DIALOG.fxml()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 750, 600); // 页面大小
+        // StageManager.initStyle(dialog);
+        Stage dialog = new Stage();
+        dialog.setTitle("维修登记单-修改"); // 页面标题
+        dialog.setScene(scene);
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.initOwner(Main.mainStage);
+        dialog.centerOnScreen();
+        CheckMaintainAddController controller = loader.getController();
+        controller.setDialog(dialog);
+        controller.setResultHandle(()->{refreshData();});
+        controller.setBaseData(map);
+        dialog.show();
     }
 
     public void deleteData(ActionEvent actionEvent) {
