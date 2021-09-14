@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
             Scene primarySence = new Scene(root, 1600, 800); // 页面大小
             primaryStage.setScene(primarySence);
             primaryStage.setOnCloseRequest(event -> {
-                Main.closeAllPopups();
+                Main.closeAllPopups(event);
             });
             primaryStage.show();
         } catch (Exception e) {

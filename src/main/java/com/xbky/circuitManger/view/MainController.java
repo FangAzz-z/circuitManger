@@ -221,7 +221,7 @@ public class MainController implements Initializable {
     }
 
     public void appExit(ActionEvent actionEvent) {
-        Main.closeAllPopups();
+        Main.closeAllPopups(actionEvent);
     }
 
     public void wxCheck(ActionEvent actionEvent) {

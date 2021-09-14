@@ -2,6 +2,7 @@ package com.xbky.circuitManger;
 
 import com.xbky.circuitManger.view.common.FxmlView;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public class Main extends Application {
         Scene primarySence = new Scene(root, 1800, 900); // 页面大小
         primaryStage.setScene( primarySence );
         primaryStage.setOnCloseRequest(event -> {
-            closeAllPopups();
+            closeAllPopups(event);
         });
         primaryStage.show();
     }
@@ -41,7 +43,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void closeAllPopups() {
+    public static void closeAllPopups(Event event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("提示");
         alert.setContentText("确定退出电路板维修管理系统？");
@@ -50,6 +52,8 @@ public class Main extends Application {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == javafx.scene.control.ButtonType.OK){
             System.exit(0);
+        }else{
+            event.consume();
         }
     }
 
