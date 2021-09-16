@@ -58,13 +58,13 @@ public class ProductTypeDao extends BaseDao {
     public Map<String,Object> queryByExample(ProductType pt,int pageNo,int pageSize){
         StringBuffer sql = new StringBuffer("select id,category,model,brand , create_time, update_time from CM_PRODUCT_TYPE where 1=1 ");
         if(ObjectUtil.isNotNull(pt.getCategory())){
-            sql.append(String.format(" and category like '%s'",pt.getCategory()+"%"));
+            sql.append(String.format(" and LOWER(category) like '%s'","%"+pt.getCategory().toLowerCase()+"%"));
         }
         if(ObjectUtil.isNotNull(pt.getModel())){
-            sql.append(String.format(" and model like '%s'",pt.getModel()+"%"));
+            sql.append(String.format(" and LOWER(model) like '%s'","%"+pt.getModel().toLowerCase()+"%"));
         }
         if(ObjectUtil.isNotNull(pt.getBrand())){
-            sql.append(String.format(" and brand like '%s'",pt.getBrand()+"%"));
+            sql.append(String.format(" and LOWER(brand) like '%s'","%"+pt.getBrand().toLowerCase()+"%"));
         }
         int count =  super.queryForList(sql.toString(), null).size();
         int total =  (count  +  pageSize  - 1) / pageSize;

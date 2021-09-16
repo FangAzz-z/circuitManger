@@ -30,47 +30,6 @@
                     <content>
                         <BorderPane prefHeight="500" prefWidth="700.0">
                             <left>
-                                <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <TextField fx:id="status_text_content" prefHeight="30.0" prefWidth="246.0" promptText="维修产品状态">
-                                            <VBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
-                                            <children>
-                                                <Button fx:id="status_reset" mnemonicParsing="false" onAction="#statusReset" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
-                                                    </effect>
-                                                </Button>
-                                                <Button fx:id="status_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#statusQuery" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                                                    </effect>
-                                                </Button>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                            <VBox.margin>
-                                                <Insets left="100.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                    <BorderPane.margin>
-                                        <Insets />
-                                    </BorderPane.margin>
-                                </VBox>
                             </left>
                             <center>
                                 <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -270,47 +229,6 @@
                     <content>
                         <BorderPane prefHeight="500" prefWidth="700.0">
                             <left>
-                                <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <TextField fx:id="method_text_content" prefHeight="30.0" prefWidth="246.0" promptText="维修措施">
-                                            <VBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
-                                            <children>
-                                                <Button fx:id="method_reset" mnemonicParsing="false" onAction="#methodReset" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
-                                                    </effect>
-                                                </Button>
-                                                <Button fx:id="method_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#methodQuery" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                                                    </effect>
-                                                </Button>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                            <VBox.margin>
-                                                <Insets left="100.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                    <BorderPane.margin>
-                                        <Insets />
-                                    </BorderPane.margin>
-                                </VBox>
                             </left>
                             <center>
                                 <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -364,14 +282,6 @@
                                                         <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                                                     </effect>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#methodImport" prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导入" >
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                                                    </effect>
-                                                </Button>
                                             </children>
                                             <padding>
                                                 <Insets right="10.0" />
@@ -390,47 +300,6 @@
                     <content>
                         <BorderPane prefHeight="500" prefWidth="700.0">
                             <left>
-                                <VBox prefHeight="500.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <TextField fx:id="result_text_content" prefHeight="30.0" prefWidth="246.0" promptText="处理结果">
-                                            <VBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
-                                            <children>
-                                                <Button fx:id="result_reset" mnemonicParsing="false" onAction="#resultReset" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="清空" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
-                                                    </effect>
-                                                </Button>
-                                                <Button fx:id="result_query" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#resultQuery" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="查询" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                    <effect>
-                                                        <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
-                                                    </effect>
-                                                </Button>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                            <VBox.margin>
-                                                <Insets left="100.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                    <BorderPane.margin>
-                                        <Insets />
-                                    </BorderPane.margin>
-                                </VBox>
                             </left>
                             <center>
                                 <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">

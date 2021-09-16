@@ -49,8 +49,6 @@ public class BaseSetInfoController implements Initializable {
 
     //维修产品状态
     @FXML
-    public TextField status_text_content;
-    @FXML
     public TableColumn show_id;
     @FXML
     public TableColumn show_content;
@@ -58,8 +56,6 @@ public class BaseSetInfoController implements Initializable {
     public TableView show_table;
 
     //维修措施
-    @FXML
-    public TextField method_text_content;
     @FXML
     public TableColumn method_id;
     @FXML
@@ -69,8 +65,6 @@ public class BaseSetInfoController implements Initializable {
 
 
     //处理结果
-    @FXML
-    public TextField result_text_content;
     @FXML
     public TableColumn result_id;
     @FXML
@@ -102,10 +96,10 @@ public class BaseSetInfoController implements Initializable {
 
         this.result_id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.result_content.setCellValueFactory(new MapValueFactory<String>("content"));
-        this.pageSet_result.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_HANDLE_RESULT",result_text_content.getText(),result_table));
-        this.pageSet_method.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_MAINTAIN_METHOD",method_text_content.getText(),method_table));
+        this.pageSet_result.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_HANDLE_RESULT","",result_table));
+        this.pageSet_method.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_MAINTAIN_METHOD","",method_table));
         this.pageSet_show.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_FAULT_SHOW",show_text_content.getText(),show_table));
-        this.pageSet_status.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_PT_STATUS",status_text_content.getText(),status_table));
+        this.pageSet_status.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_PT_STATUS","",status_table));
         refreshStatusData();
         refreshShowData();
         refreshMethodData();
@@ -171,23 +165,23 @@ public class BaseSetInfoController implements Initializable {
 
     //维修产品状态
     public void refreshStatusData() {
-        Map<String, Object> result = dao.queryByExample("CM_BASE_PT_STATUS",status_text_content.getText(),0,8);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_PT_STATUS","",0,8);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
-        this.pageSet_status.setPageCount(ObjectUtil.getInt(result.get("total")));
+        this.pageSet_status.setPageCount(ObjectUtil.getInt(result.get("total"))<1?1:ObjectUtil.getInt(result.get("total")));
         this.status_table.getSelectionModel().clearSelection();
         this.status_table.setItems(items);
         this.status_table.refresh();
         this.pageSet_status.setCurrentPageIndex(0);
     }
 
-    public void statusReset(ActionEvent actionEvent) {
+/*    public void statusReset(ActionEvent actionEvent) {
         this.status_text_content.clear();
     }
 
     public void statusQuery(ActionEvent actionEvent) {
         refreshStatusData();
-    }
+    }*/
 
     public void statusAdd(ActionEvent actionEvent) {
         commonAdd(() -> {
@@ -219,7 +213,7 @@ public class BaseSetInfoController implements Initializable {
         Map<String, Object> result = dao.queryByExample("CM_BASE_FAULT_SHOW",show_text_content.getText(),0,8);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
-        this.pageSet_show.setPageCount(ObjectUtil.getInt(result.get("total")));
+        this.pageSet_show.setPageCount(ObjectUtil.getInt(result.get("total"))<1?1:ObjectUtil.getInt(result.get("total")));
         this.show_table.getSelectionModel().clearSelection();
         this.show_table.setItems(items);
         this.show_table.refresh();
@@ -260,24 +254,16 @@ public class BaseSetInfoController implements Initializable {
 
     //维修措施
     public void refreshMethodData() {
-        Map<String, Object> result = dao.queryByExample("CM_BASE_MAINTAIN_METHOD",method_text_content.getText(),0,8);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_MAINTAIN_METHOD","",0,8);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
-        this.pageSet_method.setPageCount(ObjectUtil.getInt(result.get("total")));
+        this.pageSet_method.setPageCount(ObjectUtil.getInt(result.get("total"))<1?1:ObjectUtil.getInt(result.get("total")));
         this.method_table.getSelectionModel().clearSelection();
         this.method_table.setItems(items);
         this.method_table.refresh();
         this.pageSet_method.setCurrentPageIndex(0);
 
 
-    }
-
-    public void methodReset(ActionEvent actionEvent) {
-        this.method_text_content.clear();
-    }
-
-    public void methodQuery(ActionEvent actionEvent) {
-        refreshMethodData();
     }
 
     public void methodAdd(ActionEvent actionEvent) {
@@ -306,22 +292,14 @@ public class BaseSetInfoController implements Initializable {
 
     //处理结果
     public void refreshResultData() {
-        Map<String, Object> result = dao.queryByExample("CM_BASE_HANDLE_RESULT",result_text_content.getText(),0,8);
+        Map<String, Object> result = dao.queryByExample("CM_BASE_HANDLE_RESULT","",0,8);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
-        this.pageSet_result.setPageCount(ObjectUtil.getInt(result.get("total")));
+        this.pageSet_result.setPageCount(ObjectUtil.getInt(result.get("total"))<1?1:ObjectUtil.getInt(result.get("total")));
         this.result_table.getSelectionModel().clearSelection();
         this.result_table.setItems(items);
         this.result_table.refresh();
         this.pageSet_result.setCurrentPageIndex(0);
-    }
-
-    public void resultReset(ActionEvent actionEvent) {
-        this.result_text_content.clear();
-    }
-
-    public void resultQuery(ActionEvent actionEvent) {
-        refreshResultData();
     }
 
     public void resultAdd(ActionEvent actionEvent) {
