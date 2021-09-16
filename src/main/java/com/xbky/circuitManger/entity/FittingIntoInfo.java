@@ -14,6 +14,8 @@ public class FittingIntoInfo {
 
     private String fittingModel;
 
+    private String factory;
+
     private String unit;
 
     private Date createTime;
@@ -23,11 +25,12 @@ public class FittingIntoInfo {
 
     }
 
-    public FittingIntoInfo(Long id,String fittingNo, String fittingName, String fittingModel, String unit) {
+    public FittingIntoInfo(Long id,String fittingNo, String fittingName, String fittingModel,String factory, String unit) {
         this.id = id;
         this.fittingNo = fittingNo;
         this.fittingName = fittingName;
         this.fittingModel = fittingModel;
+        this.factory = factory;
         this.unit = unit;
     }
 
@@ -85,5 +88,13 @@ public class FittingIntoInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 }

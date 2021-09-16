@@ -10,7 +10,7 @@ import java.util.Map;
 public class FittingIntoInfoDao extends BaseDao{
 
     public int add(FittingIntoInfo info){
-        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,unit,create_time,update_time)values('%s','%s','%s','%s',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getUnit());
+        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,factory,unit,create_time,update_time)values('%s','%s','%s','%s','%s',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getFactory(),info.getUnit());
         return super.insert(sql, null);
     }
 
@@ -25,6 +25,9 @@ public class FittingIntoInfoDao extends BaseDao{
         if (ObjectUtil.isNotNull(info.getFittingName())) {
             sql.append(String.format(",fitting_name = '%s'", info.getFittingName()));
         }
+        if (ObjectUtil.isNotNull(info.getFactory())) {
+            sql.append(String.format(",factory = '%s'", info.getFactory()));
+        }
         if (ObjectUtil.isNotNull(info.getUnit())) {
             sql.append(String.format(",unit = '%s'", info.getUnit()));
         }
@@ -33,7 +36,7 @@ public class FittingIntoInfoDao extends BaseDao{
     }
 
     public List<Map<String,Object>> queryByExample(FittingIntoInfo fii){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,unit from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
         }
@@ -42,6 +45,9 @@ public class FittingIntoInfoDao extends BaseDao{
         }
         if(ObjectUtil.isNotNull(fii.getFittingName())){
             sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
+        }
+        if(ObjectUtil.isNotNull(fii.getFactory())){
+            sql.append(String.format(" and factory like '%s'",fii.getFactory()+"%"));
         }
         if(ObjectUtil.isNotNull(fii.getUnit())){
             sql.append(String.format(" and unit = '%s'",fii.getUnit()));
@@ -51,7 +57,7 @@ public class FittingIntoInfoDao extends BaseDao{
     }
 
     public Map<String,Object> queryByExample(FittingIntoInfo fii,int pageNo,int pageSize){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,unit from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
         }
@@ -60,6 +66,9 @@ public class FittingIntoInfoDao extends BaseDao{
         }
         if(ObjectUtil.isNotNull(fii.getFittingName())){
             sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
+        }
+        if(ObjectUtil.isNotNull(fii.getFactory())){
+            sql.append(String.format(" and factory like '%s'",fii.getFactory()+"%"));
         }
         if(ObjectUtil.isNotNull(fii.getUnit())){
             sql.append(String.format(" and unit = '%s'",fii.getUnit()));

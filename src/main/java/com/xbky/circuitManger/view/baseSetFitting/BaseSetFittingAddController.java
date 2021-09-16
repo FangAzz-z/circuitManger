@@ -22,6 +22,8 @@ public class BaseSetFittingAddController {
     public TextField tfModel;
     @FXML
     public TextField tfUnit;
+    @FXML
+    public TextField tfFactory;
 
 
     FittingIntoInfoDao dao = new FittingIntoInfoDao();
@@ -38,13 +40,14 @@ public class BaseSetFittingAddController {
 
     public void submitData(ActionEvent actionEvent) {
         FittingIntoInfo fii = new  FittingIntoInfo();
-        if(ObjectUtil.hasNull(tfNo.getText(),tfName.getText(),tfModel.getText(),tfUnit.getText())){
+        if(ObjectUtil.hasNull(tfNo.getText(),tfName.getText(),tfModel.getText(),tfFactory.getText(),tfUnit.getText())){
             StageManager.nullWarn();
             return;
         };
         fii.setFittingNo(tfNo.getText());
         fii.setFittingName(tfName.getText());
         fii.setFittingModel(tfModel.getText());
+        fii.setFactory(tfFactory.getText());
         fii.setUnit(tfUnit.getText());
         if(ObjectUtil.isNull(tfId.getText())) {
             dao.add(fii);
@@ -81,6 +84,7 @@ public class BaseSetFittingAddController {
         this.tfNo.setText(fii.getFittingNo());
         this.tfName.setText(fii.getFittingName());
         this.tfModel.setText(fii.getFittingModel());
+        this.tfFactory.setText(fii.getFactory());
         this.tfUnit.setText(fii.getUnit());
     }
 }

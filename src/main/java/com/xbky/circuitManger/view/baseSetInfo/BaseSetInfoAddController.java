@@ -19,6 +19,7 @@ public class BaseSetInfoAddController implements Initializable {
     private  static Stage dialog = null;
 
     private  static Runnable resultHandld = null;
+
     BaseInfoDao baseInfoDao = new BaseInfoDao();
 
     @FXML
@@ -27,6 +28,10 @@ public class BaseSetInfoAddController implements Initializable {
     public TextField dialog_content;
     @FXML
     public TextField tfId;
+    @FXML
+    public Label dialog_label_code;
+    @FXML
+    public TextField dialog_code;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,6 +80,12 @@ public class BaseSetInfoAddController implements Initializable {
         this.dialog_content.setText(content);
     }
 
+    public void setBaseDataV2(String id,String content,String code){
+        this.tfId.setText(id);
+        this.dialog_code.setText(code);
+        this.dialog_content.setText(content);
+    }
+
 
     public static Stage getDialog() {
         return dialog;
@@ -91,6 +102,20 @@ public class BaseSetInfoAddController implements Initializable {
 
     public static void setResultHandld(Runnable resultHandld) {
         BaseSetInfoAddController.resultHandld = resultHandld;
+    }
+
+    public void submitDataV2(ActionEvent actionEvent) {
+        if (ObjectUtil.isNotNull(this.tfId.getText())) {
+            this.baseInfoDao.updateByIdV2("CM_BASE_FAULT_SHOW", this.dialog_content.getText(),this.dialog_code.getText(),this.tfId.getText());
+        }else{
+            this.baseInfoDao.addV2("CM_BASE_FAULT_SHOW", this.dialog_content.getText(),this.dialog_code.getText());
+        }
+        if(dialog!=null) {
+            dialog.close();
+        }
+        if (resultHandld != null) {
+            resultHandld.run();
+        }
     }
 
 }

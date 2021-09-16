@@ -27,18 +27,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class BaseSetInfoController implements Initializable {
+
     Logger logger = LoggerFactory.getLogger(BaseSetInfoController.class);
 
 
-    //故障现象
+    //维修产品状态
     @FXML
     public TextField show_text_content;
+    @FXML
+    public TextField show_text_code;
+
     @FXML
     public TableColumn status_id;
     @FXML
@@ -47,13 +52,15 @@ public class BaseSetInfoController implements Initializable {
     public TableView status_table;
 
 
-    //维修产品状态
+    //故障现象
     @FXML
     public TableColumn show_id;
     @FXML
     public TableColumn show_content;
     @FXML
     public TableView show_table;
+    @FXML
+    public TableColumn show_code;
 
     //维修措施
     @FXML
@@ -90,6 +97,7 @@ public class BaseSetInfoController implements Initializable {
 
         this.show_id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.show_content.setCellValueFactory(new MapValueFactory<String>("content"));
+        this.show_code.setCellValueFactory(new MapValueFactory<String>("code"));
 
         this.method_id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.method_content.setCellValueFactory(new MapValueFactory<String>("content"));
@@ -98,7 +106,7 @@ public class BaseSetInfoController implements Initializable {
         this.result_content.setCellValueFactory(new MapValueFactory<String>("content"));
         this.pageSet_result.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_HANDLE_RESULT","",result_table));
         this.pageSet_method.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_MAINTAIN_METHOD","",method_table));
-        this.pageSet_show.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_FAULT_SHOW",show_text_content.getText(),show_table));
+        this.pageSet_show.setPageFactory(pageIndex -> createPageV2(pageIndex,"CM_BASE_FAULT_SHOW",show_text_content.getText(),show_text_code.getText(),show_table));
         this.pageSet_status.setPageFactory(pageIndex -> createPage(pageIndex,"CM_BASE_PT_STATUS","",status_table));
         refreshStatusData();
         refreshShowData();
@@ -117,6 +125,36 @@ public class BaseSetInfoController implements Initializable {
         return tableView;
     }
 
+    public TableView<Map<String,Object>> createPageV2(int pageIndex,String tablename,String content,String code,TableView tableView) {
+        Map<String, Object> result = dao.queryByExampleV2(tablename,content,code,pageIndex,8);
+        List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
+        ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
+        tableView.getSelectionModel().clearSelection();
+        tableView.setItems(items);
+        tableView.refresh();
+        return tableView;
+    }
+
+    private void commonAddV2(Runnable handle,String label) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG_V2.fxml()));
+            Parent root = loader.<Parent>load();
+            Scene sence = new Scene(root, 600, 300); // 页面大小
+            Stage dialog = new Stage();
+            dialog.setScene(sence);
+            dialog.setTitle(label + "-基础信息-添加");
+            dialog.initStyle(StageStyle.UTILITY);
+            dialog.initOwner(Main.mainStage);
+            dialog.centerOnScreen();
+            BaseSetInfoAddController controller = loader.getController();
+            controller.setDialog(dialog);
+            controller.setResultHandld(handle);
+            dialog.show();
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+    }
+
     private void commonAdd(Runnable handle, String label) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG.fxml()));
@@ -131,6 +169,31 @@ public class BaseSetInfoController implements Initializable {
             BaseSetInfoAddController controller = loader.getController();
             controller.setDialog(dialog);
             controller.setBaseData("", label, "");
+            controller.setResultHandld(handle);
+            dialog.show();
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+    }
+
+    private void commonModifyV2(Map<String, Object> map, Runnable handle, String label) {
+        try {
+            if (ObjectUtil.isNull(map)) {
+                StageManager.nullWarn("提示", "请选中某一行");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.BASESET_INFO_DIALOG_V2.fxml()));
+            Parent root = loader.load();
+            Scene sence = new Scene(root, 600, 300); // 页面大小
+            Stage dialog = new Stage();
+            dialog.setScene(sence);
+            dialog.setTitle(label + "-基础信息-修改");
+            dialog.initStyle(StageStyle.UTILITY);
+            dialog.initOwner(Main.mainStage);
+            dialog.centerOnScreen();
+            BaseSetInfoAddController controller = loader.getController();
+            controller.setDialog(dialog);
+            controller.setBaseDataV2(map.get("id") + "", (String)map.get("content"), (String) map.get("code"));
             controller.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
@@ -210,7 +273,8 @@ public class BaseSetInfoController implements Initializable {
 
     //故障现象
     public void refreshShowData() {
-        Map<String, Object> result = dao.queryByExample("CM_BASE_FAULT_SHOW",show_text_content.getText(),0,8);
+        String content = show_text_content.getText();
+        Map<String, Object> result = dao.queryByExampleV2("CM_BASE_FAULT_SHOW",content,this.show_text_code.getText(),0,8);
         List<Map<String,Object>> dataList = (List<Map<String, Object>>)result.get("data");
         ObservableList<Map<String,Object>> items = FXCollections.observableArrayList(dataList);
         this.pageSet_show.setPageCount(ObjectUtil.getInt(result.get("total"))<1?1:ObjectUtil.getInt(result.get("total")));
@@ -222,6 +286,7 @@ public class BaseSetInfoController implements Initializable {
 
     public void showReset(ActionEvent actionEvent) {
         this.show_text_content.clear();
+        this.show_text_code.clear();
     }
 
     public void showQuery(ActionEvent actionEvent) {
@@ -229,13 +294,13 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void showAdd(ActionEvent actionEvent) {
-        commonAdd(() -> {
+        commonAddV2(() -> {
             refreshShowData();
         }, "故障现象");
     }
 
     public void showModify(ActionEvent actionEvent) {
-        commonModify((Map) this.show_table.getSelectionModel().getSelectedItem(), () -> {
+        commonModifyV2((Map) this.show_table.getSelectionModel().getSelectedItem(), () -> {
             refreshShowData();
         }, "故障现象");
     }
@@ -334,18 +399,24 @@ public class BaseSetInfoController implements Initializable {
 
     @FXML
     void exportFaultShow(ActionEvent event) {
-        List<Map<String, Object>> dataList = this.dao.queryByExample("CM_BASE_FAULT_SHOW", this.show_text_content.getText());
-        ExcelUtil.chooseDirectoryToWriteFromDataBase("故障原因", BaseFaultShowExportObj.getHeadMap(), dataList, BaseFaultShowExportObj.class);
+        List<Map<String, Object>> dataList = this.dao.queryByExampleV2("CM_BASE_FAULT_SHOW", this.show_text_content.getText(),this.show_code.getText());
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("故障现象", BaseFaultShowExportObj.getHeadMap(), dataList, BaseFaultShowExportObj.class);
     }
 
     @FXML
     void importFaultShow(ActionEvent event) {
         List<BaseFaultShowImportObj> data = ExcelUtil.chooseFileToRead(BaseFaultShowImportObj.getHeadMap(), BaseFaultShowImportObj.class);
         if (!data.isEmpty()) {
-            int count = this.dao.batchInert("CM_BASE_FAULT_SHOW", data.stream().map(t -> t.getContent()).collect(Collectors.toList()));
+            int count = this.dao.batchInert("CM_BASE_FAULT_SHOW", data);
             logger.info("导入故障数据成功 count = {}", count);
             StageManager.infoWarn(String.format("导入成功"));
             refreshShowData();
         }
+    }
+
+    @FXML
+    void exportFaultShowModel(ActionEvent event) {
+  //      List<Map<String, Object>> dataList = this.dao.queryByExampleV2("CM_BASE_FAULT_SHOW", this.show_text_content.getText(),this.show_code.getText());
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("故障现象", BaseFaultShowExportObj.getHeadMapModel(), new ArrayList(), BaseFaultShowExportObj.class);
     }
 }

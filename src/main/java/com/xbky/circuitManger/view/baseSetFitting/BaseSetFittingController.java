@@ -41,6 +41,8 @@ public class BaseSetFittingController implements Initializable {
     @FXML
     public TextField tfModel;
     @FXML
+    public TextField tfFactory;
+    @FXML
     public TextField tfUnit;
 
 
@@ -55,10 +57,14 @@ public class BaseSetFittingController implements Initializable {
     @FXML
     public TableColumn model;
     @FXML
+    public TableColumn factory;
+    @FXML
     public TableColumn unit;
 
     @FXML
     public Pagination pageSet;
+
+
 
     FittingIntoInfoDao dao = new FittingIntoInfoDao();
     private  static Stage dialog = null;
@@ -70,6 +76,7 @@ public class BaseSetFittingController implements Initializable {
         this.no.setCellValueFactory(new MapValueFactory<String>("fitting_no"));
         this.name.setCellValueFactory(new MapValueFactory<String>("fitting_name"));
         this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
+        this.factory.setCellValueFactory(new MapValueFactory<String>("factory"));
         this.unit.setCellValueFactory(new MapValueFactory<>("unit"));
         this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
@@ -101,6 +108,7 @@ public class BaseSetFittingController implements Initializable {
         this.tfNo.clear();
         this.tfName.clear();
         this.tfModel.clear();
+        this.tfFactory.clear();
         this.tfUnit.clear();
     }
 
@@ -141,7 +149,7 @@ public class BaseSetFittingController implements Initializable {
         dialog.centerOnScreen();
         BaseSetFittingAddController  controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("unit")));
+        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("factory"),(String)map.get("unit")));
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
     }
@@ -151,6 +159,7 @@ public class BaseSetFittingController implements Initializable {
         fii.setFittingNo(this.tfNo.getText());
         fii.setFittingName(this.tfName.getText());
         fii.setFittingModel(this.tfModel.getText());
+        fii.setFactory(this.tfFactory.getText());
         fii.setUnit(this.tfUnit.getText());
         return fii;
     }

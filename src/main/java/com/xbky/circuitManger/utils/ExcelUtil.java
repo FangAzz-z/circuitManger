@@ -88,6 +88,9 @@ public class ExcelUtil {
         }
 
         String filePath = directory.getPath() + File.separator + fileName + ObjectUtil.dateFormatEn(new Date(), "yyyyMMddHHmmss") + FILE_SUFFIX;
+        if(ObjectUtil.isEmpty(dataList)){
+            filePath = directory.getPath() + File.separator + fileName+"模板" + FILE_SUFFIX;
+        }
 
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet(fileName);
