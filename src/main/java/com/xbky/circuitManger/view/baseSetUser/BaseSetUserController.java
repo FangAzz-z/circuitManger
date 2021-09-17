@@ -107,7 +107,7 @@ public class BaseSetUserController implements Initializable {
         Map<String,Object> map =  dao.queryByExample(getSearchParam(),0,10);
         List<Map<String,Object>> dataList = (List<Map<String,Object>>)map.get("data");
         list.addAll(dataList);
-        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total")));
+        this.pageSet.setPageCount(ObjectUtil.getInt(map.get("total"))<1?1:ObjectUtil.getInt(map.get("total")));
         this.userTable.getSelectionModel().clearSelection();
         this.userTable.setItems(list);
         this.userTable.refresh();
