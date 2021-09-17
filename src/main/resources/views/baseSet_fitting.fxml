@@ -129,6 +129,30 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
+                        <Button mnemonicParsing="false" onAction="#importFaultShow" prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导入">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#exportFaultShow" prefHeight="30.0" prefWidth="60.0" styleClass="info" text="导出">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#exportFaultShowModel" prefHeight="30.0" prefWidth="100.0" styleClass="info" text="导入模板">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
+                        </Button>
                     </children>
                     <padding>
                         <Insets right="10.0" />

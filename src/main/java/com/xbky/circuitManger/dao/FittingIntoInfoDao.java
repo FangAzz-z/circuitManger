@@ -1,7 +1,10 @@
 package com.xbky.circuitManger.dao;
 
 import com.xbky.circuitManger.entity.FittingIntoInfo;
+import com.xbky.circuitManger.importexcel.BaseFaultShowImportObj;
+import com.xbky.circuitManger.importexcel.FittingIntoInfoImportObj;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +39,7 @@ public class FittingIntoInfoDao extends BaseDao{
     }
 
     public List<Map<String,Object>> queryByExample(FittingIntoInfo fii){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
         }
@@ -81,6 +84,21 @@ public class FittingIntoInfoDao extends BaseDao{
         map.put("data", list);
         map.put("total", total);
         return map;
+    }
+
+    public int  batchInsert(List<FittingIntoInfoImportObj> data){
+        if (CollectionUtils.isEmpty(data)) {
+            return 0;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("insert into ").append("CM_FITTING_INTO_INFO").append(" (fitting_no,fitting_name,fitting_model,factory,unit,create_time,update_time) values ");
+
+        for (FittingIntoInfoImportObj obj : data) {
+            sb.append(String.format("('%s','%s','%s','%s','%s',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP()),",obj.getFittingNo(),obj.getFittingName(),obj.getFittingModel(),obj.getFactory(),obj.getUnit()));
+        }
+        return super.update(sb.substring(0, sb.length() - 1).toString(), null);
     }
 
 }

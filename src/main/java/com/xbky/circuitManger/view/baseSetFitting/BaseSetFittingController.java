@@ -3,9 +3,10 @@ package com.xbky.circuitManger.view.baseSetFitting;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.FittingIntoInfoDao;
 import com.xbky.circuitManger.entity.FittingIntoInfo;
-import com.xbky.circuitManger.entity.ProductType;
+import com.xbky.circuitManger.export.FittingIntoInfoExportObj;
+import com.xbky.circuitManger.importexcel.FittingIntoInfoImportObj;
+import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
-import com.xbky.circuitManger.view.baseSetPt.BaseSetPtAddController;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
@@ -23,9 +24,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,6 +37,8 @@ import java.util.ResourceBundle;
 import static com.xbky.circuitManger.view.common.StageManager.nullWarn;
 
 public class BaseSetFittingController implements Initializable {
+
+    Logger logger = LoggerFactory.getLogger(BaseSetFittingController.class);
 
     @FXML
     public TextField tfNo;
@@ -174,6 +180,29 @@ public class BaseSetFittingController implements Initializable {
             dao.commonDeleteById("CM_FITTING_INTO_INFO", map.get("id") + "");
             refreshData();
         }
+    }
+
+    @FXML
+    void exportFaultShow(ActionEvent event) {
+        List<Map<String, Object>> dataList = this.dao.queryByExample(getSearchParam());
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("配件入库信息", FittingIntoInfoExportObj.getHeadMap(), dataList, FittingIntoInfoExportObj.class);
+    }
+
+    @FXML
+    void importFaultShow(ActionEvent event) {
+        List<FittingIntoInfoImportObj> data = ExcelUtil.chooseFileToRead(FittingIntoInfoImportObj.getHeadMap(), FittingIntoInfoImportObj.class);
+        if (!data.isEmpty()) {
+            int count = this.dao.batchInsert(data);
+            logger.info("导入故障数据成功 count = {}", count);
+            StageManager.infoWarn(String.format("导入成功"));
+            refreshData();
+        }
+    }
+
+    @FXML
+    void exportFaultShowModel(ActionEvent event) {
+        //      List<Map<String, Object>> dataList = this.dao.queryByExampleV2("CM_BASE_FAULT_SHOW", this.show_text_content.getText(),this.show_code.getText());
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("配件入库信息", FittingIntoInfoExportObj.getHeadMapModel(), new ArrayList(), FittingIntoInfoExportObj.class);
     }
 
 }
