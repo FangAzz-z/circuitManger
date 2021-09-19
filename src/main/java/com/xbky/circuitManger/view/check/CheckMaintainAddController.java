@@ -1,21 +1,28 @@
 package com.xbky.circuitManger.view.check;
 
+import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.utils.PrintUtil;
+import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -280,5 +287,30 @@ public class CheckMaintainAddController implements Initializable {
 
     public void createMaintainId(){
         this.wxId.setText(ObjectUtil.getWxId());
+    }
+
+    public void chooseOpen(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_CHOOSE.fxml()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 450, 400); // 页面大小
+        // StageManager.initStyle(dialog);
+        Stage dialog = new Stage();
+        dialog.setTitle(FxmlView.CHECK_FITTING_CHOOSE.title()); // 页面标题
+        dialog.setScene(scene);
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.initOwner(Main.mainStage);
+        dialog.centerOnScreen();
+        CheckFittingChooseController controller = loader.getController();
+        controller.setDialog(dialog);
+        controller.setResultHandle(a->{
+            Map<String,Object> map = (Map<String,Object>)a;
+            String desc = String.format("编号:%s,型号:%s,名称:%s,厂商:%s",
+                    ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_model")),
+                    ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("factory")));
+            taMaintainFitting.setText(ObjectUtil.isNull(taMaintainFitting.getText())?
+                    desc:(taMaintainFitting.getText()+"\n"+desc));
+            return a;
+        });
+        dialog.show();
     }
 }

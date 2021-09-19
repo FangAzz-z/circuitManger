@@ -43,8 +43,12 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="配件登记" />
-                        <TextArea fx:id="taMaintainFitting" prefHeight="100.0" prefWidth="600.0">
+                        <Label text="配件登记">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></Label>
+                        <Button onAction="#chooseOpen" mnemonicParsing="false" text="选择" />
+                        <TextArea fx:id="taMaintainFitting" prefHeight="90.0" prefWidth="555.0">
                            <HBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </HBox.margin></TextArea>
@@ -150,7 +154,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <TextField fx:id="tfId" disable="true" promptText="ID" visible="false" GridPane.columnIndex="2" />
-                  <TextField fx:id="wxId"  editable="false" promptText="维修单号" style="-fx-background-color:#F0F0F0">
+                  <TextField fx:id="wxId" editable="false" promptText="维修单号" style="-fx-background-color:#F0F0F0">
                      <GridPane.margin>
                         <Insets right="50.0" />
                      </GridPane.margin>
