@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProductTypeDao extends BaseDao {
 
@@ -76,16 +77,27 @@ public class ProductTypeDao extends BaseDao {
         return map;
     }
 
-    private List<ProductType> fillElement(List<Map<String,Object>> tempList){
-        List<ProductType> result = new ArrayList<>();
-        for (Map<String, Object> map : tempList) {
-            ProductType pt = new ProductType();
-            pt.setId((Long)map.get("id"));
-            pt.setCategory((String)map.get("category"));
-            pt.setModel((String)map.get("model"));
-            pt.setBrand(((String)map.get("brand")));
-            result.add(pt);
-        }
-        return result;
+    public List<String> queryAllCategory(){
+        StringBuffer sql = new StringBuffer("select distinct category from CM_PRODUCT_TYPE where 1=1 ");
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        List<String> dataList = list.stream().map(t->ObjectUtil.getString(t.get("category"))).collect(Collectors.toList());
+        return dataList;
+    }
+
+    public List<String> queryBrandByCategory(String category) {
+        StringBuffer sql = new StringBuffer("select distinct brand from CM_PRODUCT_TYPE where 1=1 ");
+        sql.append(String.format(" and category = '%s'",category));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        List<String> dataList = list.stream().map(t->ObjectUtil.getString(t.get("brand"))).collect(Collectors.toList());
+        return dataList;
+    }
+
+    public List<String> queryModelByBrand(String category,String brand) {
+        StringBuffer sql = new StringBuffer("select distinct model from CM_PRODUCT_TYPE where 1=1 ");
+        sql.append(String.format(" and category = '%s'",category));
+        sql.append(String.format(" and brand = '%s'",brand));
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        List<String> dataList = list.stream().map(t->ObjectUtil.getString(t.get("model"))).collect(Collectors.toList());
+        return dataList;
     }
 }

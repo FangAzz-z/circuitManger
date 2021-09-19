@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view.check;
 
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
+import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.utils.PrintUtil;
@@ -57,6 +58,7 @@ public class CheckMaintainAddController implements Initializable {
     public TextField wxId;
 
     CheckMaintainRecordDao dao = new CheckMaintainRecordDao();
+    ProductTypeDao ptDao = new ProductTypeDao();
 
     private  static Stage dialog = null;
     private  static Runnable resultHandle = null;
@@ -68,18 +70,23 @@ public class CheckMaintainAddController implements Initializable {
         List<String> methodList =  dao.commonQueryAll("CM_BASE_MAINTAIN_METHOD").stream().map(a->((String)a.get("content"))).collect(Collectors.toList());
         List<String> resultList =  dao.commonQueryAll("CM_BASE_HANDLE_RESULT").stream().map(a->((String)a.get("content"))).collect(Collectors.toList());
         List<String> userName = dao.commonQueryAll("CM_MAINTAIN_USER").stream().map(a->(a.get("department")+((String)a.get("name")))).collect(Collectors.toList());
-
-        List<String> category = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("category"))).collect(Collectors.toList());
-        List<String> model = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("model"))).collect(Collectors.toList());
-        List<String> brand = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("brand"))).collect(Collectors.toList());
-        queryModel.setItems(FXCollections.observableArrayList(model));
-        queryCategory.setItems(FXCollections.observableArrayList(category));
-        queryBrand.setItems(FXCollections.observableArrayList(brand));
         queryUser.setItems(FXCollections.observableArrayList(userName));
         queryStatus.setItems(FXCollections.observableArrayList(statusList));
         queryShow.setItems(FXCollections.observableArrayList(showList));
         queryMethod.setItems(FXCollections.observableArrayList(methodList));
         queryResult.setItems(FXCollections.observableArrayList(resultList));
+
+        //类别 品牌 型号 联动
+        List<String> category = ptDao.queryAllCategory();
+        queryCategory.setItems(FXCollections.observableArrayList(category));
+        queryCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
+            queryBrand.setItems(FXCollections.observableArrayList(brand));
+        });
+        queryBrand.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(),ObjectUtil.getString(newValue));
+            queryModel.setItems(FXCollections.observableArrayList(model));
+        });
     }
 
     public  Stage getDialog() {

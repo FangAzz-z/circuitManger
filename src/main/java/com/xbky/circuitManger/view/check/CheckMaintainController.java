@@ -101,6 +101,7 @@ public class CheckMaintainController implements Initializable {
     public Pagination pageSet;
 
     CheckMaintainRecordDao dao = new CheckMaintainRecordDao();
+    ProductTypeDao ptDao = new ProductTypeDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -125,14 +126,20 @@ public class CheckMaintainController implements Initializable {
 
         List<String> statusList =  dao.commonQueryAll("CM_BASE_PT_STATUS").stream().map(a->((String)a.get("content"))).collect(Collectors.toList());
         List<String> userName = dao.commonQueryAll("CM_MAINTAIN_USER").stream().map(a->(a.get("department")+((String)a.get("name")))).collect(Collectors.toList());
-        List<String> category = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("category"))).collect(Collectors.toList());
-        List<String> model = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("model"))).collect(Collectors.toList());
-        List<String> brand = dao.commonQueryAll("CM_PRODUCT_TYPE").stream().map(a->((String)a.get("brand"))).collect(Collectors.toList());
-        queryModel.setItems(FXCollections.observableArrayList(model));
-        queryCategory.setItems(FXCollections.observableArrayList(category));
-        queryBrand.setItems(FXCollections.observableArrayList(brand));
         queryUser.setItems(FXCollections.observableArrayList(userName));
         queryStatus.setItems(FXCollections.observableArrayList(statusList));
+
+        //类别 品牌 型号 联动
+        List<String> category = ptDao.queryAllCategory();
+        queryCategory.setItems(FXCollections.observableArrayList(category));
+        queryCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
+            queryBrand.setItems(FXCollections.observableArrayList(brand));
+        });
+        queryBrand.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(),ObjectUtil.getString(newValue));
+                    queryModel.setItems(FXCollections.observableArrayList(model));
+        });
 
         //行选择事件
         userTable.setRowFactory( tv -> {
@@ -146,7 +153,6 @@ public class CheckMaintainController implements Initializable {
             return row ;
         });
     }
-
 
     public void addData(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_MAINTAIN_DIALOG.fxml()));
