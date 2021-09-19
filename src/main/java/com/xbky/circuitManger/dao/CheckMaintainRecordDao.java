@@ -1,11 +1,8 @@
 package com.xbky.circuitManger.dao;
 
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
-import com.xbky.circuitManger.utils.IdMaker;
 import com.xbky.circuitManger.utils.ObjectUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

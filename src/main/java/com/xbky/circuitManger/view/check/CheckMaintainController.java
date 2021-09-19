@@ -162,6 +162,7 @@ public class CheckMaintainController implements Initializable {
         CheckMaintainAddController controller = loader.getController();
         controller.setDialog(dialog);
         controller.setResultHandle(()->{refreshData();});
+        controller.createMaintainId();
         dialog.show();
     }
 

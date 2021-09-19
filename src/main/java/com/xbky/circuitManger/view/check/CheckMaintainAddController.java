@@ -1,27 +1,19 @@
 package com.xbky.circuitManger.view.check;
 
-import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
-import com.xbky.circuitManger.utils.ImageUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.utils.PrintUtil;
-import com.xbky.circuitManger.view.baseSetUser.BaseSetUserAddController;
-import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -277,5 +269,9 @@ public class CheckMaintainAddController implements Initializable {
         this.queryUser.setValue(ObjectUtil.getString(map.get("maintain_user")));
         this.taMaintainDesc.setText(ObjectUtil.getString(map.get("maintain_desc")));
         this.taMaintainFitting.setText(ObjectUtil.getString(map.get("maintain_fitting")));
+    }
+
+    public void createMaintainId(){
+        this.wxId.setText(ObjectUtil.getWxId());
     }
 }
