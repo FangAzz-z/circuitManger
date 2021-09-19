@@ -8,10 +8,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class ObjectUtil {
     public static String standTimeFormat = "yyyy-MM-dd HH:mm:ss";
     public static String EMPTY_STRING = "";
+    public static Pattern pattern = Pattern.compile("^[-+]?[d]*$");
 
     public static boolean isNull(Object param)
     {
@@ -136,5 +138,17 @@ public class ObjectUtil {
         Date date = new Date(System.currentTimeMillis());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(date);
+    }
+
+    public static boolean isInteger(String str) {
+        for (int i = str.length();--i>=0;){
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isNotInteger(String str) {
+        return !isInteger(str);
     }
 }

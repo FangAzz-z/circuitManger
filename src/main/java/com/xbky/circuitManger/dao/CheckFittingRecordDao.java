@@ -27,6 +27,9 @@ public class CheckFittingRecordDao extends BaseDao{
         if (ObjectUtil.isNotNull(record.getFittingName())) {
             sql.append(String.format(",fitting_name = '%s'",record.getFittingName()));
         }
+        if (ObjectUtil.isNotNull(record.getLowLimit())) {
+            sql.append(String.format(",low_limit = '%s'",record.getLowLimit()));
+        }
         sql.append(String.format(" where id = '%s'",record.getId()));
         sql.append(" order by update_time desc");
         return super.update(sql.toString(),null);
@@ -37,10 +40,10 @@ public class CheckFittingRecordDao extends BaseDao{
         if(ObjectUtil.isNotNull(record.getFittingNo())){
             sql.append(" and LOWER(fitting_no) like '%").append(record.getFittingNo().toLowerCase()).append("%' ");
         }
-        if(ObjectUtil.isNotNull(record.getFittingNo())){
+        if(ObjectUtil.isNotNull(record.getFittingModel())){
             sql.append(" and LOWER(fitting_model) like '%").append(record.getFittingModel().toLowerCase()).append("%' ");
         }
-        if(ObjectUtil.isNotNull(record.getFittingNo())){
+        if(ObjectUtil.isNotNull(record.getFittingName())){
             sql.append(" and LOWER(fitting_name) like '%").append(record.getFittingName().toLowerCase()).append("%' ");
         }
         int count =  super.queryForList(sql.toString(), null).size();

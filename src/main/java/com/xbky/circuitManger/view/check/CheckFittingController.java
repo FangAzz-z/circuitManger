@@ -5,6 +5,7 @@ import com.xbky.circuitManger.dao.CheckFittingRecordDao;
 import com.xbky.circuitManger.entity.CheckFittingRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
+import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,6 +45,12 @@ public class CheckFittingController implements Initializable {
     public TableColumn num;
     @FXML
     public TableColumn lowLimit;
+    @FXML
+    public TextField tfModel;
+    @FXML
+    public TextField tfName;
+    @FXML
+    public TextField tfNo;
 
     CheckFittingRecordDao dao = new CheckFittingRecordDao();
 
@@ -74,9 +82,9 @@ public class CheckFittingController implements Initializable {
 
     private CheckFittingRecord getSearchParam() {
         CheckFittingRecord record = new CheckFittingRecord();
-        record.setFittingNo(this.no.getText());
-        record.setFittingName(this.name.getText());
-        record.setFittingModel(this.model.getText());
+        record.setFittingNo(this.tfNo.getText());
+        record.setFittingName(this.tfName.getText());
+        record.setFittingModel(this.tfModel.getText());
         return record;
     }
 
@@ -88,25 +96,23 @@ public class CheckFittingController implements Initializable {
         return userTable;
     }
 
-    public void cancelSubmit(ActionEvent actionEvent) {
-    }
-
-    public void submitData(ActionEvent actionEvent) {
-    }
-
     public void reset(ActionEvent actionEvent) {
+        this.tfNo.clear();
+        this.tfModel.clear();
+        this.tfName.clear();
     }
 
     public void query(ActionEvent actionEvent) {
+        refreshData();
     }
 
     public void addData(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_MAINTAIN_DIALOG.fxml()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_DIALOG.fxml()));
         Parent root = loader.load();
         Scene scene = new Scene(root, 750, 600); // 页面大小
         // StageManager.initStyle(dialog);
         Stage dialog = new Stage();
-        dialog.setTitle("维修登记单-添加"); // 页面标题
+        dialog.setTitle("配件库存单-添加"); // 页面标题
         dialog.setScene(scene);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(Main.mainStage);
@@ -117,9 +123,38 @@ public class CheckFittingController implements Initializable {
         dialog.show();
     }
 
-    public void modifyData(ActionEvent actionEvent) {
+    public void modifyData(ActionEvent actionEvent) throws IOException {
+        Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
+        if (ObjectUtil.isNull(map)) {
+            StageManager.nullWarn("请选中某一行");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_DIALOG.fxml()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 750, 600); // 页面大小
+        // StageManager.initStyle(dialog);
+        Stage dialog = new Stage();
+        dialog.setTitle("配件库存单-修改"); // 页面标题
+        dialog.setScene(scene);
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.initOwner(Main.mainStage);
+        dialog.centerOnScreen();
+        CheckFittingAddController controller = loader.getController();
+        controller.setDialog(dialog);
+        controller.setResultHandle(()->{refreshData();});
+        controller.setBaseData(map);
+        dialog.show();
     }
 
     public void deleteData(ActionEvent actionEvent) {
+        Map<String,Object> map = (Map)userTable.getSelectionModel().getSelectedItem();
+        if (ObjectUtil.isNull(map)) {
+            StageManager.nullWarn();
+            return;
+        }
+        if(StageManager.deleteTrue()) {
+            dao.commonDeleteById("CM_CHECK_FITTING_RECORD", map.get("id") + "");
+            refreshData();
+        }
     }
 }
