@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 public class ObjectUtil {
     public static String standTimeFormat = "yyyy-MM-dd HH:mm:ss";
     public static String EMPTY_STRING = "";
-    public static Pattern pattern = Pattern.compile("^[-+]?[d]*$");
 
     public static boolean isNull(Object param)
     {
