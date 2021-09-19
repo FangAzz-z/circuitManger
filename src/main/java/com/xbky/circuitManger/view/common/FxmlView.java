@@ -75,6 +75,12 @@ public enum FxmlView {
         @Override
         public String fxml() {return "/views/check_maintain.fxml";}
     },
+    CHECK_FITTING_DIALOG{
+        @Override
+        public String title() {return "配件登记单-添加";}
+        @Override
+        public String fxml() {return "/views/dialogs/check_fitting_dialog.fxml";}
+    },
     CHECK_FITTING{
         @Override
         public String title() {return "配件登记单";}

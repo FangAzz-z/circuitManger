@@ -5,9 +5,10 @@ import java.util.Date;
 public class CheckFittingRecord {
     private Long id;
     private String fittingModel;
-    private String fittingNum;
+    private Integer fittingNum;
     private String fittingNo;
     private String fittingName;
+    private Integer lowLimit;
     private Date createTime;
     private Date updateTime;
 
@@ -28,11 +29,11 @@ public class CheckFittingRecord {
         this.fittingModel = fittingModel;
     }
 
-    public String getFittingNum() {
+    public Integer getFittingNum() {
         return fittingNum;
     }
 
-    public void setFittingNum(String fittingNum) {
+    public void setFittingNum(Integer fittingNum) {
         this.fittingNum = fittingNum;
     }
 
@@ -66,5 +67,13 @@ public class CheckFittingRecord {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getLowLimit() {
+        return lowLimit;
+    }
+
+    public void setLowLimit(Integer lowLimit) {
+        this.lowLimit = lowLimit;
     }
 }

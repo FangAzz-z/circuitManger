@@ -85,10 +85,10 @@ public class AppIntializer {
                         "maintain_fitting varchar(255),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
-            //配件登记单
+            //配件库存单
             if(!isExist(statement,"CM_CHECK_FITTING_RECORD")){
                 log.info("数据表->CM_CHECK_FITTING_RECORD 初始化");
-                String sql = "create table CM_CHECK_FITTING_RECORD(id bigint(11) primary key auto_increment, fitting_model varchar(50),fitting_num varchar(50),fitting_no varchar(50),fitting_name varchar(50),create_time datetime,update_time datetime)";
+                String sql = "create table CM_CHECK_FITTING_RECORD(id bigint(11) primary key auto_increment, fitting_model varchar(50),fitting_num int,fitting_no varchar(50),fitting_name varchar(50),low_limit int,create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
             //程序配置地址
