@@ -17,21 +17,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Statement;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -64,6 +68,8 @@ public class MainController implements Initializable {
     public VBox wxManager;
     @FXML
     public VBox systemSet;
+    @FXML
+    public BorderPane mainPane;
 
     //主界面按钮
     @FXML
@@ -143,6 +149,15 @@ public class MainController implements Initializable {
                 });
             }
         }
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        String imageUrl = getClass().getResource("/icons/bj.jpeg").toExternalForm();
+        BackgroundImage myBI= new BackgroundImage(new Image(imageUrl,width,height,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        mainPane.setBackground(new Background(myBI));
 
     }
 
