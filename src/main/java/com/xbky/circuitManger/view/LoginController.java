@@ -18,7 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.List;
@@ -68,19 +70,16 @@ public class LoginController implements Initializable {
             }
             loginName = tfName.getText();
             stage.hide();
-            Stage primaryStage = Main.mainStage;
-            primaryStage.setTitle("产品维修管理软件"); // 页面标题
-            primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.MAIN.fxml()));
-            Parent root = loader.load(getClass().getResource(FxmlView.MAIN.fxml())); // 页面对应的fxml
-//            MainController controller = loader.getController();
-//            controller.setModule();
-            Scene primarySence = new Scene(root, 1600, 800); // 页面大小
-            primaryStage.setScene(primarySence);
-            primaryStage.setOnCloseRequest(event -> {
-                Main.closeAllPopups(event);
-            });
-            primaryStage.show();
+            Stage secondStage = new Stage();
+            secondStage.setTitle(FxmlView.MAIN_SYSTEM.title()); // 页面标题
+            secondStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
+            //secondStage .initStyle(StageStyle.UTILITY);
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+            secondStage.initOwner(Main.mainStage);
+            Parent root = StageManager.loadViewNodeHierarchy(FxmlView.MAIN_SYSTEM.fxml());
+            Scene primarySence = new Scene(root, 1200, 640); // 页面大小
+            secondStage.setScene(primarySence);
+            secondStage.show();
         } catch (Exception e) {
 
         }

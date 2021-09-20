@@ -42,7 +42,7 @@
                                                 <Image url="@../icons/logo2.png" />
                                             </image>
                                         </ImageView>-->
-                                        <Text fill="#333333" strokeType="OUTSIDE" strokeWidth="0.0" text="维修管理系统">
+                                        <Text fill="#333333" strokeType="OUTSIDE" strokeWidth="0.0" text="系统维护">
                                             <HBox.margin>
                                                 <Insets left="10.0" />
                                             </HBox.margin>

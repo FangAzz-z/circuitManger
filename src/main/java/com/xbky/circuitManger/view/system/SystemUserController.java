@@ -100,7 +100,7 @@ public class SystemUserController implements Initializable {
         dialog.centerOnScreen();
         SystemUserAddController  controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setBaseData((String)map.get("id"),(String)map.get("user_name"),(String)map.get("user_password"));
+        controller.setBaseData(ObjectUtil.getString(map.get("id")),(String)map.get("user_name"),(String)map.get("user_password"));
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
     }

@@ -1,5 +1,6 @@
 package com.xbky.circuitManger.view;
 
+import com.xbky.circuitManger.LoginManager;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.SystemUserDao;
 import com.xbky.circuitManger.dao.SystemUserRoleDao;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
@@ -144,12 +146,6 @@ public class MainController implements Initializable {
 
     }
 
-
-
-
-
-
-
     private void updateBody(FxmlView view) {
         title.setText(view.title());
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.fxml());
@@ -229,7 +225,8 @@ public class MainController implements Initializable {
     }
 
     public void systemSet(ActionEvent actionEvent) {
-        openModule(FxmlView.MAIN_SYSTEM);
+        LoginManager.loadLogin();
+       // openModule(FxmlView.MAIN_SYSTEM);
     }
 
     /**
@@ -252,8 +249,9 @@ public class MainController implements Initializable {
         secondStage = new Stage();
         secondStage.setTitle(view.title()); // 页面标题
         secondStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
-        secondStage .initStyle(StageStyle.UTILITY);
+        //secondStage.initStyle(StageStyle.UTILITY);
         secondStage.initOwner(Main.mainStage);
+        secondStage.initModality(Modality.APPLICATION_MODAL);
         Parent root = loadViewNodeHierarchy(view.fxml());
         Scene primarySence = new Scene(root, 1200, 640); // 页面大小
         secondStage.setScene(primarySence);
