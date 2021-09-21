@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,6 +37,8 @@ public class CheckFittingAddController implements Initializable {
     public TextField tfNum;
     @FXML
     public TextField tfLowLimit;
+    @FXML
+    public Button chooseOpen;
 
 
     CheckFittingRecordDao dao = new CheckFittingRecordDao();
@@ -104,6 +107,10 @@ public class CheckFittingAddController implements Initializable {
         record.setFittingNum(ObjectUtil.getInt(this.tfNum.getText()));
         record.setLowLimit(ObjectUtil.getInt(this.tfLowLimit.getText()));
         if(ObjectUtil.isNull(tfId.getText())) {
+            if(dao.getRecordByNo(record.getFittingNo())!=null){
+                StageManager.nullWarn(String.format("编号为%s配件已存在!"));
+                return;
+            }
             dao.add(record);
         }else{
             record.setId(ObjectUtil.getLong(tfId.getText()));
@@ -120,10 +127,14 @@ public class CheckFittingAddController implements Initializable {
     public void setBaseData(Map<String,Object> map){
         this.tfId.setText(ObjectUtil.getString(map.get("id")));
         this.cbNo.setText(ObjectUtil.getString(map.get("fitting_no")));
+        this.cbNo.setEditable(false);
         this.cbModel.setText(ObjectUtil.getString(map.get("fitting_model")));
+        this.cbModel.setEditable(false);
         this.cbName.setText(ObjectUtil.getString(map.get("fitting_name")));
+        this.cbName.setEditable(false);
         this.tfNum.setText(ObjectUtil.getString(map.get("fitting_num")));
         this.tfLowLimit.setText(ObjectUtil.getString(map.get("low_limit")));
+        chooseOpen.setVisible(false);
     }
     public void chooseOpen(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_CHOOSE.fxml()));

@@ -150,4 +150,9 @@ public class CheckMaintainRecordDao extends BaseDao {
         map.put("total", total);
         return map;
     }
+    public Map<String, Object> queryById(Long id) {
+        String sql = String.format("select * from CM_CHECK_MAINTAIN_RECORD where id = %s", id);
+        return super.queryForMap(sql.toString(), null);
+    }
+
 }

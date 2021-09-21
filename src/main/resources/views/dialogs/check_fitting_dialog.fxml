@@ -50,7 +50,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#chooseOpen" text="选择">
+                        <Button fx:id="chooseOpen" mnemonicParsing="false" onAction="#chooseOpen" text="选择">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

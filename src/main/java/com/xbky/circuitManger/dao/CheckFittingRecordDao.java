@@ -55,4 +55,24 @@ public class CheckFittingRecordDao extends BaseDao{
         map.put("total", total);
         return map;
     }
+
+    public Map<String, Object> getRecordByNo(String no) {
+        String sql = String.format("select * from CM_CHECK_FITTING_RECORD where fitting_no = '%s'",no);
+        return super.queryForMap(sql,null);
+    }
+
+    public int getNumByNo(String no) {
+        Map map = getRecordByNo(no);
+        if(map!=null)
+            return ObjectUtil.getInt(map.get("fitting_num"));
+        return 0;
+    }
+
+    public int updateFittingNum(int num, String no) {
+        String sql = String.format("update CM_CHECK_FITTING_RECORD set fitting_num = fitting_num - %s where fitting_no = '%s'", num, no);
+        return super.update(sql, null);
+    }
+
+
+
 }

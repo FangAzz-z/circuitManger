@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view.check;
 
 import com.xbky.circuitManger.Main;
+import com.xbky.circuitManger.dao.CheckFittingRecordDao;
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
@@ -64,6 +65,7 @@ public class CheckMaintainAddController implements Initializable {
 
     CheckMaintainRecordDao dao = new CheckMaintainRecordDao();
     ProductTypeDao ptDao = new ProductTypeDao();
+    CheckFittingRecordDao fittingDao = new CheckFittingRecordDao();
 
     private  static Stage dialog = null;
     private  static Runnable resultHandle = null;
@@ -178,6 +180,16 @@ public class CheckMaintainAddController implements Initializable {
             record.setMaintainId(this.wxId.getText());
         }
         record.setId(ObjectUtil.getLong(tfId.getText()));
+        //校验配件库存
+        Map<String,Integer> countMap = checkFittingSum(record);
+        String errorMsg = checkFittingNum(countMap);
+        if(ObjectUtil.isNotNull(errorMsg)){
+            StageManager.nullWarn(errorMsg);
+            return;
+        }
+        //更新保存数据
+        updateFittingNum(countMap);
+        checkFittingLowLimit(countMap);
         if(ObjectUtil.isNull(record.getId())) {
             dao.add(record);
         }else{
@@ -251,6 +263,17 @@ public class CheckMaintainAddController implements Initializable {
             record.setMaintainId(this.wxId.getText());
         }
         record.setId(ObjectUtil.getLong(tfId.getText()));
+
+        //校验配件库存
+        Map<String,Integer> countMap = checkFittingSum(record);
+        String errorMsg = checkFittingNum(countMap);
+        if(ObjectUtil.isNotNull(errorMsg)){
+            StageManager.nullWarn(errorMsg);
+            return;
+        }
+        //更新保存数据
+        updateFittingNum(countMap);
+        checkFittingLowLimit(countMap);
         if(ObjectUtil.isNull(record.getId())) {
             dao.add(record);
         }else{
@@ -359,20 +382,69 @@ public class CheckMaintainAddController implements Initializable {
         taMaintainFitting.setText(desc);*/
     }
 
-    private boolean checkFittingSum(CheckMaintainRecord record){
-        if(ObjectUtil.isNull(record.getMaintainFitting())){
-            return true;
-        }
-        String [] fittings = record.getMaintainFitting().split("\n");
+    private Map<String,Integer> checkFittingSum(CheckMaintainRecord record){
         Map<String,Integer> countMap = new HashMap<>();
-        for (int i = 0; i < fittings.length; i++) {
-               // fittings[i].
+        if(ObjectUtil.isNotNull(record.getMaintainFitting())){
+            String [] fittings = record.getMaintainFitting().split("\n");
+            for (int i = 0; i < fittings.length; i++) {
+                String [] ss = fittings[i].split(",");
+                String no = ss[0].split(":")[1];
+                String value = ss[3].split(":")[1];
+                countMap.put(no,ObjectUtil.getInt(value));
+            }
         }
-        if(ObjectUtil.isNull(record.getId())) {
-            dao.add(record);
-        }else{
-            dao.modify(record);
+        if(ObjectUtil.isNotNull(record.getId())) {
+            Map fMap = dao.queryById(record.getId());
+            if(fMap!=null&&ObjectUtil.isNotNull(fMap.get("maintain_fitting"))){
+                String [] hasFittings = ObjectUtil.getString(fMap.get("maintain_fitting")).split("\n");
+                for (int i = 0; i < hasFittings.length; i++) {
+                    String [] ss = hasFittings[i].split(",");
+                    String no = ss[0].split(":")[1];
+                    String value = ss[3].split(":")[1];
+                    if(countMap.containsKey(no)) {
+                        countMap.put(no, countMap.get(no)-ObjectUtil.getInt(value));
+                    }else{
+                        countMap.put(no,0-ObjectUtil.getInt(value));
+                    }
+                }
+            }
         }
-        return false;
+        return countMap;
+    }
+
+    private String checkFittingNum(Map<String,Integer> countMap){
+        if (countMap == null) {
+            return "";
+        }
+        Set<Map.Entry<String, Integer>> set = countMap.entrySet();
+        for (Map.Entry<String, Integer> entry : set) {
+            if(this.fittingDao.getNumByNo(entry.getKey())<entry.getValue()){
+                return String.format("编号:%s 配件库存数量不足",entry.getKey());
+            }
+        }
+        return "";
+    }
+
+    private void checkFittingLowLimit(Map<String,Integer> countMap){
+        if (countMap == null) {
+            return;
+        }
+        Set<Map.Entry<String, Integer>> set = countMap.entrySet();
+        for (Map.Entry<String, Integer> entry : set) {
+            Map<String,Object> map = this.fittingDao.getRecordByNo(entry.getKey());
+            if(map!=null&&ObjectUtil.getInt(map.get("fitting_num"))<ObjectUtil.getInt(map.get("low_limit"))){
+               StageManager.nullWarn(String.format("编号:%s 配件库存数量低于预警值，请及时补充库存",entry.getKey()));
+            }
+        }
+    }
+
+    private void updateFittingNum(Map<String,Integer> countMap){
+        if (countMap == null) {
+            return ;
+        }
+        Set<Map.Entry<String, Integer>> set = countMap.entrySet();
+        for (Map.Entry<String, Integer> entry : set) {
+            this.fittingDao.updateFittingNum(entry.getValue(), entry.getKey());
+        }
     }
 }
