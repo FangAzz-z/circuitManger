@@ -44,8 +44,8 @@ public class CheckMainListController implements Initializable {
     public void setListItems(Map<String,Object> map) {
         String str = "id:"+ObjectUtil.getString(map.get("id"));
         String str1 = "维修单号:" + ObjectUtil.getString(map.get("maintain_id"));
-        String str2 = "接收日期:" + ObjectUtil.getString(map.get("receive_date"));
-        String str3 = "完成日期:" + ObjectUtil.getString(map.get("complete_date"));
+        String str2 = String.format("接收日期:%s" , ObjectUtil.getString(map.get("receive_date"))==null?"":ObjectUtil.getString(map.get("receive_date")));
+        String str3 = String.format("完成日期:%s" , ObjectUtil.getString(map.get("complete_date"))==null?"":ObjectUtil.getString(map.get("complete_date")));
         String str4 = "维修卡编号:" + ObjectUtil.getString(map.get("maintain_card_no"));
         String str5 = "产品型号:" + ObjectUtil.getString(map.get("maintain_card_model"));
         String str6 = "产品品牌:" + ObjectUtil.getString(map.get("maintain_card_brand"));
