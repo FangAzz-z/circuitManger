@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CheckMaintainAddController implements Initializable {
@@ -179,10 +177,10 @@ public class CheckMaintainAddController implements Initializable {
         else {
             record.setMaintainId(this.wxId.getText());
         }
-        if(ObjectUtil.isNull(tfId.getText())) {
+        record.setId(ObjectUtil.getLong(tfId.getText()));
+        if(ObjectUtil.isNull(record.getId())) {
             dao.add(record);
         }else{
-            record.setId(ObjectUtil.getLong(tfId.getText()));
             dao.modify(record);
         }
         if(dialog!=null) {
@@ -252,10 +250,10 @@ public class CheckMaintainAddController implements Initializable {
         else {
             record.setMaintainId(this.wxId.getText());
         }
-        if(ObjectUtil.isNull(tfId.getText())) {
+        record.setId(ObjectUtil.getLong(tfId.getText()));
+        if(ObjectUtil.isNull(record.getId())) {
             dao.add(record);
         }else{
-            record.setId(ObjectUtil.getLong(tfId.getText()));
             dao.modify(record);
         }
         if(dialog!=null) {
@@ -296,33 +294,85 @@ public class CheckMaintainAddController implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root, 450, 400); // 页面大小
         // StageManager.initStyle(dialog);
-        Stage dialog = new Stage();
-        dialog.setTitle(FxmlView.CHECK_FITTING_CHOOSE.title()); // 页面标题
-        dialog.setScene(scene);
-        dialog.initStyle(StageStyle.UTILITY);
-        dialog.initOwner(Main.mainStage);
-        dialog.centerOnScreen();
+        Stage choosedialog = new Stage();
+        choosedialog.setTitle(FxmlView.CHECK_FITTING_CHOOSE.title()); // 页面标题
+        choosedialog.setScene(scene);
+        choosedialog.initStyle(StageStyle.UTILITY);
+        choosedialog.initOwner(dialog);
+        choosedialog.centerOnScreen();
         CheckFittingChooseController controller = loader.getController();
-        controller.setDialog(dialog);
+        controller.setDialog(choosedialog);
         controller.setResultHandle(a->{
             Map<String,Object> map = (Map<String,Object>)a;
+            String desc0 = taMaintainFitting.getText();
+            if(ObjectUtil.isNotNull(desc0)&&desc0.contains(String.format(":%s,",ObjectUtil.getString(map.get("fitting_no"))))){
+                StageManager.nullWarn("该编号的配件已存在，若需修改请先清除！");
+                return a;
+            }
             String desc = String.format("编号:%s,型号:%s,名称:%s,数量:%s",
                     ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_model")),
                     ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("num")));
-            taMaintainFitting.setText(ObjectUtil.isNull(taMaintainFitting.getText())?
-                    desc:(taMaintainFitting.getText()+"\n"+desc));
+            taMaintainFitting.setText(ObjectUtil.isNull(desc0)?
+                    desc:(desc0+"\n"+desc));
             return a;
         });
-        dialog.show();
+        choosedialog.show();
     }
 
-    public void chooseClear(ActionEvent actionEvent) {
+    public void chooseClear(ActionEvent actionEvent) throws IOException {
         String desc = taMaintainFitting.getText();
-        if(desc.indexOf("\n")>0){
+        if(ObjectUtil.isNull(desc))
+            return;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_CLEAR.fxml()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 450, 400); // 页面大小
+        // StageManager.initStyle(dialog);
+        Stage choosedialog = new Stage();
+        choosedialog.setTitle(FxmlView.CHECK_FITTING_CLEAR.title()); // 页面标题
+        choosedialog.setScene(scene);
+        choosedialog.initStyle(StageStyle.UTILITY);
+        choosedialog.initOwner(dialog);
+        choosedialog.centerOnScreen();
+        CheckFittingClearController controller = loader.getController();
+        controller.setDialog(choosedialog);
+
+        controller.setResultHandle(a->{
+            String des0 = desc.replaceAll(a+"\n","");
+            String desc1 = des0.replaceAll((String)a,"");
+            if(ObjectUtil.isNotNull(desc1)&&desc1.endsWith("\n")){
+                desc1 = desc1.substring(0,desc1.length()-1);
+            }
+            taMaintainFitting.setText(desc1);
+            return a;
+        });
+        List<String> listStr =Arrays.asList(desc.split("\n"));
+        controller.setBaseData(listStr);
+        choosedialog.show();
+
+
+        /*if(desc.indexOf("\n")>0){
             desc = desc.substring(0,desc.lastIndexOf("\n"));
         }else{
             desc = "";
         }
-        taMaintainFitting.setText(desc);
+        taMaintainFitting.setText(desc);*/
+    }
+
+    private boolean checkFittingSum(CheckMaintainRecord record){
+        if(ObjectUtil.isNull(record.getMaintainFitting())){
+            return true;
+        }
+        String [] fittings = record.getMaintainFitting().split("\n");
+        Map<String,Integer> countMap = new HashMap<>();
+        for (int i = 0; i < fittings.length; i++) {
+               // fittings[i].
+        }
+        if(ObjectUtil.isNull(record.getId())) {
+            dao.add(record);
+        }else{
+            dao.modify(record);
+        }
+        return false;
     }
 }

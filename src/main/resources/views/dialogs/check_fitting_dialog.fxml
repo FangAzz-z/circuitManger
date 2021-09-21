@@ -27,12 +27,12 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#cancelSubmit" mnemonicParsing="false" text="取消">
+                  <Button mnemonicParsing="false" onAction="#cancelSubmit" text="取消">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button onAction="#submitData" mnemonicParsing="false" text="提交" />
+                  <Button mnemonicParsing="false" onAction="#submitData" text="提交" />
                </children>
             </HBox>
          </bottom>
@@ -50,27 +50,41 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                         <TextField fx:id="cbModel" promptText="配件型号" />
+                        <Button mnemonicParsing="false" onAction="#chooseOpen" text="选择">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                         <TextField fx:id="cbModel" prefHeight="23.0" prefWidth="150.0" promptText="配件型号" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                         <TextField fx:id="cbName" promptText="配件名称" />
+                         <TextField fx:id="cbName" prefHeight="23.0" prefWidth="150.0" promptText="配件名称">
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin></TextField>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                         <TextField fx:id="cbNo" promptText="配件编号" />
+                         <TextField fx:id="cbNo" prefHeight="23.0" prefWidth="150.0" promptText="配件编号" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="tfNum" promptText="配件数量" />
+                        <TextField fx:id="tfNum" prefWidth="150.0" promptText="配件数量">
+                           <HBox.margin>
+                              <Insets left="48.0" />
+                           </HBox.margin></TextField>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                         <TextField fx:id="tfLowLimit" promptText="低限预警" />
+                         <TextField fx:id="tfLowLimit" prefWidth="150.0" promptText="低限预警">
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin></TextField>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">

@@ -58,8 +58,8 @@
             <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="no" prefWidth="75.0" text="配件编号" />
-                <TableColumn fx:id="model" prefWidth="127.20001220703125" text="配件名称" />
-                <TableColumn fx:id="name" prefWidth="154.4000244140625" text="配件型号" />
+                <TableColumn fx:id="name" prefWidth="127.20001220703125" text="配件名称" />
+                <TableColumn fx:id="model" prefWidth="154.4000244140625" text="配件型号" />
                 <TableColumn fx:id="factory" prefWidth="83.20001220703125" text="厂家" />
               </columns>
             </TableView>
