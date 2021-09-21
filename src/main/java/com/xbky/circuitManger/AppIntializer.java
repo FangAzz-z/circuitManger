@@ -116,6 +116,12 @@ public class AppIntializer {
                 String sql = "create table CM_SYSTEM_USER_MODULE(id bigint(11) primary key auto_increment, user_name varchar(50),module_name varchar(50),create_time datetime,update_time datetime)";
                 statement.execute(sql);
             }
+            if(!isExist(statement,"CM_SYSTEM_SET_SCREEN")){
+                log.info("数据表->CM_SYSTEM_SET_SCREEN 初始化");
+                String sql = "create table CM_SYSTEM_SET_SCREEN(id bigint(11) primary key , is_set int,image_url varchar(255),font_color varchar(50),create_time datetime,update_time datetime)";
+                statement.execute(sql);
+                statement.executeUpdate("insert into CM_SYSTEM_SET_SCREEN(id,is_set,image_url,font_color,create_time,update_time) values(1,0,'','',now(),now())");
+            }
             statement.close();
             DBUtil.closeConnection();
             buildHtml();

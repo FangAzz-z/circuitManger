@@ -5,6 +5,7 @@ import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.SystemUserDao;
 import com.xbky.circuitManger.dao.SystemUserRoleDao;
 import com.xbky.circuitManger.service.ProgramService;
+import com.xbky.circuitManger.service.ScreenService;
 import com.xbky.circuitManger.utils.ImageUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.utils.PrintUtil;
@@ -24,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -71,6 +73,27 @@ public class MainController implements Initializable {
     @FXML
     public BorderPane mainPane;
 
+    @FXML
+    public Label lbMaintain;
+    @FXML
+    public Label lbCxDown;
+    @FXML
+    public Label lbTxlj;
+    @FXML
+    public Label lbPrinter;
+    @FXML
+    public Label lbBkTest;
+    @FXML
+    public Label lbExit;
+    @FXML
+    public Label lbSystemSet;
+    @FXML
+    public Label lbWxCheck;
+    @FXML
+    public Label lbBaseSet;
+    @FXML
+    public Label lbTop;
+
     //主界面按钮
     @FXML
     private Button buWxManager;
@@ -105,6 +128,7 @@ public class MainController implements Initializable {
     private Stage secondStage;
     ProgramService service = new ProgramService();
     SystemUserRoleDao loginDao = new SystemUserRoleDao();
+    ScreenService screenService = new ScreenService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -150,15 +174,37 @@ public class MainController implements Initializable {
             }
         }
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)screenSize.getWidth();
-        int height = (int)screenSize.getHeight();
-        String imageUrl = getClass().getResource("/icons/bj.jpeg").toExternalForm();
-        BackgroundImage myBI= new BackgroundImage(new Image(imageUrl,width,height,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        mainPane.setBackground(new Background(myBI));
-
+        //是否设置背景
+        int isSet = screenService.geIsSet();
+        if(isSet ==1) {
+            //背景设置
+            String backgroundImage = screenService.getImageUrl();
+            if (ObjectUtil.isNotNull(backgroundImage)) {
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                int width = (int) screenSize.getWidth();
+                int height = (int) screenSize.getHeight();
+                //String imageUrl = getClass().getResource("/icons/bj.jpeg").toExternalForm();
+                String imageUrl = String.format("file:/%s", backgroundImage);
+                BackgroundImage myBI = new BackgroundImage(new Image(imageUrl, width, height, false, true),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT);
+                mainPane.setBackground(new Background(myBI));
+            }
+            //菜单字体颜色设置
+            String fontColor = screenService.getFontColor();
+            if (ObjectUtil.isNotNull(fontColor)) {
+                lbMaintain.setTextFill(Color.web(fontColor, 1));
+                lbCxDown.setTextFill(Color.web(fontColor));
+                lbTxlj.setTextFill(Color.web(fontColor));
+                lbPrinter.setTextFill(Color.web(fontColor));
+                lbBkTest.setTextFill(Color.web(fontColor));
+                lbExit.setTextFill(Color.web(fontColor));
+                lbSystemSet.setTextFill(Color.web(fontColor));
+                lbWxCheck.setTextFill(Color.web(fontColor));
+                lbBaseSet.setTextFill(Color.web(fontColor));
+                lbTop.setTextFill(Color.web(fontColor));
+            }
+        }
     }
 
     private void updateBody(FxmlView view) {

@@ -44,7 +44,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                  <Label text="维修管理">
+                  <Label fx:id="lbMaintain" text="维修管理">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -64,7 +64,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                   <Label text="程序下载">
+                   <Label fx:id="lbCxDown" text="程序下载">
                    <VBox.margin>
                        <Insets top="10.0" />
                    </VBox.margin>
@@ -85,7 +85,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                   <Label text="通讯连接">
+                   <Label fx:id="lbTxlj" text="通讯连接">
                        <VBox.margin>
                            <Insets top="10.0" />
                        </VBox.margin>
@@ -105,7 +105,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                   <Label text="打印终端连接">
+                   <Label fx:id="lbPrinter" text="打印终端连接">
                        <VBox.margin>
                            <Insets top="10.0" />
                        </VBox.margin>
@@ -125,7 +125,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                   <Label text="维修板卡测试">
+                   <Label fx:id="lbBkTest" text="维修板卡测试">
                        <VBox.margin>
                            <Insets top="10.0" />
                        </VBox.margin>
@@ -145,7 +145,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                   <Label text="退出">
+                   <Label fx:id="lbExit" text="退出">
                        <VBox.margin>
                            <Insets top="10.0" />
                        </VBox.margin>
@@ -181,7 +181,7 @@
                                    </image></ImageView>
                            </graphic>
                        </Button>
-                       <Label text="基础设置">
+                       <Label fx:id="lbBaseSet" text="基础设置">
                            <VBox.margin>
                                <Insets top="10.0" />
                            </VBox.margin>
@@ -201,7 +201,7 @@
                                    </image></ImageView>
                            </graphic>
                        </Button>
-                       <Label text="维修登记">
+                       <Label fx:id="lbWxCheck" text="维修登记">
                            <VBox.margin>
                                <Insets top="10.0" />
                            </VBox.margin>
@@ -222,7 +222,7 @@
                                    </image></ImageView>
                            </graphic>
                        </Button>
-                       <Label text="系统维护">
+                       <Label fx:id="lbSystemSet" text="系统维护">
                            <VBox.margin>
                                <Insets top="10.0" />
                            </VBox.margin>
@@ -242,7 +242,7 @@
                                    </image></ImageView>
                            </graphic>
                        </Button>
-                       <Label text="返回上一级">
+                       <Label fx:id="lbTop" text="返回上一级">
                            <VBox.margin>
                                <Insets top="10.0" />
                            </VBox.margin>

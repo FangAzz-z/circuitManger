@@ -18,7 +18,7 @@
 
 <BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.system.SystemUserController">
     <left>
-        <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+     <!--   <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
             <children>
                 <TextField fx:id="tfName" prefHeight="30.0" prefWidth="246.0" promptText="账户名称">
                     <VBox.margin>
@@ -57,7 +57,7 @@
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>
-        </VBox>
+        </VBox>-->
     </left>
     <center>
         <VBox alignment="TOP_RIGHT" prefHeight="593.0" prefWidth="600.0" BorderPane.alignment="CENTER">

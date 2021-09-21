@@ -53,4 +53,19 @@ public class DialogUtil {
 
         return  exeChooser.showOpenDialog(new Stage());
     }
+
+    public static File showExportPicFileDialog(String title) {
+
+        if (ObjectUtil.isBlank(title)) {
+            title = "选择图片目录";
+        }
+
+        FileChooser exeChooser = new FileChooser();
+        exeChooser.setTitle(title);
+        exeChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        exeChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("pic", "*.jpg","*.jpeg","*.png","*.gif") );
+
+        return  exeChooser.showOpenDialog(new Stage());
+    }
 }

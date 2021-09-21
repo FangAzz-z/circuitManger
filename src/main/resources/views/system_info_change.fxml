@@ -3,36 +3,64 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.system.SystemInfoChangeController">
+<BorderPane prefHeight="762.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xbky.circuitManger.view.system.SystemInfoChangeController">
     <left>
-        <VBox prefHeight="762.0" prefWidth="300.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
+        <VBox prefHeight="762.0" prefWidth="500.0" spacing="10.0" styleClass="background" stylesheets="@/css/theme/drawer.css" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="textName" prefHeight="30.0" prefWidth="246.0" promptText="基本信息">
-                    <VBox.margin>
-                        <Insets left="25.0" right="25.0" />
-                    </VBox.margin></TextField>
-                <TextField fx:id="textDepartment" prefHeight="30.0" prefWidth="246.0" promptText="电话">
-                    <VBox.margin>
-                        <Insets left="25.0" right="25.0" />
-                    </VBox.margin></TextField>
-                <TextField fx:id="textJob" prefHeight="30.0" prefWidth="246.0" promptText="联系人">
-                    <VBox.margin>
-                        <Insets left="25.0" right="25.0" />
-                    </VBox.margin></TextField>
-                <TextField fx:id="textPhone" prefHeight="30.0" prefWidth="246.0" promptText="地址">
-                    <VBox.margin>
-                        <Insets left="25.0" right="25.0" />
-                    </VBox.margin></TextField>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                  <RadioButton fx:id="bjSet" accessibleText="1" mnemonicParsing="false" text="背景开启">
+                      <toggleGroup>
+                          <ToggleGroup fx:id="bj" />
+                      </toggleGroup>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="unBjSet" accessibleText="0" mnemonicParsing="false" selected="true" text="背景关闭" toggleGroup="$bj" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                      <TextField fx:id="tfImageUrl" prefHeight="30.0" prefWidth="246.0" promptText="背景图片地址">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></TextField>
+                  <Button fx:id="imageChange" onAction="#imageChange" mnemonicParsing="false" text="选择" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                  <Label text="文字颜色" textFill="#4e4e4e">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ColorPicker fx:id="colorChange" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="10.0">
                     <children>
-                        <Button fx:id="reset" onAction="#reset" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="还原" textFill="WHITE">
+                        <Button fx:id="reset" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="75.0" styleClass="success" text="还原" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -40,7 +68,7 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#1965d0" />
                             </effect>
                         </Button>
-                        <Button fx:id="query" onAction="#submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="设置" textFill="WHITE">
+                        <Button fx:id="submitSet" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="75.0" styleClass="success" text="设置" textFill="WHITE">
                             <font>
                                 <Font size="15.0" />
                             </font>
