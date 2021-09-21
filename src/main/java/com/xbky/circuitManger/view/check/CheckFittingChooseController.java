@@ -31,7 +31,7 @@ public class CheckFittingChooseController  implements Initializable {
     @FXML
     public TextField tfModel;
     @FXML
-    public TextField tfFactory;
+    public TextField tfNum;
 
     @FXML
     public TableColumn<Map, String> no;
@@ -46,6 +46,7 @@ public class CheckFittingChooseController  implements Initializable {
 
     private  static Stage dialog = null;
     private  static Function resultHandle = null;
+
 
 
     FittingIntoInfoDao dao = new FittingIntoInfoDao();
@@ -87,6 +88,14 @@ public class CheckFittingChooseController  implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Map<String,Object> map = row.getItem();
+                    if(ObjectUtil.isNull(this.tfNum.getText())){
+                        StageManager.nullWarn("配件数量不能为空");
+                        return;
+                    }else if(ObjectUtil.isNotInteger(this.tfNum.getText())){
+                        StageManager.nullWarn("配件数量必须传入数字");
+                        return;
+                    }
+                    map.put("num",ObjectUtil.getString(this.tfNum.getText()));
                     handleChoose(map);
                 }
             });
@@ -109,6 +118,14 @@ public class CheckFittingChooseController  implements Initializable {
             StageManager.nullWarn();
             return;
         }
+        if(ObjectUtil.isNull(this.tfNum.getText())){
+            StageManager.nullWarn("配件数量不能为空");
+            return;
+        }else if(ObjectUtil.isNotInteger(this.tfNum.getText())){
+            StageManager.nullWarn("配件数量必须传入数字");
+            return;
+        }
+        map.put("num",ObjectUtil.getString(this.tfNum.getText()));
         if(resultHandle!=null){
             handleChoose(map);
         }
@@ -129,7 +146,6 @@ public class CheckFittingChooseController  implements Initializable {
         this.tfNo.clear();
         this.tfName.clear();
         this.tfModel.clear();
-        this.tfFactory.clear();
     }
 
     public void query(ActionEvent actionEvent) {
@@ -141,7 +157,6 @@ public class CheckFittingChooseController  implements Initializable {
         fii.setFittingNo(this.tfNo.getText());
         fii.setFittingName(this.tfName.getText());
         fii.setFittingModel(this.tfModel.getText());
-        fii.setFactory(this.tfFactory.getText());
         return fii;
     }
 }

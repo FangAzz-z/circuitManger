@@ -47,8 +47,17 @@
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Label>
-                        <Button onAction="#chooseOpen" mnemonicParsing="false" text="选择" />
-                        <TextArea fx:id="taMaintainFitting" prefHeight="90.0" prefWidth="555.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="80.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#chooseOpen" text="选择" />
+                              <Button mnemonicParsing="false" onAction="#chooseClear" text="清除">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <TextArea fx:id="taMaintainFitting" editable="false" prefHeight="90.0" prefWidth="515.0">
                            <HBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </HBox.margin></TextArea>

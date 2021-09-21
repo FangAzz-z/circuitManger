@@ -24,7 +24,6 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -44,22 +43,12 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="tfFactory" promptText="厂家" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#submitData" text="选择" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <Button mnemonicParsing="false" text="清空">
+                        <Button mnemonicParsing="false" onAction="#reset" text="清空">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="查询" />
+                        <Button mnemonicParsing="false"  onAction="#query" text="查询" />
                      </children>
                   </HBox>
                </children>
@@ -75,6 +64,22 @@
               </columns>
             </TableView>
          </center>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="tfNum" promptText="数量">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#submitData" text="选择">
+                     <HBox.margin>
+                        <Insets left="10.0" right="50.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

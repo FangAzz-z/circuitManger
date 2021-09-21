@@ -91,8 +91,10 @@ public class CheckMaintainAddController implements Initializable {
             queryBrand.setItems(FXCollections.observableArrayList(brand));
         });
         queryBrand.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(),ObjectUtil.getString(newValue));
-            queryModel.setItems(FXCollections.observableArrayList(model));
+            if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
+                List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(), ObjectUtil.getString(newValue));
+                queryModel.setItems(FXCollections.observableArrayList(model));
+            }
         });
     }
 
@@ -304,13 +306,23 @@ public class CheckMaintainAddController implements Initializable {
         controller.setDialog(dialog);
         controller.setResultHandle(a->{
             Map<String,Object> map = (Map<String,Object>)a;
-            String desc = String.format("编号:%s,型号:%s,名称:%s,厂商:%s",
+            String desc = String.format("编号:%s,型号:%s,名称:%s,数量:%s",
                     ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_model")),
-                    ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("factory")));
+                    ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("num")));
             taMaintainFitting.setText(ObjectUtil.isNull(taMaintainFitting.getText())?
                     desc:(taMaintainFitting.getText()+"\n"+desc));
             return a;
         });
         dialog.show();
+    }
+
+    public void chooseClear(ActionEvent actionEvent) {
+        String desc = taMaintainFitting.getText();
+        if(desc.indexOf("\n")>0){
+            desc = desc.substring(0,desc.lastIndexOf("\n"));
+        }else{
+            desc = "";
+        }
+        taMaintainFitting.setText(desc);
     }
 }

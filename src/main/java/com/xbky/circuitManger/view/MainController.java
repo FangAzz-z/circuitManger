@@ -282,7 +282,7 @@ public class MainController implements Initializable {
     }
 
     public void wxCheck(ActionEvent actionEvent) {
-        openModule(FxmlView.MAIN_CHECK);
+        openModule(FxmlView.MAIN_CHECK,1600,640);
     }
 
     public void systemSet(ActionEvent actionEvent) {
@@ -302,8 +302,11 @@ public class MainController implements Initializable {
     public void baseChange(ActionEvent actionEvent) {
         openModule(FxmlView.MAIN_BASE_SET);
     }
+    private void openModule(FxmlView view){
+        openModule(view,1200,640);
+    }
 
-    private void openModule(FxmlView view) {
+    private void openModule(FxmlView view,int width,int height) {
         if (secondStage != null) {
             secondStage.close();
         }
@@ -314,7 +317,7 @@ public class MainController implements Initializable {
         secondStage.initOwner(Main.mainStage);
         secondStage.initModality(Modality.APPLICATION_MODAL);
         Parent root = loadViewNodeHierarchy(view.fxml());
-        Scene primarySence = new Scene(root, 1200, 640); // 页面大小
+        Scene primarySence = new Scene(root, width, height); // 页面大小
         secondStage.setScene(primarySence);
         secondStage.show();
     }
