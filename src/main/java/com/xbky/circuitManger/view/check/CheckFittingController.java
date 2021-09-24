@@ -51,6 +51,8 @@ public class CheckFittingController implements Initializable {
     public TextField tfName;
     @FXML
     public TextField tfNo;
+    @FXML
+    public TableColumn packaging;
 
     CheckFittingRecordDao dao = new CheckFittingRecordDao();
 
@@ -61,6 +63,7 @@ public class CheckFittingController implements Initializable {
         this.name.setCellValueFactory(new MapValueFactory<>("fitting_name"));
         this.no.setCellValueFactory(new MapValueFactory<>("fitting_no"));
         this.num.setCellValueFactory(new MapValueFactory<>("fitting_num"));
+        this.packaging.setCellValueFactory(new MapValueFactory<>("packaging"));
         this.lowLimit.setCellValueFactory(new MapValueFactory<>("low_limit"));
         this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();

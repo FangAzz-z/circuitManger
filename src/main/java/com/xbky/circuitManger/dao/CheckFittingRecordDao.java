@@ -36,19 +36,19 @@ public class CheckFittingRecordDao extends BaseDao{
     }
 
     public Map<String, Object> queryByExample(CheckFittingRecord record, int pageNo, int pageSize) {
-        StringBuffer sql = new StringBuffer("select * from CM_CHECK_FITTING_RECORD where 1=1");
+        StringBuffer sql = new StringBuffer("select c.*,f.packaging from CM_CHECK_FITTING_RECORD c left join CM_FITTING_INTO_INFO f on c.fitting_no = f.fitting_no  where 1=1");
         if(ObjectUtil.isNotNull(record.getFittingNo())){
-            sql.append(" and LOWER(fitting_no) like '%").append(record.getFittingNo().toLowerCase()).append("%' ");
+            sql.append(" and LOWER(c.fitting_no) like '%").append(record.getFittingNo().toLowerCase()).append("%' ");
         }
         if(ObjectUtil.isNotNull(record.getFittingModel())){
-            sql.append(" and LOWER(fitting_model) like '%").append(record.getFittingModel().toLowerCase()).append("%' ");
+            sql.append(" and LOWER(c.fitting_model) like '%").append(record.getFittingModel().toLowerCase()).append("%' ");
         }
         if(ObjectUtil.isNotNull(record.getFittingName())){
-            sql.append(" and LOWER(fitting_name) like '%").append(record.getFittingName().toLowerCase()).append("%' ");
+            sql.append(" and LOWER(c.fitting_name) like '%").append(record.getFittingName().toLowerCase()).append("%' ");
         }
         int count =  super.queryForList(sql.toString(), null).size();
         int total =  (count  +  pageSize  - 1) / pageSize;
-        sql.append(String.format(" order by update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
+        sql.append(String.format(" order by c.update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
         List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
         Map<String, Object> map = new HashMap<>();
         map.put("data", list);
@@ -63,8 +63,9 @@ public class CheckFittingRecordDao extends BaseDao{
 
     public int getNumByNo(String no) {
         Map map = getRecordByNo(no);
-        if(map!=null)
+        if(map!=null) {
             return ObjectUtil.getInt(map.get("fitting_num"));
+        }
         return 0;
     }
 
