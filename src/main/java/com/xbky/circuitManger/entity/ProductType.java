@@ -37,6 +37,11 @@ public class ProductType {
         this.model = model;
         this.brand = brand;
     }
+    public ProductType(String category,String model,String brand){
+        this.category = category;
+        this.model = model;
+        this.brand = brand;
+    }
 
 
     public Long getId() {

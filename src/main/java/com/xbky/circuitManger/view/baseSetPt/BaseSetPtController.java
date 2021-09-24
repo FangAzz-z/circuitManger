@@ -4,6 +4,7 @@ import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.ProductType;
 import com.xbky.circuitManger.export.ProductTypeExportObj;
+import com.xbky.circuitManger.importexcel.ProductTypeImportObj;
 import com.xbky.circuitManger.utils.DialogUtil;
 import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
@@ -31,7 +32,7 @@ import java.util.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class BaseSetPtController implements Initializable {
-    private static final Logger log = getLogger(BaseSetPtController.class);
+    private static final Logger logger = getLogger(BaseSetPtController.class);
 
     @FXML
     public TextField qTfCategory;
@@ -185,5 +186,28 @@ public class BaseSetPtController implements Initializable {
         ProductType searchParam = getSearchParam();
         List<Map<String,Object>> dataList = this.dao.queryByExample(searchParam);
         ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title(), ProductTypeExportObj.getHeadMap(), dataList, ProductTypeExportObj.class);
+    }
+
+    @FXML
+    public void importExcelData(ActionEvent actionEvent) {
+        List<ProductTypeImportObj> data = ExcelUtil.chooseFileToRead(ProductTypeImportObj.getHeadMap(),ProductTypeImportObj.class);
+        int count = 0;
+        if (!data.isEmpty()) {
+            for (int i = 0; i < data.size(); i++) {
+                ProductType pt = new ProductType(data.get(i).getCategory(), data.get(i).getModel(), data.get(i).getBrand());
+                if(!dao.isExistSome(pt)) {
+                    this.dao.add(pt);
+                    count++;
+                }
+            }
+            logger.info("导入故障数据成功 count = {}", count);
+            StageManager.infoWarn(String.format("导入成功,已自动过滤重复!"));
+            refreshData();
+        }
+    }
+
+    @FXML
+    public void exportExcelDataModel(ActionEvent actionEvent) {
+        ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title()+"模板",ProductTypeExportObj.getHeadMapModel(),new ArrayList<>(),ProductTypeExportObj.class);
     }
 }

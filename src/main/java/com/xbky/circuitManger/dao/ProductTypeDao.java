@@ -56,6 +56,22 @@ public class ProductTypeDao extends BaseDao {
         return super.queryForList(sql.toString(), null);
     }
 
+    public boolean isExistSome(ProductType pt){
+        StringBuffer sql = new StringBuffer("select id,category,model,brand , create_time, update_time from CM_PRODUCT_TYPE where 1=1 ");
+        if(ObjectUtil.isNotNull(pt.getCategory())){
+            sql.append(String.format(" and category = '%s'",pt.getCategory()));
+        }
+        if(ObjectUtil.isNotNull(pt.getModel())){
+            sql.append(String.format(" and model = '%s'",pt.getModel()));
+        }
+        if(ObjectUtil.isNotNull(pt.getBrand())){
+            sql.append(String.format(" and brand = '%s'",pt.getBrand()));
+        }
+        sql.append(" order by update_time desc");
+        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        return result;
+    }
+
     public Map<String,Object> queryByExample(ProductType pt,int pageNo,int pageSize){
         StringBuffer sql = new StringBuffer("select id,category,model,brand , create_time, update_time from CM_PRODUCT_TYPE where 1=1 ");
         if(ObjectUtil.isNotNull(pt.getCategory())){

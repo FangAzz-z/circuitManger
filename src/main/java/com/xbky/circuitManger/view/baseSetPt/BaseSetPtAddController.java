@@ -4,6 +4,7 @@ import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.ProductType;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,11 @@ public class BaseSetPtAddController implements Initializable {
         pt.setCategory(tfCategory.getText());
         pt.setBrand(tfBrand.getText());
         pt.setModel(tfModel.getText());
+        //相同数据校验
+        if(prodectTypeService.isExistSome(pt)){
+            StageManager.nullWarn("已存在相同的数据！");
+            return;
+        }
         if(ObjectUtil.isNull(tfId.getText())) {
             prodectTypeService.add(pt);
         }else{
