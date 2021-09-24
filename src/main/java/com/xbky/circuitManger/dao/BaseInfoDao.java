@@ -39,6 +39,22 @@ public class BaseInfoDao extends BaseDao {
         return super.insert(sql, null);
     }
 
+
+    public boolean isExitSome(String baseTable, String content,String code){
+        StringBuffer sql = new StringBuffer("");
+        sql.append("select * from ").append(baseTable).append(" where 1 = 1 ");
+
+        if (!ObjectUtil.isBlank(content)) {
+            sql.append(" and content = '%").append(content).append("' ");
+        }
+        if (!ObjectUtil.isBlank(code)) {
+            sql.append(" and code = '%").append(code).append("' ");
+        }
+        sql.append(" order by update_time desc");
+        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        return result;
+    }
+
     public List<Map<String,Object>> queryByExample(String baseTable, String content) {
 
         StringBuilder sql = new StringBuilder();

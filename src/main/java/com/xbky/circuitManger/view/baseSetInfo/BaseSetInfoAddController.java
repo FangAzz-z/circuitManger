@@ -50,7 +50,7 @@ public class BaseSetInfoAddController implements Initializable {
         if(ObjectUtil.hasNull(this.dialog_content.getText())){
             StageManager.nullWarn("提示","输入值不能为空");
             return;
-        };
+        }
         String table = "";
         if("维修产品状态".equals(this.dialog_label.getText())){
             table = "CM_BASE_PT_STATUS";
@@ -60,6 +60,10 @@ public class BaseSetInfoAddController implements Initializable {
             table = "CM_BASE_MAINTAIN_METHOD";
         }else{
             table = "CM_BASE_HANDLE_RESULT";
+        }
+        if(this.baseInfoDao.isExitSome(table,this.dialog_content.getText(),null)){
+            StageManager.nullWarn("已存在相同的数据！");
+            return;
         }
         if (ObjectUtil.isNotNull(this.tfId.getText())) {
             this.baseInfoDao.updateById(table, this.dialog_content.getText(),this.tfId.getText());
@@ -105,6 +109,14 @@ public class BaseSetInfoAddController implements Initializable {
     }
 
     public void submitDataV2(ActionEvent actionEvent) {
+        if(ObjectUtil.hasNull(this.dialog_content.getText(),this.dialog_code.getText())){
+            StageManager.nullWarn("提示","输入值不能为空");
+            return;
+        }
+        if(this.baseInfoDao.isExitSome("CM_BASE_FAULT_SHOW",this.dialog_content.getText(),this.dialog_code.getText())){
+            StageManager.nullWarn("已存在相同的数据！");
+            return;
+        }
         if (ObjectUtil.isNotNull(this.tfId.getText())) {
             this.baseInfoDao.updateByIdV2("CM_BASE_FAULT_SHOW", this.dialog_content.getText(),this.dialog_code.getText(),this.tfId.getText());
         }else{
