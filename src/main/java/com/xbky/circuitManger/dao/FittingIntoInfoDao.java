@@ -59,6 +59,22 @@ public class FittingIntoInfoDao extends BaseDao{
         return super.queryForList(sql.toString(), null);
     }
 
+    public boolean isExistSome(FittingIntoInfo fii){
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
+        if(ObjectUtil.isNotNull(fii.getFittingNo())){
+            sql.append(String.format(" and fitting_no = '%s'",fii.getFittingNo()));
+        }
+        if(ObjectUtil.isNotNull(fii.getFittingModel())){
+            sql.append(String.format(" and fitting_model = '%s'",fii.getFittingModel()));
+        }
+        if(ObjectUtil.isNotNull(fii.getFittingName())){
+            sql.append(String.format(" and fitting_name = '%s'",fii.getFittingName()));
+        }
+        sql.append(" order by update_time desc");
+        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        return result;
+    }
+
     public Map<String,Object> queryByExample(FittingIntoInfo fii,int pageNo,int pageSize){
         StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){

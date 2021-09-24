@@ -49,6 +49,10 @@ public class BaseSetFittingAddController {
         fii.setFittingModel(tfModel.getText());
         fii.setFactory(tfFactory.getText());
         fii.setUnit(tfUnit.getText());
+        if(dao.isExistSome(fii)){
+            StageManager.nullWarn("已存在相同的数据！");
+            return;
+        }
         if(ObjectUtil.isNull(tfId.getText())) {
             dao.add(fii);
         }else{
