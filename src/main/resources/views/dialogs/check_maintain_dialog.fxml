@@ -73,7 +73,7 @@
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="printToLabel" mnemonicParsing="false" onAction="#printLabel" text="打印后保存">
+                        <Button fx:id="printToLabel" mnemonicParsing="false" onAction="#printLabel" text="打印标签并保存">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Button>
