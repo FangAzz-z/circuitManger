@@ -14,6 +14,11 @@ public class FittingIntoInfo {
 
     private String fittingModel;
 
+    /**
+     * 新增 封装 字段
+     */
+    private String packaging;
+
     private String factory;
 
     private String unit;
@@ -96,5 +101,13 @@ public class FittingIntoInfo {
 
     public void setFactory(String factory) {
         this.factory = factory;
+    }
+
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
     }
 }

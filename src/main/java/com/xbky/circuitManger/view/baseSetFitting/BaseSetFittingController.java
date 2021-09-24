@@ -38,6 +38,7 @@ import static com.xbky.circuitManger.view.common.StageManager.nullWarn;
 
 public class BaseSetFittingController implements Initializable {
 
+
     Logger logger = LoggerFactory.getLogger(BaseSetFittingController.class);
 
     @FXML
@@ -48,6 +49,8 @@ public class BaseSetFittingController implements Initializable {
     public TextField tfModel;
     @FXML
     public TextField tfFactory;
+    @FXML
+    public TextField tfPackaging;
     @FXML
     public TextField tfUnit;
 
@@ -62,6 +65,8 @@ public class BaseSetFittingController implements Initializable {
     public TableColumn name;
     @FXML
     public TableColumn model;
+    @FXML
+    public TableColumn packaging;
     @FXML
     public TableColumn factory;
     @FXML
@@ -82,6 +87,7 @@ public class BaseSetFittingController implements Initializable {
         this.no.setCellValueFactory(new MapValueFactory<String>("fitting_no"));
         this.name.setCellValueFactory(new MapValueFactory<String>("fitting_name"));
         this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
+        this.packaging.setCellValueFactory(new MapValueFactory<String>("packaging"));
         this.factory.setCellValueFactory(new MapValueFactory<String>("factory"));
         this.unit.setCellValueFactory(new MapValueFactory<>("unit"));
         this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
@@ -165,6 +171,7 @@ public class BaseSetFittingController implements Initializable {
         fii.setFittingNo(this.tfNo.getText());
         fii.setFittingName(this.tfName.getText());
         fii.setFittingModel(this.tfModel.getText());
+        fii.setPackaging(this.tfPackaging.getText());
         fii.setFactory(this.tfFactory.getText());
         fii.setUnit(this.tfUnit.getText());
         return fii;

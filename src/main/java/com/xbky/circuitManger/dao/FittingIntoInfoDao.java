@@ -13,7 +13,7 @@ import java.util.Map;
 public class FittingIntoInfoDao extends BaseDao{
 
     public int add(FittingIntoInfo info){
-        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,factory,unit,create_time,update_time)values('%s','%s','%s','%s','%s',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getFactory(),info.getUnit());
+        String sql = String.format("insert into CM_FITTING_INTO_INFO(fitting_no,fitting_name,fitting_model,packaging,factory,unit,create_time,update_time)values('%s','%s','%s','%s','%s','%s',now(),now())",info.getFittingNo(),info.getFittingName(),info.getFittingModel(),info.getPackaging(),info.getFactory(),info.getUnit());
         return super.insert(sql, null);
     }
 
@@ -27,6 +27,9 @@ public class FittingIntoInfoDao extends BaseDao{
         }
         if (ObjectUtil.isNotNull(info.getFittingName())) {
             sql.append(String.format(",fitting_name = '%s'", info.getFittingName()));
+        }
+        if (ObjectUtil.isNotNull(info.getPackaging())) {
+            sql.append(String.format(",packaging = '%s'", info.getPackaging()));
         }
         if (ObjectUtil.isNotNull(info.getFactory())) {
             sql.append(String.format(",factory = '%s'", info.getFactory()));
@@ -48,6 +51,9 @@ public class FittingIntoInfoDao extends BaseDao{
         }
         if(ObjectUtil.isNotNull(fii.getFittingName())){
             sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
+        }
+        if (ObjectUtil.isNotNull(fii.getPackaging())) {
+            sql.append(String.format(" and packaging like '%s'",fii.getPackaging()+"%"));
         }
         if(ObjectUtil.isNotNull(fii.getFactory())){
             sql.append(String.format(" and factory like '%s'",fii.getFactory()+"%"));
@@ -86,6 +92,9 @@ public class FittingIntoInfoDao extends BaseDao{
         if(ObjectUtil.isNotNull(fii.getFittingName())){
             sql.append(String.format(" and fitting_name like '%s'",fii.getFittingName()+"%"));
         }
+        if (ObjectUtil.isNotNull(fii.getPackaging())) {
+            sql.append(String.format(" and packaging like '%s'",fii.getPackaging()+"%"));
+        }
         if(ObjectUtil.isNotNull(fii.getFactory())){
             sql.append(String.format(" and factory like '%s'",fii.getFactory()+"%"));
         }
@@ -109,10 +118,10 @@ public class FittingIntoInfoDao extends BaseDao{
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("insert into ").append("CM_FITTING_INTO_INFO").append(" (fitting_no,fitting_name,fitting_model,factory,unit,create_time,update_time) values ");
+        sb.append("insert into ").append("CM_FITTING_INTO_INFO").append(" (fitting_no,fitting_name,fitting_model,packaging,factory,unit,create_time,update_time) values ");
 
         for (FittingIntoInfoImportObj obj : data) {
-            sb.append(String.format("('%s','%s','%s','%s','%s',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP()),",obj.getFittingNo(),obj.getFittingName(),obj.getFittingModel(),obj.getFactory(),obj.getUnit()));
+            sb.append(String.format("('%s','%s','%s','%s','%s','%s',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP()),",obj.getFittingNo(),obj.getFittingName(),obj.getFittingModel(),obj.getPackaging(),obj.getFactory(),obj.getUnit()));
         }
         return super.update(sb.substring(0, sb.length() - 1).toString(), null);
     }

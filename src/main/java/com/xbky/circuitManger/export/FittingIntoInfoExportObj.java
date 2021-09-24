@@ -21,6 +21,9 @@ public class FittingIntoInfoExportObj {
     @Column(name = "fitting_model")
     private String fittingModel;
 
+    @Column(name = "packaging")
+    private String packaging;
+
     @Column(name = "factory")
     private String factory;
 
@@ -99,12 +102,21 @@ public class FittingIntoInfoExportObj {
         this.updateTime = updateTime;
     }
 
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
+    }
+
     public static LinkedHashMap<String, String> getHeadMap() {
         LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
         headMap.put("id", "ID");
         headMap.put("fittingNo", "配件编号");
         headMap.put("fittingName", "配件名称");
         headMap.put("fittingModel", "配件型号");
+        headMap.put("packaging", "封装");
         headMap.put("factory", "厂家");
         headMap.put("unit", "单位");
         headMap.put("createTime", "创建时间");
@@ -118,6 +130,7 @@ public class FittingIntoInfoExportObj {
         headMap.put("fittingNo", "配件编号");
         headMap.put("fittingName", "配件名称");
         headMap.put("fittingModel", "配件型号");
+        headMap.put("packaging", "封装");
         headMap.put("factory", "厂家");
         headMap.put("unit", "单位");
 

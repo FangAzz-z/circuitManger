@@ -70,9 +70,9 @@
                 <TableView fx:id="userTable" prefHeight="740.0" prefWidth="795.0" tableMenuButtonVisible="true">
                     <columns>
                         <TableColumn fx:id="id" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                        <TableColumn fx:id="model" maxWidth="4000.0" prefWidth="75.0" text="型号" />
-                        <TableColumn fx:id="name" maxWidth="4000.0" prefWidth="75.0" text="名称" />
                         <TableColumn fx:id="no" maxWidth="4000.0" prefWidth="75.0" text="编号" />
+                        <TableColumn fx:id="name" maxWidth="4000.0" prefWidth="75.0" text="名称" />
+                        <TableColumn fx:id="model" maxWidth="4000.0" prefWidth="75.0" text="型号" />
                         <TableColumn fx:id="num" maxWidth="4000.0" prefWidth="75.0" text="数量" />
                         <TableColumn fx:id="lowLimit" maxWidth="4000.0" prefWidth="75.0" text="低限预警" />
                     </columns>

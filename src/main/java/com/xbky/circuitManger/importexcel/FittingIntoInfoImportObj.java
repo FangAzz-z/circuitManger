@@ -12,6 +12,8 @@ public class FittingIntoInfoImportObj implements BaseImportObj{
 
     private String fittingModel;
 
+    private String packaging;
+
     private String factory;
 
     private String unit;
@@ -57,6 +59,13 @@ public class FittingIntoInfoImportObj implements BaseImportObj{
         this.unit = unit;
     }
 
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
+    }
 
     @Override
     public String valid() {
@@ -70,6 +79,10 @@ public class FittingIntoInfoImportObj implements BaseImportObj{
 
         if (ObjectUtil.isBlank(this.fittingModel)) {
             return "配件型号不能为空";
+        }
+
+        if (ObjectUtil.isBlank(this.packaging)) {
+            return "封装不能为空";
         }
         if (ObjectUtil.isBlank(this.factory)) {
             return "厂家不能为空";
@@ -86,6 +99,7 @@ public class FittingIntoInfoImportObj implements BaseImportObj{
         headMap.put( "配件编号","fittingNo");
         headMap.put("配件名称","fittingName");
         headMap.put( "配件型号","fittingModel");
+        headMap.put("封装","packaging");
         headMap.put("厂家","factory");
         headMap.put("单位","unit");
 
