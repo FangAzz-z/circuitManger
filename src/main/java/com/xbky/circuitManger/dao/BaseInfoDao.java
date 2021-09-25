@@ -40,7 +40,7 @@ public class BaseInfoDao extends BaseDao {
     }
 
 
-    public boolean isExitSome(String baseTable, String content,String code){
+    public boolean isExistSome(String baseTable, String content,String code){
         StringBuffer sql = new StringBuffer("");
         sql.append("select * from ").append(baseTable).append(" where 1 = 1 ");
 
@@ -51,7 +51,7 @@ public class BaseInfoDao extends BaseDao {
             sql.append(" and code = '%").append(code).append("' ");
         }
         sql.append(" order by update_time desc");
-        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        Boolean result = ObjectUtil.isNotEmpty(super.queryForList(sql.toString(), null))?true:false;
         return result;
     }
 

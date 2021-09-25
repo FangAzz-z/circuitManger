@@ -42,7 +42,7 @@ public class FittingIntoInfoDao extends BaseDao{
     }
 
     public List<Map<String,Object>> queryByExample(FittingIntoInfo fii){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,packaging,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
         }
@@ -66,7 +66,7 @@ public class FittingIntoInfoDao extends BaseDao{
     }
 
     public boolean isExistSome(FittingIntoInfo fii){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,packaging,factory,unit,create_time,update_time from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no = '%s'",fii.getFittingNo()));
         }
@@ -77,12 +77,12 @@ public class FittingIntoInfoDao extends BaseDao{
             sql.append(String.format(" and fitting_name = '%s'",fii.getFittingName()));
         }
         sql.append(" order by update_time desc");
-        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        Boolean result = ObjectUtil.isNotEmpty(super.queryForList(sql.toString(), null))?true:false;
         return result;
     }
 
     public Map<String,Object> queryByExample(FittingIntoInfo fii,int pageNo,int pageSize){
-        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
+        StringBuffer sql = new StringBuffer("select id,fitting_no,fitting_model,fitting_name,packaging,factory,unit from CM_FITTING_INTO_INFO where 1=1 ");
         if(ObjectUtil.isNotNull(fii.getFittingNo())){
             sql.append(String.format(" and fitting_no like '%s'",fii.getFittingNo()+"%"));
         }

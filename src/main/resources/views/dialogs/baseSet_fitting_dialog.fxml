@@ -57,6 +57,18 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                     <children>
+                                        <Label text="封装">
+                                            <HBox.margin>
+                                                <Insets right="10.0" />
+                                            </HBox.margin></Label>
+                                        <TextField fx:id="tfPackaging" prefHeight="30.0" prefWidth="246.0" promptText="封装">
+                                            <VBox.margin>
+                                                <Insets left="25.0" right="25.0" />
+                                            </VBox.margin></TextField>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
                                         <Label text="厂家    ">
                                             <HBox.margin>
                                                 <Insets right="10.0" />

@@ -108,7 +108,7 @@ public class CheckFittingAddController implements Initializable {
         record.setLowLimit(ObjectUtil.getInt(this.tfLowLimit.getText()));
         if(ObjectUtil.isNull(tfId.getText())) {
             if(dao.getRecordByNo(record.getFittingNo())!=null){
-                StageManager.nullWarn(String.format("编号为%s配件已存在!"));
+                StageManager.nullWarn(String.format("编号为%s配件已存在!",record.getFittingNo()));
                 return;
             }
             dao.add(record);

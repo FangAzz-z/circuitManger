@@ -68,7 +68,7 @@ public class ProductTypeDao extends BaseDao {
             sql.append(String.format(" and brand = '%s'",pt.getBrand()));
         }
         sql.append(" order by update_time desc");
-        Boolean result = ObjectUtil.isNotNull(super.queryForList(sql.toString(), null))?true:false;
+        Boolean result = ObjectUtil.isNotEmpty(super.queryForList(sql.toString(), null))?true:false;
         return result;
     }
 

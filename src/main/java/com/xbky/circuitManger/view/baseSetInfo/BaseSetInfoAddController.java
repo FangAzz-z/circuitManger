@@ -61,7 +61,7 @@ public class BaseSetInfoAddController implements Initializable {
         }else{
             table = "CM_BASE_HANDLE_RESULT";
         }
-        if(this.baseInfoDao.isExitSome(table,this.dialog_content.getText(),null)){
+        if(this.baseInfoDao.isExistSome(table,this.dialog_content.getText(),null)){
             StageManager.nullWarn("已存在相同的数据！");
             return;
         }
@@ -113,7 +113,7 @@ public class BaseSetInfoAddController implements Initializable {
             StageManager.nullWarn("提示","输入值不能为空");
             return;
         }
-        if(this.baseInfoDao.isExitSome("CM_BASE_FAULT_SHOW",this.dialog_content.getText(),this.dialog_code.getText())){
+        if(this.baseInfoDao.isExistSome("CM_BASE_FAULT_SHOW",this.dialog_content.getText(),this.dialog_code.getText())){
             StageManager.nullWarn("已存在相同的数据！");
             return;
         }

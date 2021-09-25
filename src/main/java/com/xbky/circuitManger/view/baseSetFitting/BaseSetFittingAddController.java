@@ -24,6 +24,8 @@ public class BaseSetFittingAddController {
     public TextField tfUnit;
     @FXML
     public TextField tfFactory;
+    @FXML
+    public TextField tfPackaging;
 
 
     FittingIntoInfoDao dao = new FittingIntoInfoDao();
@@ -40,7 +42,7 @@ public class BaseSetFittingAddController {
 
     public void submitData(ActionEvent actionEvent) {
         FittingIntoInfo fii = new  FittingIntoInfo();
-        if(ObjectUtil.hasNull(tfNo.getText(),tfName.getText(),tfModel.getText(),tfFactory.getText(),tfUnit.getText())){
+        if(ObjectUtil.hasNull(tfNo.getText(),tfName.getText(),tfModel.getText(),tfFactory.getText(),tfUnit.getText(),tfPackaging.getText())){
             StageManager.nullWarn();
             return;
         };
@@ -49,6 +51,7 @@ public class BaseSetFittingAddController {
         fii.setFittingModel(tfModel.getText());
         fii.setFactory(tfFactory.getText());
         fii.setUnit(tfUnit.getText());
+        fii.setPackaging(tfPackaging.getText());
         if(dao.isExistSome(fii)){
             StageManager.nullWarn("已存在相同的数据！");
             return;
@@ -90,5 +93,6 @@ public class BaseSetFittingAddController {
         this.tfModel.setText(fii.getFittingModel());
         this.tfFactory.setText(fii.getFactory());
         this.tfUnit.setText(fii.getUnit());
+        this.tfPackaging.setText(fii.getPackaging());
     }
 }

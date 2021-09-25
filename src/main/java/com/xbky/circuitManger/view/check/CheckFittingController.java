@@ -6,6 +6,7 @@ import com.xbky.circuitManger.entity.CheckFittingRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,16 +15,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -58,7 +60,7 @@ public class CheckFittingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.id.setCellValueFactory(new MapValueFactory<String>("id"));
+        this.id.setCellValueFactory(new MapValueFactory<>("id") );
         this.model.setCellValueFactory(new MapValueFactory<>("fitting_model"));
         this.name.setCellValueFactory(new MapValueFactory<>("fitting_name"));
         this.no.setCellValueFactory(new MapValueFactory<>("fitting_no"));
@@ -80,7 +82,21 @@ public class CheckFittingController implements Initializable {
         this.userTable.setItems(list);
         this.userTable.refresh();
         this.pageSet.setCurrentPageIndex(0);
+        this.userTable.setRowFactory(tv->{
+            TableRow<Map<String,Object>> row = new TableRow<Map<String,Object>>(){
+                @Override
+                protected void updateItem(Map<String, Object> item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(!empty) {
+                        if (ObjectUtil.getInt(item.get("fitting_num")) < ObjectUtil.getInt(item.get("low_limit"))) {
+                            this.setStyle("-fx-font-weight:bold;-fx-background-color: RED");
+                        }
+                    }
+                }
+            };
 
+            return row;
+        });
     }
 
     private CheckFittingRecord getSearchParam() {
