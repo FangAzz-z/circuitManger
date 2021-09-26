@@ -1,6 +1,7 @@
 package com.xbky.circuitManger.view.check;
 
 import com.xbky.circuitManger.Main;
+import com.xbky.circuitManger.dao.BaseInfoDao;
 import com.xbky.circuitManger.dao.CheckFittingRecordDao;
 import com.xbky.circuitManger.dao.CheckMaintainRecordDao;
 import com.xbky.circuitManger.dao.ProductTypeDao;
@@ -95,6 +96,11 @@ public class CheckMaintainAddController implements Initializable {
                 List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(), ObjectUtil.getString(newValue));
                 queryModel.setItems(FXCollections.observableArrayList(model));
             }
+        });
+        queryShow.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+              List ssList = new BaseInfoDao().queryByExample("CM_BASE_FAULT_SHOW", ObjectUtil.getStringV2(newValue)).stream().map(a -> ((String) a.get("content"))).collect(Collectors.toList());
+              this.queryShow.setItems(FXCollections.observableArrayList(ssList));
+              this.queryShow.setValue(ObjectUtil.getStringV2(newValue));
         });
     }
 

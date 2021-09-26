@@ -148,7 +148,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <children>
-                        <ComboBox fx:id="queryShow" prefWidth="150.0" promptText="故障现象" />
+                        <ComboBox fx:id="queryShow" editable="true" prefWidth="150.0" promptText="故障现象" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">

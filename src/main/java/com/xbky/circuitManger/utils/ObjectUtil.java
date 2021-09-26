@@ -101,6 +101,10 @@ public class ObjectUtil {
     {
         return obj == null ? null : obj.toString();
     }
+    public static String getStringV2(Object obj)
+    {
+        return obj == null ? "" : obj.toString();
+    }
 
     public  static boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;

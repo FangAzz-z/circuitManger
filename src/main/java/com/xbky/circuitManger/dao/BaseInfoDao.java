@@ -4,10 +4,7 @@ import com.xbky.circuitManger.importexcel.BaseFaultShowImportObj;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class BaseInfoDao extends BaseDao {
 
@@ -57,15 +54,19 @@ public class BaseInfoDao extends BaseDao {
 
     public List<Map<String,Object>> queryByExample(String baseTable, String content) {
 
-        StringBuilder sql = new StringBuilder();
-        sql.append("select * from ").append(baseTable).append(" where 1 = 1 ");
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("select * from ").append(baseTable).append(" where 1 = 1 ");
 
-        if (!ObjectUtil.isBlank(content)) {
-            sql.append(" and content like '%").append(content).append("%' ");
+            if (ObjectUtil.isNotNull(content)) {
+                sql.append(" and content like '%").append(content).append("%' ");
+            }
+            sql.append(" order by update_time desc");
+
+            return super.queryForList(sql.toString(), null);
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
-        sql.append(" order by update_time desc");
-
-        return super.queryForList(sql.toString(), null);
     }
 
     public List<Map<String,Object>> queryByExampleV2(String baseTable, String content,String code) {
