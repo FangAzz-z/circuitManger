@@ -23,7 +23,7 @@ public class DataDBUtil {
         String url = "jdbc:h2:./db/database";
         initDbPath();
         if(ObjectUtil.isNotNull(db_path)){
-            url = String.format("jdbc:h2:%s",db_path);
+            url = String.format("jdbc:h2:%s/database",db_path);
         }
         String driverClass = "org.h2.Driver";
         try {
