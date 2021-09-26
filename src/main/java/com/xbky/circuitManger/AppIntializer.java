@@ -30,7 +30,7 @@ public class AppIntializer {
                         "update_time datetime)";
                 statement.execute(sql);
                 // 添加数据
-                statement.executeUpdate("insert into CM_PRODUCT_TYPE(1,version,db_path) values('1.0.0','')");
+                statement.executeUpdate("insert into SOFT_INFO(id,version,db_path) values(1,'1.0.0','')");
             }
             statement.close();
             DBUtil.closeConnection();
