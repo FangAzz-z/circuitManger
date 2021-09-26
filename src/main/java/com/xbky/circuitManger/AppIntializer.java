@@ -1,13 +1,11 @@
 package com.xbky.circuitManger;
 
 import com.xbky.circuitManger.utils.DBUtil;
+import com.xbky.circuitManger.utils.DataDBUtil;
 import org.h2.store.fs.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -17,9 +15,33 @@ import java.sql.Statement;
 
 public class AppIntializer {
     private static Logger log = LoggerFactory.getLogger(AppIntializer.class);
-    public static void init(){
+    public static void initInfo(){
         try {
             Statement statement = DBUtil.getConnection().createStatement();
+            // 创建数据表
+            // 产品类别型号
+            if (!isExist(statement,"SOFT_INFO")){
+                log.info("数据表->SOFT_INFO 初始化");
+                String sql = "create table SOFT_INFO(" +
+                        "id int primary key, " +
+                        "version varchar(20)," +
+                        "db_path varchar(20)," +
+                        "create_time datetime," +
+                        "update_time datetime)";
+                statement.execute(sql);
+                // 添加数据
+                statement.executeUpdate("insert into CM_PRODUCT_TYPE(1,version,db_path) values('1.0.0','')");
+            }
+            statement.close();
+            DBUtil.closeConnection();
+        }catch (SQLException e) {
+            log.error("", e);
+        }
+    }
+    public static void init(){
+        initInfo();
+        try {
+            Statement statement = DataDBUtil.getConnection().createStatement();
             // 创建数据表
             // 产品类别型号
             if (!isExist(statement,"CM_PRODUCT_TYPE")){
@@ -123,7 +145,7 @@ public class AppIntializer {
                 statement.executeUpdate("insert into CM_SYSTEM_SET_SCREEN(id,is_set,image_url,font_color,create_time,update_time) values(1,0,'','',now(),now())");
             }
             statement.close();
-            DBUtil.closeConnection();
+            DataDBUtil.closeConnection();
             buildHtml();
             buildLbx();
         }catch (SQLException e) {

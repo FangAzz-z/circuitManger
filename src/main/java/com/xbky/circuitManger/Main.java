@@ -22,7 +22,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStag) throws Exception{
-
         AppIntializer.init();
         Stage primaryStage = new Stage();
         mainStage = primaryStage;

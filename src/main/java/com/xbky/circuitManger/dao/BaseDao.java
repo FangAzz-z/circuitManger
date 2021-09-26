@@ -1,6 +1,6 @@
 package com.xbky.circuitManger.dao;
 
-import com.xbky.circuitManger.utils.DBUtil;
+import com.xbky.circuitManger.utils.DataDBUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +22,9 @@ public class BaseDao {
             Statement statement;
             ResultSet resultSet;
             if(obj == null) {
-                statement = DBUtil.getConnection().createStatement();
+                statement = DataDBUtil.getConnection().createStatement();
             }else{
-                statement = DBUtil.getConnection().prepareStatement(sql);
+                statement = DataDBUtil.getConnection().prepareStatement(sql);
                 for (int i = 0; i < obj.length; i++) {
                     ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
@@ -42,7 +42,7 @@ public class BaseDao {
             // 关闭链接
             resultSet.close();
             statement.close();
-            DBUtil.closeConnection();
+            DataDBUtil.closeConnection();
         } catch (Exception e) {
             log.error("", e);
         }
@@ -52,11 +52,11 @@ public class BaseDao {
     protected Map<String, Object> queryForMap(String sql, Object[] obj) {
         Map<String, Object> result = null;
         try {
-            Statement statement = DBUtil.getConnection().createStatement();
+            Statement statement = DataDBUtil.getConnection().createStatement();
             if(obj == null) {
-                statement = DBUtil.getConnection().createStatement();
+                statement = DataDBUtil.getConnection().createStatement();
             }else{
-                statement = DBUtil.getConnection().prepareStatement(sql);
+                statement = DataDBUtil.getConnection().prepareStatement(sql);
                 for (int i = 0; i < obj.length; i++) {
                     ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
@@ -78,7 +78,7 @@ public class BaseDao {
             }
             resultSet.close();
             statement.close();
-            DBUtil.closeConnection();
+            DataDBUtil.closeConnection();
         } catch (Exception e) {
             log.error("", e);
         }
@@ -90,9 +90,9 @@ public class BaseDao {
         try {
             Statement statement;
             if(obj == null) {
-                statement = DBUtil.getConnection().createStatement();
+                statement = DataDBUtil.getConnection().createStatement();
             }else{
-                statement = DBUtil.getConnection().prepareStatement(sql);
+                statement = DataDBUtil.getConnection().prepareStatement(sql);
                 for (int i = 1; i <= obj.length; i++) {
                     ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
@@ -114,9 +114,9 @@ public class BaseDao {
         try {
             Statement statement;
             if(obj == null) {
-                statement = DBUtil.getConnection().createStatement();
+                statement = DataDBUtil.getConnection().createStatement();
             }else{
-                statement = DBUtil.getConnection().prepareStatement(sql);
+                statement = DataDBUtil.getConnection().prepareStatement(sql);
                 for (int i = 1; i <= obj.length; i++) {
                     ((PreparedStatement) statement).setObject(i,obj[i-1]);
                 }
