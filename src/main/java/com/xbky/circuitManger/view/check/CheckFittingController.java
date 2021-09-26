@@ -89,7 +89,7 @@ public class CheckFittingController implements Initializable {
                     super.updateItem(item, empty);
                     if(!empty) {
                         if (ObjectUtil.getInt(item.get("fitting_num")) < ObjectUtil.getInt(item.get("low_limit"))) {
-                            this.setStyle("-fx-font-weight:bold;-fx-background-color: RED");
+                            this.setStyle("-fx-font-weight:bold;-fx-background-color: #d2ab80");
                         }
                     }
                 }
