@@ -48,7 +48,7 @@ public class Main extends Application {
         alert.setTitle("提示");
         alert.setContentText("确定退出电路板维修管理系统？");
         alert.setHeaderText("");
-        alert.initOwner( mainStage);
+        alert.initOwner(mainStage);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //始终屏幕居中显示
         int width = (int)screenSize.getWidth();

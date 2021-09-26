@@ -99,6 +99,11 @@ public class AppIntializer {
                 log.info("数据表->CM_FITTING_INTO_INFO 初始化");
                 String sql = "create table CM_FITTING_INTO_INFO(id bigint(11) primary key auto_increment, fitting_no varchar(50),fitting_name varchar(50),fitting_model varchar(50),packaging varchar(20),unit varchar(20),factory varchar(20),create_time datetime,update_time datetime)";
                 statement.execute(sql);
+            }else{
+                if(!isFieldExist(statement,"CM_FITTING_INTO_INFO","PACKAGING")){
+                    String sql = "ALTER TABLE CM_FITTING_INTO_INFO ADD packaging varchar(20)";
+                    statement.execute(sql);
+                }
             }
             //维修登记单
             if(!isExist(statement,"CM_CHECK_MAINTAIN_RECORD")){
@@ -159,6 +164,11 @@ public class AppIntializer {
 
     private static boolean isExist(Statement statement,String tableName) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = '%s'",tableName));
+        return resultSet.next();
+    }
+
+    private static boolean isFieldExist(Statement statement,String tableName,String fieldName) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '%s' and COLUMN_NAME = '%s'",tableName,fieldName));
         return resultSet.next();
     }
 
