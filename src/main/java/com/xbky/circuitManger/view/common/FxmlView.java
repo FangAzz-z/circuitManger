@@ -164,6 +164,12 @@ public enum FxmlView {
         public String title() {return "添加";}
         @Override
         public String fxml() {return "/views/dialogs/system_user_role_dialog.fxml";}
+    },
+    SYSTEM_DB{
+        @Override
+        public String title() {return "添加";}
+        @Override
+        public String fxml() {return "/views/system_db.fxml";}
     }
     ;
 

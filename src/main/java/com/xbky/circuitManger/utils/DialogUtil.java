@@ -68,4 +68,18 @@ public class DialogUtil {
 
         return  exeChooser.showOpenDialog(new Stage());
     }
+
+    public static File showExportDbFileDialog(String title) {
+
+        if (ObjectUtil.isBlank(title)) {
+            title = "选择图片目录";
+        }
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle(title);
+
+        File directory = directoryChooser.showDialog(new Stage());
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        return directory;
+    }
 }

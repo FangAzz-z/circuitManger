@@ -15,7 +15,7 @@ import java.sql.Statement;
 
 public class AppIntializer {
     private static Logger log = LoggerFactory.getLogger(AppIntializer.class);
-    public static void initInfo(){
+    public static void setInfo(){
         try {
             Statement statement = DBUtil.getConnection().createStatement();
             // 创建数据表
@@ -25,7 +25,7 @@ public class AppIntializer {
                 String sql = "create table SOFT_INFO(" +
                         "id int primary key, " +
                         "version varchar(20)," +
-                        "db_path varchar(20)," +
+                        "db_path varchar(255)," +
                         "create_time datetime," +
                         "update_time datetime)";
                 statement.execute(sql);
@@ -39,7 +39,11 @@ public class AppIntializer {
         }
     }
     public static void init(){
-        initInfo();
+        setInfo();
+        setDb();
+    }
+
+    public static void setDb(){
         try {
             Statement statement = DataDBUtil.getConnection().createStatement();
             // 创建数据表

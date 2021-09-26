@@ -52,5 +52,9 @@ public class DataDBUtil {
         }
     }
 
+    public static void  resetPath(){
+        db_path = DBUtil.getDbPath();
+    }
+
 
 }

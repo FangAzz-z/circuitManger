@@ -65,7 +65,7 @@ public class DBUtil {
         return result;
     }
 
-    protected int update(String dbPath){
+    public static int updatePath(String dbPath){
         int result=0;
         try {
             String sql = String.format("update SOFT_INFO set db_path = '%s' where id = 1",dbPath);

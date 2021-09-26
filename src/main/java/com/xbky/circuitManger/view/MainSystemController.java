@@ -53,6 +53,13 @@ public class MainSystemController implements Initializable {
         updateBody(FxmlView.PRODUCE_PRO);
     }
 
+    /**
+     *  系统设置->数据源设置
+     */
+    public void systemDb(ActionEvent actionEvent) {
+        updateBody(FxmlView.SYSTEM_DB);
+    }
+
     @FXML
     void roleManger(ActionEvent event) {
         updateBody(FxmlView.SYSTEM_USER_ROLE);
@@ -68,4 +75,5 @@ public class MainSystemController implements Initializable {
         Parent viewRootNodeHierarchy = StageManager.loadViewNodeHierarchy(view.fxml());
         body.setContent(viewRootNodeHierarchy);
     }
+
 }
