@@ -179,7 +179,9 @@ public class CheckMaintainAddController implements Initializable {
         else {
             record.setMaintainId(this.wxId.getText());
         }
-        record.setId(ObjectUtil.getLong(tfId.getText()));
+        if(ObjectUtil.isNotNull(tfId.getText())) {
+            record.setId(ObjectUtil.getLong(tfId.getText()));
+        }
         //校验配件库存
         Map<String,Integer> countMap = checkFittingSum(record);
         String errorMsg = checkFittingNum(countMap);
@@ -262,7 +264,9 @@ public class CheckMaintainAddController implements Initializable {
         else {
             record.setMaintainId(this.wxId.getText());
         }
-        record.setId(ObjectUtil.getLong(tfId.getText()));
+        if(ObjectUtil.isNotNull(tfId.getText())) {
+            record.setId(ObjectUtil.getLong(tfId.getText()));
+        }
 
         //校验配件库存
         Map<String,Integer> countMap = checkFittingSum(record);
