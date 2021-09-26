@@ -336,9 +336,9 @@ public class CheckMaintainAddController implements Initializable {
                 StageManager.nullWarn("该编号的配件已存在，若需修改请先清除！");
                 return a;
             }
-            String desc = String.format("编号:%s,型号:%s,名称:%s,数量:%s",
-                    ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_model")),
-                    ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("num")));
+            String desc = String.format("%s,%s,%s,%s,%s%s",
+                    ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("fitting_model")),
+                    ObjectUtil.isNull(ObjectUtil.getString(map.get("packaging")))?"":ObjectUtil.getString(map.get("packaging")),ObjectUtil.getString(map.get("num")),ObjectUtil.getString(map.get("unit")));
             taMaintainFitting.setText(ObjectUtil.isNull(desc0)?
                     desc:(desc0+"\n"+desc));
             return a;
@@ -392,8 +392,8 @@ public class CheckMaintainAddController implements Initializable {
             String [] fittings = record.getMaintainFitting().split("\n");
             for (int i = 0; i < fittings.length; i++) {
                 String [] ss = fittings[i].split(",");
-                String no = ss[0].split(":")[1];
-                String value = ss[3].split(":")[1];
+                String no = ss[0];
+                String value = ss[4].substring(0,ss[4].length()-1);
                 countMap.put(no,ObjectUtil.getInt(value));
             }
         }
@@ -403,8 +403,8 @@ public class CheckMaintainAddController implements Initializable {
                 String [] hasFittings = ObjectUtil.getString(fMap.get("maintain_fitting")).split("\n");
                 for (int i = 0; i < hasFittings.length; i++) {
                     String [] ss = hasFittings[i].split(",");
-                    String no = ss[0].split(":")[1];
-                    String value = ss[3].split(":")[1];
+                    String no = ss[0];
+                    String value = ss[4].substring(0,ss[4].length()-1);
                     if(countMap.containsKey(no)) {
                         countMap.put(no, countMap.get(no)-ObjectUtil.getInt(value));
                     }else{

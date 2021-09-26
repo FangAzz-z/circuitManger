@@ -300,7 +300,7 @@ public class MainController implements Initializable {
     }
 
     public void baseChange(ActionEvent actionEvent) {
-        openModule(FxmlView.MAIN_BASE_SET);
+        openModule(FxmlView.MAIN_BASE_SET,1250,640);
     }
     private void openModule(FxmlView view){
         openModule(view,1200,640);

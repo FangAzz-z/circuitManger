@@ -76,6 +76,15 @@ public class FittingIntoInfoDao extends BaseDao{
         if(ObjectUtil.isNotNull(fii.getFittingName())){
             sql.append(String.format(" and fitting_name = '%s'",fii.getFittingName()));
         }
+        if(ObjectUtil.isNotNull(fii.getPackaging())){
+            sql.append(String.format(" and packaging = '%s'",fii.getPackaging()));
+        }
+        if(ObjectUtil.isNotNull(fii.getFactory())){
+            sql.append(String.format(" and factory = '%s'",fii.getFactory()));
+        }
+        if(ObjectUtil.isNotNull(fii.getUnit())){
+            sql.append(String.format(" and unit = '%s'",fii.getUnit()));
+        }
         sql.append(" order by update_time desc");
         Boolean result = ObjectUtil.isNotEmpty(super.queryForList(sql.toString(), null))?true:false;
         return result;
