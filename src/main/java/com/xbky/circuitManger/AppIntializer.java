@@ -206,9 +206,14 @@ public class AppIntializer {
             BufferedWriter bw0 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test0),StandardCharsets.UTF_8));
             bw0.write(s);
             bw0.flush();
+            bw.close();
+            bw0.close();
+            br.close();
+            input.close();
             log.info("html模板生产->end");
         } catch (IOException e) {
             log.error("",e);
+        } finally {
         }
     }
     private static void buildLbx() {
@@ -228,6 +233,8 @@ public class AppIntializer {
             FileOutputStream bw = new FileOutputStream(test);
             bw.write(buffer);
             bw.flush();
+            input.close();
+            bw.close();
             log.info("lbx模板生产->end");
         } catch (IOException e) {
             log.error("",e);
@@ -245,11 +252,21 @@ public class AppIntializer {
             if(!test.exists()){
                 test.createNewFile();
             }
-            byte[] buffer = new byte[1024*50];
-            input.read(buffer);
-            FileOutputStream bw = new FileOutputStream(test);
-            bw.write(buffer);
-            bw.flush();
+//            byte[] buffer = new byte[1024*50];
+//            input.read(buffer);
+//            FileOutputStream bw = new FileOutputStream(test);
+//            bw.write(buffer);
+//            bw.flush();
+            if (null != input) {
+                OutputStream out = new FileOutputStream(test);
+                byte[] bytes = new byte[1];
+                while (input.read(bytes) != -1) {
+                    out.write(bytes);
+                }
+                out.flush();
+                out.close();
+                input.close();
+            }
             log.info("lbx模板生产->end");
         } catch (IOException e) {
             log.error("",e);
