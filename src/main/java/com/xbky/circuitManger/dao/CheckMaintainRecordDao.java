@@ -122,9 +122,23 @@ public class CheckMaintainRecordDao extends BaseDao {
         }
         if(ObjectUtil.isNotNull(record.getReceiveStartTime())&&ObjectUtil.isNotNull(record.getReceiveEndTime())){
             sql.append(String.format(" and receive_date between '%s' and '%s' ",record.getReceiveStartTime(),record.getReceiveEndTime()));
+        }else{
+            if(ObjectUtil.isNotNull(record.getReceiveStartTime())){
+                sql.append(String.format(" and receive_date >= '%s'",record.getReceiveStartTime()));
+            }
+            if(ObjectUtil.isNotNull(record.getReceiveEndTime())){
+                sql.append(String.format(" and receive_end <= '%s'",record.getReceiveEndTime()));
+            }
         }
         if (ObjectUtil.isNotNull(record.getCompleteStartTime()) && ObjectUtil.isNotNull(record.getCompleteEndTime())) {
             sql.append(String.format(" and complete_date between '%s' and '%s' ",record.getCompleteStartTime(),record.getCompleteEndTime()));
+        }else{
+            if(ObjectUtil.isNotNull(record.getCompleteStartTime())){
+                sql.append(String.format(" and complete_date >= '%s'",record.getCompleteStartTime()));
+            }
+            if(ObjectUtil.isNotNull(record.getCompleteEndTime())){
+                sql.append(String.format(" and complete_date <= '%s'",record.getCompleteEndTime()));
+            }
         }
         if (ObjectUtil.isNotNull(record.getMaintainCardNo())) {
             sql.append(String.format(" and maintain_card_no like '%s'",record.getMaintainCardNo()+"%"));
@@ -139,7 +153,10 @@ public class CheckMaintainRecordDao extends BaseDao {
             sql.append(String.format(" and maintain_card_brand = '%s'",record.getMaintainCardBrand()));
         }
         if(ObjectUtil.isNotNull(record.getWxStatus())){
-            sql.append(String.format(" and wxStatus = '%s'",record.getWxStatus()));
+            sql.append(String.format(" and wx_status = '%s'",record.getWxStatus()));
+        }
+        if(ObjectUtil.isNotNull(record.getMaintainUser())){
+            sql.append(String.format(" and maintain_user = '%s'",record.getMaintainUser()));
         }
         int count =  super.queryForList(sql.toString(), null).size();
         int total =  (count  +  pageSize  - 1) / pageSize;

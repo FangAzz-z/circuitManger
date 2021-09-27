@@ -42,10 +42,10 @@ public class BaseInfoDao extends BaseDao {
         sql.append("select * from ").append(baseTable).append(" where 1 = 1 ");
 
         if (!ObjectUtil.isBlank(content)) {
-            sql.append(" and content = '%").append(content).append("' ");
+            sql.append(" and content = '").append(content).append("' ");
         }
         if (!ObjectUtil.isBlank(code)) {
-            sql.append(" and code = '%").append(code).append("' ");
+            sql.append(" and code = '").append(code).append("' ");
         }
         sql.append(" order by update_time desc");
         Boolean result = ObjectUtil.isNotEmpty(super.queryForList(sql.toString(), null))?true:false;

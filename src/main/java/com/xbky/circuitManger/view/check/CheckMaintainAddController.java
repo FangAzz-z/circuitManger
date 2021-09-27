@@ -193,7 +193,6 @@ public class CheckMaintainAddController implements Initializable {
         String errorMsg = checkFittingNum(countMap);
         if(ObjectUtil.isNotNull(errorMsg)){
             StageManager.nullWarn(errorMsg);
-            return;
         }
         //更新保存数据
         updateFittingNum(countMap);
@@ -279,7 +278,6 @@ public class CheckMaintainAddController implements Initializable {
         String errorMsg = checkFittingNum(countMap);
         if(ObjectUtil.isNotNull(errorMsg)){
             StageManager.nullWarn(errorMsg);
-            return;
         }
         //更新保存数据
         updateFittingNum(countMap);

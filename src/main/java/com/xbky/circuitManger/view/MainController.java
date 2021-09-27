@@ -261,9 +261,9 @@ public class MainController implements Initializable {
 
     public void printerZd(ActionEvent actionEvent) {
         try {
-            PrintUtil.print(ObjectUtil.getWxId()+" 维修完成");
+           // PrintUtil.print(ObjectUtil.getWxId()+" 维修完成");
           // ImageUtil.printToLabel(ObjectUtil.getWxId()+" 维修完成");
-           // service.programRun("打印终端连接");
+            service.programRun("打印终端连接");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
         }
