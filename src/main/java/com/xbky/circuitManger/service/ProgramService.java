@@ -16,10 +16,7 @@ public class ProgramService {
 
     ProgramDao dao = new ProgramDao();
 
-    public int programRun(String programName) throws Exception{
-        return programRun(programName,"");
-    }
-    public int programRun(String programName,String version) throws Exception {
+    public int programRun(String programName) throws Exception {
         try {
             String command = dao.getLocationByName(programName);
             if(ObjectUtil.isNull(command)){
@@ -37,7 +34,7 @@ public class ProgramService {
                 process = runtime.exec(String.format("cmd /c start %s", command), null, new File(path));
             }
             else{
-                process = runtime.exec(command+version);
+                process = runtime.exec(command, null, new File(path));
             }
             return 1;
         } catch (Exception e) {
@@ -49,4 +46,9 @@ public class ProgramService {
     public int modifySreen(){
         return 1;
     }
+
+//    public static void main(String[] args) throws IOException {
+//        Runtime runtime = Runtime.getRuntime();
+//        runtime.exec("C:\\GETrans\\wPTU_801\\bin\\ptuProgram.exe",null,new File("C:\\GETrans\\wPTU_801\\bin"));
+//    }
 }
