@@ -239,12 +239,14 @@ public class MainController implements Initializable {
      * @param actionEvent
      */
     public void wxManager(ActionEvent actionEvent) {
+        service.toBigScreen();
         this.firstPage.setVisible(false);
         this.secondPage.setVisible(true);
     }
 
     public void cxDown(ActionEvent actionEvent) {
         try {
+            service.toBigScreen();
             service.programRun("程序下载");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
@@ -253,6 +255,7 @@ public class MainController implements Initializable {
 
     public void txConnect(ActionEvent actionEvent) {
         try {
+            service.toBigScreen();
             service.programRun("通讯连接");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
@@ -263,6 +266,7 @@ public class MainController implements Initializable {
         try {
            // PrintUtil.print(ObjectUtil.getWxId()+" 维修完成");
           // ImageUtil.printToLabel(ObjectUtil.getWxId()+" 维修完成");
+            service.toBigScreen();
             service.programRun("打印终端连接");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
@@ -271,6 +275,7 @@ public class MainController implements Initializable {
 
     public void bkTest(ActionEvent actionEvent) {
         try {
+            service.toMiniScreen();
             service.programRun("维修板卡测试");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
@@ -278,6 +283,7 @@ public class MainController implements Initializable {
     }
 
     public void appExit(ActionEvent actionEvent) {
+        service.toBigScreen();
         Main.closeAllPopups(actionEvent);
     }
 

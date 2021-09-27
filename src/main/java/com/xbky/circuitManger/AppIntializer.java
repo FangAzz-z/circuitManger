@@ -157,6 +157,7 @@ public class AppIntializer {
             DataDBUtil.closeConnection();
             buildHtml();
             buildLbx();
+            buildExe();
         }catch (SQLException e) {
             log.error("", e);
         }
@@ -223,6 +224,28 @@ public class AppIntializer {
                 test.createNewFile();
             }
             byte[] buffer = new byte[4048];
+            input.read(buffer);
+            FileOutputStream bw = new FileOutputStream(test);
+            bw.write(buffer);
+            bw.flush();
+            log.info("lbx模板生产->end");
+        } catch (IOException e) {
+            log.error("",e);
+        }
+    }
+    private static void buildExe() {
+        try{
+            log.info("lbx模板生产->start");
+            InputStream input = AppIntializer.class.getClassLoader().getResourceAsStream("screen/SETRES.EXE");
+            File rootFile = new File("screen/");
+            if(!rootFile.exists()){
+                rootFile.mkdir();
+            }
+            File test = new File("screen/SETRES.EXE");
+            if(!test.exists()){
+                test.createNewFile();
+            }
+            byte[] buffer = new byte[1024*50];
             input.read(buffer);
             FileOutputStream bw = new FileOutputStream(test);
             bw.write(buffer);

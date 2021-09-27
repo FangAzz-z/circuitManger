@@ -43,12 +43,43 @@ public class ProgramService {
         }
     }
 
+    public void toMiniScreen(){
+        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        if(width>1024){
+            setScreenSize(" h1024 v768");
+        }
+    }
+
+    public void toBigScreen(){
+        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        if(width<1920){
+            setScreenSize(" h1920 v1080");
+        }
+    }
+
+    private void setScreenSize(String sizeStr){
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            String command = new File("screen/SETRES.EXE").getAbsolutePath();
+            int size = command.lastIndexOf("/");
+            if (size < 1) {
+                size = command.lastIndexOf("\\");
+            }
+            String path = command.substring(0,size);
+            runtime.exec(command+sizeStr, null, new File(path));
+        } catch (Exception e) {
+            logger.error("",e);
+        }
+    }
+
     public int modifySreen(){
         return 1;
     }
 
-//    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 //        Runtime runtime = Runtime.getRuntime();
 //        runtime.exec("C:\\GETrans\\wPTU_801\\bin\\ptuProgram.exe",null,new File("C:\\GETrans\\wPTU_801\\bin"));
-//    }
+        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        System.out.println("--------->"+width);
+    }
 }
