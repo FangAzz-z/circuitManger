@@ -30,11 +30,20 @@ public class FittingIntoInfo {
 
     }
 
-    public FittingIntoInfo(Long id,String fittingNo, String fittingName, String fittingModel,String factory, String unit) {
+    public FittingIntoInfo(Long id,String fittingNo, String fittingName, String fittingModel,String packaging,String factory, String unit) {
         this.id = id;
         this.fittingNo = fittingNo;
         this.fittingName = fittingName;
         this.fittingModel = fittingModel;
+        this.packaging = packaging;
+        this.factory = factory;
+        this.unit = unit;
+    }
+    public FittingIntoInfo(String fittingNo, String fittingName, String fittingModel,String packaging,String factory, String unit) {
+        this.fittingNo = fittingNo;
+        this.fittingName = fittingName;
+        this.fittingModel = fittingModel;
+        this.packaging = packaging;
         this.factory = factory;
         this.unit = unit;
     }

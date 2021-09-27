@@ -161,7 +161,7 @@ public class BaseSetFittingController implements Initializable {
         dialog.centerOnScreen();
         BaseSetFittingAddController  controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("factory"),(String)map.get("unit")));
+        controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("packaging"),(String)map.get("factory"),(String)map.get("unit")));
         controller.setResultHandle(()->{refreshData();});
         dialog.show();
     }
@@ -194,14 +194,33 @@ public class BaseSetFittingController implements Initializable {
         List<Map<String, Object>> dataList = this.dao.queryByExample(getSearchParam());
         ExcelUtil.chooseDirectoryToWriteFromDataBase("配件入库信息", FittingIntoInfoExportObj.getHeadMap(), dataList, FittingIntoInfoExportObj.class);
     }
+/*
+    private String fittingNo;
 
+    private String fittingName;
+
+    private String fittingModel;
+
+    private String packaging;
+
+    private String factory;
+
+    private String unit;
+ */
     @FXML
     void importFaultShow(ActionEvent event) {
         List<FittingIntoInfoImportObj> data = ExcelUtil.chooseFileToRead(FittingIntoInfoImportObj.getHeadMap(), FittingIntoInfoImportObj.class);
         if (!data.isEmpty()) {
-            int count = this.dao.batchInsert(data);
+            int count = 0;
+            for (int i = 0; i < data.size(); i++) {
+                FittingIntoInfoImportObj obj = data.get(i);
+                FittingIntoInfo fii = new FittingIntoInfo(obj.getFittingNo(),obj.getFittingName(),obj.getFittingModel(),obj.getPackaging(),obj.getFactory(),obj.getUnit());
+                if(!this.dao.isExistSome(fii)) {
+                    this.dao.add(fii);
+                }
+            }
             logger.info("导入故障数据成功 count = {}", count);
-            StageManager.infoWarn(String.format("导入成功"));
+            StageManager.infoWarn(String.format("导入成功,已自动过滤重复数据!"));
             refreshData();
         }
     }

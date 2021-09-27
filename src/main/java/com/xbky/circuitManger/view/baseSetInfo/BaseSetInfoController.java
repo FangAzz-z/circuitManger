@@ -407,9 +407,15 @@ public class BaseSetInfoController implements Initializable {
     void importFaultShow(ActionEvent event) {
         List<BaseFaultShowImportObj> data = ExcelUtil.chooseFileToRead(BaseFaultShowImportObj.getHeadMap(), BaseFaultShowImportObj.class);
         if (!data.isEmpty()) {
-            int count = this.dao.batchInert("CM_BASE_FAULT_SHOW", data);
+            int count = 0;
+            for (int i = 0; i < data.size(); i++) {
+                if(!dao.isExistSome("CM_BASE_FAULT_SHOW",data.get(i).getContent(),data.get(i).getCode())) {
+                    this.dao.addV2("CM_BASE_FAULT_SHOW", data.get(i).getContent(), data.get(i).getCode());
+                    count++;
+                }
+            }
             logger.info("导入故障数据成功 count = {}", count);
-            StageManager.infoWarn(String.format("导入成功"));
+            StageManager.infoWarn(String.format("导入成功,已自动过滤重复数据"));
             refreshShowData();
         }
     }
