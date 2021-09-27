@@ -16,7 +16,10 @@ public class ProgramService {
 
     ProgramDao dao = new ProgramDao();
 
-    public int programRun(String programName) throws Exception {
+    public int programRun(String programName) throws Exception{
+        return programRun(programName,"");
+    }
+    public int programRun(String programName,String version) throws Exception {
         try {
             String command = dao.getLocationByName(programName);
             if(ObjectUtil.isNull(command)){
@@ -34,20 +37,16 @@ public class ProgramService {
                 process = runtime.exec(String.format("cmd /c start %s", command), null, new File(path));
             }
             else{
-                process = runtime.exec(command);
+                process = runtime.exec(command+version);
             }
-
-/*            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-            String line = null;
-            StringBuilder build = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                System.err.println(line);
-                build.append(line);
-            }*/
             return 1;
         } catch (Exception e) {
             logger.error("",e);
             throw new Exception(String.format("%s:路径配置异常",programName));
         }
+    }
+
+    public int modifySreen(){
+        return 1;
     }
 }

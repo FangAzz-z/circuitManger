@@ -245,7 +245,7 @@ public class MainController implements Initializable {
 
     public void cxDown(ActionEvent actionEvent) {
         try {
-            service.programRun("程序下载");
+            service.programRun("程序下载"," 1 1 PSC");
         } catch (Exception e) {
             StageManager.nullWarn(e.getMessage());
         }

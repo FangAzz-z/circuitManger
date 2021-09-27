@@ -140,13 +140,20 @@ public class Test{
     }
 
     public static void main(String[] args) {
-        Test cg = new Test();
-        try {
+        setResolution();
+/*        try {
             cg.graphicsGeneration("ewew", "1", "12", "D://workspace//1.bmp");
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
-
+        public static void setResolution() {
+            GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device=environment.getDefaultScreenDevice();
+            DisplayMode displayMode=new DisplayMode(1024,768,16,75);
+            device.setDisplayMode(displayMode);
+        }
 }
+
+
