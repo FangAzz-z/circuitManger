@@ -52,7 +52,7 @@ public class ProgramService {
 
     public void toBigScreen(){
         int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-        if(width<1920){
+        if(width<1300){
             setScreenSize(" h1920 v1080");
         }
     }
