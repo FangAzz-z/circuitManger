@@ -121,6 +121,14 @@
                                 <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
                             </effect>
                         </Button>
+                        <Button mnemonicParsing="false" onAction="#exportLowLimitData" prefHeight="30.0" prefWidth="120.0" styleClass="info" text="低限预警导出">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" color="#6468b2" />
+                            </effect>
+                        </Button>
                     </children>
                     <padding>
                         <Insets right="10.0" />

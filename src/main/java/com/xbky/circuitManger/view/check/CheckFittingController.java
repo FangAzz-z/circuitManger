@@ -3,6 +3,10 @@ package com.xbky.circuitManger.view.check;
 import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.CheckFittingRecordDao;
 import com.xbky.circuitManger.entity.CheckFittingRecord;
+import com.xbky.circuitManger.entity.CheckMaintainRecord;
+import com.xbky.circuitManger.export.CheckFittingLimitExportObj;
+import com.xbky.circuitManger.export.CheckMaintainRecordExportObj;
+import com.xbky.circuitManger.utils.ExcelUtil;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
@@ -175,5 +179,10 @@ public class CheckFittingController implements Initializable {
             dao.commonDeleteById("CM_CHECK_FITTING_RECORD", map.get("id") + "");
             refreshData();
         }
+    }
+
+    public void exportLowLimitData(ActionEvent actionEvent) {
+        List<Map<String,Object>> dataList = this.dao.queryLimitData();
+        ExcelUtil.chooseDirectoryToWriteFromDataBase("配件库存低限预警", CheckFittingLimitExportObj.getHeadMap(),dataList, CheckFittingLimitExportObj.class);
     }
 }

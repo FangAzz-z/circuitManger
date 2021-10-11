@@ -96,11 +96,11 @@
                                     <children>
                                         <HBox alignment="CENTER" maxWidth="180.0" prefHeight="40.0" prefWidth="180.0">
                                             <children>
-                                                <Text fill="#3388ff" strokeType="OUTSIDE" strokeWidth="0.0" text="初始用户密码:admin/admin">
+<!--                                                <Text fill="#3388ff" strokeType="OUTSIDE" strokeWidth="0.0" text="初始用户密码:admin/admin">
                                                     <font>
                                                         <Font size="12.0" />
                                                     </font>
-                                                </Text>
+                                                </Text>-->
                                             </children>
                                         </HBox>
                                     </children>

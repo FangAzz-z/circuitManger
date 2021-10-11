@@ -29,7 +29,10 @@ public class Main extends Application {
         primaryStage.setTitle("产品维修管理软件"); // 页面标题
         primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
         Parent root = FXMLLoader.load(getClass().getResource("/views/appMain.fxml")); // 页面对应的fxml
-        Scene primarySence = new Scene(root, 1800, 900); // 页面大小
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        Scene primarySence = new Scene(root, width, height); // 页面大小 初始 1800 900
         primaryStage.setScene( primarySence );
         primaryStage.setOnCloseRequest(event -> {
             closeAllPopups(event);

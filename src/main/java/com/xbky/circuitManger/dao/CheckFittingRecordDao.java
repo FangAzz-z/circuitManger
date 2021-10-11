@@ -56,6 +56,12 @@ public class CheckFittingRecordDao extends BaseDao{
         return map;
     }
 
+    public List<Map<String,Object>> queryLimitData(){
+        StringBuffer sql = new StringBuffer("select * from CM_CHECK_FITTING_RECORD  where 1=1 and fitting_num < low_limit");
+        List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
+        return list;
+    }
+
     public Map<String, Object> getRecordByNo(String no) {
         String sql = String.format("select * from CM_CHECK_FITTING_RECORD where fitting_no = '%s'",no);
         return super.queryForMap(sql,null);
