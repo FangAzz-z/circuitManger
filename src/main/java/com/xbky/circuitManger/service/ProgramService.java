@@ -44,17 +44,17 @@ public class ProgramService {
     }
 
     public void toMiniScreen(){
-        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+/*        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         if(width>1024){
             setScreenSize(" h1024 v768");
-        }
+        }*/
     }
 
     public void toBigScreen(){
-        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+/*        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         if(width<1300){
-            setScreenSize(" h1920 v1080");
-        }
+            setScreenSize(" h1366 v768");
+        }*/
     }
 
     private void setScreenSize(String sizeStr){
