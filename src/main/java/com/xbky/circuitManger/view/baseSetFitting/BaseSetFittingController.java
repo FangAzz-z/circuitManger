@@ -89,7 +89,7 @@ public class BaseSetFittingController implements Initializable {
         this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
         this.packaging.setCellValueFactory(new MapValueFactory<String>("packaging"));
         this.factory.setCellValueFactory(new MapValueFactory<String>("factory"));
-        this.unit.setCellValueFactory(new MapValueFactory<>("unit"));
+        this.unit.setCellValueFactory(new MapValueFactory<String>("unit"));
         this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
     }

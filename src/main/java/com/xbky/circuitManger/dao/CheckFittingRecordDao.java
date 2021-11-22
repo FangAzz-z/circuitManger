@@ -50,7 +50,7 @@ public class CheckFittingRecordDao extends BaseDao{
         int total =  (count  +  pageSize  - 1) / pageSize;
         sql.append(String.format(" order by c.update_time desc  limit %s,%s ",pageNo*pageSize,pageSize));
         List<Map<String,Object>> list =  super.queryForList(sql.toString(), null);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", list);
         map.put("total", total);
         return map;

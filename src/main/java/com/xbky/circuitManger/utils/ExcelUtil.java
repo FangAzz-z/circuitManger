@@ -48,7 +48,7 @@ public class ExcelUtil {
 
     public static <T> List<T> covertDatabaseRecordToEntity(List<Map<String, Object>> dataMapList, Class<T> cls) throws IllegalAccessException, InstantiationException {
 
-        List<T> result = new ArrayList<>(dataMapList.size());
+        List<T> result = new ArrayList<T>(dataMapList.size());
         for (Map<String, Object> data : dataMapList) {
 
             Field[] fields = cls.getDeclaredFields();
@@ -100,7 +100,7 @@ public class ExcelUtil {
         Row headRow = sheet.createRow(rowIndex);
         int headCellIndex = 0;
 
-        Map<String, Integer> fieldIndexMap = new HashMap<>();
+        Map<String, Integer> fieldIndexMap = new HashMap<String, Integer>();
 
         for (Map.Entry<String, String> entry : headMap.entrySet()) {
             headRow.createCell(headCellIndex).setCellValue(entry.getValue());
@@ -182,7 +182,7 @@ public class ExcelUtil {
                 cell.setCellValue(ObjectUtil.dateFormatForStand((Date) value));
             }
         } else {
-            throw new ExcelException("不支持的类型 " + type.getTypeName());
+            throw new ExcelException("不支持的类型 ");
         }
     }
 
@@ -239,7 +239,7 @@ public class ExcelUtil {
     }
 
     private static <T> Map<String, Integer> getFieldIndexMap(Row firstRow, Map<String, String> headMap) {
-        Map<String, Integer> resultMap = new HashMap<>(headMap.size());
+        Map<String, Integer> resultMap = new HashMap<String, Integer>(headMap.size());
         int cellIndex = 0;
         while (cellIndex < firstRow.getPhysicalNumberOfCells()) {
 
@@ -262,7 +262,7 @@ public class ExcelUtil {
     }
 
     private static <T extends BaseImportObj> List<T> readFromExcel(Workbook workbook, Map<String, String> headMap, Class<T> cls) {
-        List<T> resultDataList = new ArrayList<>();
+        List<T> resultDataList = new ArrayList<T>();
         // 解析sheet
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -366,7 +366,7 @@ public class ExcelUtil {
                 field.set(t, ObjectUtil.parseFromDateStr(value, annotation.format()));
             }
         } else {
-            throw new ExcelException("不支持的类型 " + type.getTypeName());
+            throw new ExcelException("不支持的类型 ");
         }
     }
 

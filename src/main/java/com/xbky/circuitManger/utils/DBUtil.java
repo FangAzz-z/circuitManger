@@ -43,11 +43,11 @@ public class DBUtil {
             Statement statement = DBUtil.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            List<Map<String, Object>> returnList = new ArrayList<>();
+            List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
             while (resultSet.next()) {
-                Map rowData = new HashMap<>(columnCount);
+                Map rowData = new HashMap(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }

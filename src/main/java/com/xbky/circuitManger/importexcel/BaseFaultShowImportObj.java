@@ -27,7 +27,7 @@ public class BaseFaultShowImportObj implements BaseImportObj {
 
     public static LinkedHashMap<String, String> getHeadMap() {
 
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("故障代码", "code");
         headMap.put("中文释义", "content");
 

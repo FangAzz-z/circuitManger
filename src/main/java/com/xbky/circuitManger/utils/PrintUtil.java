@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 public class PrintUtil {
     private static Logger logger = LoggerFactory.getLogger(PrintUtil.class);
@@ -26,7 +25,7 @@ public class PrintUtil {
 
     private  static void coverHtml(String fromFileName,String toFileName){
         try {
-            BufferedReader br =  new BufferedReader(new InputStreamReader(new FileInputStream(fromFileName), StandardCharsets.UTF_8));
+            BufferedReader br =  new BufferedReader(new InputStreamReader(new FileInputStream(fromFileName), "UTF-8"));
             String b="";
             StringBuffer sb = new StringBuffer();
             try {
@@ -37,14 +36,14 @@ public class PrintUtil {
                 }
                 br.close();
                 String s = sb.toString();
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(toFileName),StandardCharsets.UTF_8));
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(toFileName),"UTF-8"));
                 bw.write(s);
                 bw.flush();
                 bw.close();
             } catch (IOException e) {
                 logger.error("",e);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             logger.error("",e);
         }
 

@@ -34,7 +34,7 @@ public class ProductTypeImportObj implements BaseImportObj{
 
     public static LinkedHashMap<String, String> getHeadMap() {
 
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("类别", "category");
         headMap.put("品牌", "brand");
         headMap.put("型号", "model");

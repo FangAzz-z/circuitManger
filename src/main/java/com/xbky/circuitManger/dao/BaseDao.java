@@ -17,7 +17,7 @@ import java.util.Map;
 public class BaseDao {
     private static Logger log = LoggerFactory.getLogger(BaseDao.class);
     protected List<Map<String, Object>> queryForList(String sql, Object[] obj) {
-        List<Map<String, Object>> returnList = new ArrayList<>();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
         try {
             Statement statement;
             ResultSet resultSet;
@@ -33,7 +33,7 @@ public class BaseDao {
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
             while (resultSet.next()) {
-                Map rowData = new HashMap<>(columnCount);
+                Map rowData = new HashMap(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }
@@ -63,11 +63,11 @@ public class BaseDao {
             }
             ResultSet resultSet = statement.executeQuery(sql);
 
-            List<Map<String, Object>> returnList = new ArrayList<>();
+            List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
             ResultSetMetaData md = resultSet.getMetaData();
             int columnCount = md.getColumnCount();
             while (resultSet.next()) {
-                Map rowData = new HashMap<>(columnCount);
+                Map rowData = new HashMap(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }
@@ -144,7 +144,7 @@ public class BaseDao {
         int count = queryCount(baseTable);
         int total = (count/(pageSize+1))+1;
         List<Map<String,Object>> result = queryForList(sql, null);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", result);
         map.put("total", total);
         return map;

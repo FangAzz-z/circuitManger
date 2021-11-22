@@ -95,7 +95,7 @@ public class FittingIntoInfoImportObj implements BaseImportObj{
     }
 
     public static LinkedHashMap<String, String> getHeadMap() {
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put( "配件编号","fittingNo");
         headMap.put("配件名称","fittingName");
         headMap.put( "配件型号","fittingModel");

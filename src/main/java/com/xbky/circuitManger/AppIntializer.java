@@ -191,7 +191,7 @@ public class AppIntializer {
                 test0.createNewFile();
             }
 
-            BufferedReader br =  new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+            BufferedReader br =  new BufferedReader(new InputStreamReader(input, "UTF-8"));
             String b="";
             StringBuffer sb = new StringBuffer();
             while((b = br.readLine())!=null){
@@ -200,10 +200,10 @@ public class AppIntializer {
                     //这里可以写自己想对每一行的处理代码
             }
             String s = sb.toString();
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test),StandardCharsets.UTF_8));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test),"UTF-8"));
             bw.write(s);
             bw.flush();
-            BufferedWriter bw0 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test0),StandardCharsets.UTF_8));
+            BufferedWriter bw0 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(test0), "UTF-8"));
             bw0.write(s);
             bw0.flush();
             bw.close();

@@ -147,8 +147,8 @@ public class BaseSetInfoController implements Initializable {
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
             BaseSetInfoAddController controller = loader.getController();
-            controller.setDialog(dialog);
-            controller.setResultHandld(handle);
+            BaseSetInfoAddController.setDialog(dialog);
+            BaseSetInfoAddController.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
             logger.error("", e);
