@@ -288,7 +288,10 @@ public class MainController implements Initializable {
     }
 
     public void wxCheck(ActionEvent actionEvent) {
-        openModule(FxmlView.MAIN_CHECK,1600,640);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = new Double(screenSize.getWidth()*(1600/1920.0)).intValue();
+        int height = new Double(screenSize.getHeight()*640/1080.0).intValue();
+        openModule(FxmlView.MAIN_CHECK,width,height);
     }
 
     public void systemSet(ActionEvent actionEvent) {
@@ -306,7 +309,10 @@ public class MainController implements Initializable {
     }
 
     public void baseChange(ActionEvent actionEvent) {
-        openModule(FxmlView.MAIN_BASE_SET,1250,640);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = new Double(screenSize.getWidth()*(1250/1920.0)).intValue();
+        int height = new Double(screenSize.getHeight()*640/1080.0).intValue();
+        openModule(FxmlView.MAIN_BASE_SET,width,height);
     }
     private void openModule(FxmlView view){
         openModule(view,1200,640);
