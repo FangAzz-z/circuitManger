@@ -22,6 +22,7 @@ import java.util.Optional;
 
 public class StageManager {
     private static Logger log = LoggerFactory.getLogger(StageManager.class);
+    public static  boolean switchScreen = true;
     public static  Parent loadViewNode(String fxmlFilePath) {
         Parent rootNode = null;
         try {

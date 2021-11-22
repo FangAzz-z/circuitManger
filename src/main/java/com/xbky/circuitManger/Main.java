@@ -1,6 +1,7 @@
 package com.xbky.circuitManger;
 
 import com.xbky.circuitManger.view.common.FxmlView;
+import com.xbky.circuitManger.view.common.StageManager;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -30,10 +31,13 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("/icons/logo2.png")); // 页面logo
         Parent root = FXMLLoader.load(getClass().getResource("/views/appMain.fxml")); // 页面对应的fxml
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        int width = (int)screenSize.getWidth();
-//        int height = (int)screenSize.getHeight();
-        int width = 1366;
-        int height = 768;
+        int width = (int)screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        if (width < 1920) {
+            StageManager.switchScreen =false;
+        }
+//        int width = 1366;
+//        int height = 768;
         Scene primarySence = new Scene(root, width, height); // 页面大小 初始 1800 900
         primaryStage.setScene( primarySence );
         primaryStage.setOnCloseRequest(event -> {

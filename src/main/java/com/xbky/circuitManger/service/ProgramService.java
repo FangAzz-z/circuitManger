@@ -2,6 +2,7 @@ package com.xbky.circuitManger.service;
 
 import com.xbky.circuitManger.dao.ProgramDao;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.view.common.StageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,17 +45,23 @@ public class ProgramService {
     }
 
     public void toMiniScreen(){
-/*        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        if(!StageManager.switchScreen){
+            return;
+        }
+        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         if(width>1024){
             setScreenSize(" h1024 v768");
-        }*/
+        }
     }
 
     public void toBigScreen(){
-/*        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        if(!StageManager.switchScreen){
+            return;
+        }
+        int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         if(width<1300){
-            setScreenSize(" h1366 v768");
-        }*/
+            setScreenSize(" h1920 v1080");
+        }
     }
 
     private void setScreenSize(String sizeStr){
