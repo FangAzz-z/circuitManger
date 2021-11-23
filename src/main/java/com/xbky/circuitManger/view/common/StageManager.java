@@ -17,8 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.util.Objects;
-import java.util.Optional;
+//import java.util.Objects;
+//import java.util.Optional;
 
 public class StageManager {
     private static Logger log = LoggerFactory.getLogger(StageManager.class);
@@ -29,7 +29,7 @@ public class StageManager {
            URL url =  StageManager.class.getResource(fxmlFilePath);
 
             rootNode = FXMLLoader.load(StageManager.class.getResource(fxmlFilePath));
-            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
+          //  Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
         } catch (Exception exception) {
             log.info("", exception);
         }

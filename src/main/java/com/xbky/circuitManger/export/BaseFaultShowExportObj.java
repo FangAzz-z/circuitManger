@@ -42,7 +42,7 @@ public class BaseFaultShowExportObj {
 
     public static LinkedHashMap<String, String> getHeadMap() {
 
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("code", "故障代码");
         headMap.put("content", "中文释义");
         headMap.put("createTime", "创建时间");
@@ -53,7 +53,7 @@ public class BaseFaultShowExportObj {
 
     public static LinkedHashMap<String, String> getHeadMapModel() {
 
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("code", "故障代码");
         headMap.put("content", "中文释义");
 

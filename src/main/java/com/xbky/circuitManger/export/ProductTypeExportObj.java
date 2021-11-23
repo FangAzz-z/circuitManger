@@ -73,7 +73,7 @@ public class ProductTypeExportObj {
     }
 
     public static LinkedHashMap<String, String> getHeadMap() {
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("category", "类别");
         headMap.put("brand", "品牌");
         headMap.put("model", "型号");
@@ -84,7 +84,7 @@ public class ProductTypeExportObj {
     }
 
     public static LinkedHashMap<String, String> getHeadMapModel() {
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("category", "类别");
         headMap.put("brand", "品牌");
         headMap.put("model", "型号");

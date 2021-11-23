@@ -113,7 +113,12 @@ public class BaseSetPtController implements Initializable {
         dialog.centerOnScreen();
         BaseSetPtAddController  controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandld(()->{refreshData();});
+        controller.setResultHandld(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
@@ -159,7 +164,12 @@ public class BaseSetPtController implements Initializable {
         BaseSetPtAddController  controller = (BaseSetPtAddController) loader.getController();
         controller.setDialog(dialog);
         controller.setBaseData(new ProductType((Long)map.get("id"),(String)map.get("category"),(String)map.get("model"),(String)map.get("brand")));
-        controller.setResultHandld(()->{refreshData();});
+        controller.setResultHandld( new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
@@ -208,6 +218,6 @@ public class BaseSetPtController implements Initializable {
 
     @FXML
     public void exportExcelDataModel(ActionEvent actionEvent) {
-        ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title()+"模板",ProductTypeExportObj.getHeadMapModel(),new ArrayList<>(),ProductTypeExportObj.class);
+        ExcelUtil.chooseDirectoryToWriteFromDataBase(FxmlView.BASESET_PT.title()+"模板",ProductTypeExportObj.getHeadMapModel(),new ArrayList<Map<String, Object>>(),ProductTypeExportObj.class);
     }
 }

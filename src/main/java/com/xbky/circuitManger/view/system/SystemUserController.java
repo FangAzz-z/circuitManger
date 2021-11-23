@@ -78,8 +78,13 @@ public class SystemUserController implements Initializable {
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
         SystemUserAddController controller = loader.getController();
-        controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        SystemUserAddController.setDialog(dialog);
+        SystemUserAddController.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
@@ -99,9 +104,9 @@ public class SystemUserController implements Initializable {
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
         SystemUserAddController  controller = loader.getController();
-        controller.setDialog(dialog);
+        SystemUserAddController.setDialog(dialog);
         controller.setBaseData(ObjectUtil.getString(map.get("id")),(String)map.get("user_name"),(String)map.get("user_password"));
-        controller.setResultHandle(()->{refreshData();});
+        SystemUserAddController.setResultHandle(()->{refreshData();});
         dialog.show();
     }
 

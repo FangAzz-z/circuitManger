@@ -391,7 +391,7 @@ public class CheckMaintainAddController implements Initializable {
     }
 
     private Map<String,Integer> checkFittingSum(CheckMaintainRecord record){
-        Map<String,Integer> countMap = new HashMap<>();
+        Map<String,Integer> countMap = new HashMap<String,Integer>();
         if(ObjectUtil.isNotNull(record.getMaintainFitting())){
             String [] fittings = record.getMaintainFitting().split("\n");
             for (int i = 0; i < fittings.length; i++) {

@@ -44,14 +44,14 @@ public class ProduceProController implements Initializable {
         this.urlSet.setCellValueFactory(new MapValueFactory<String>("urlSet"));
         this.button.setCellValueFactory(new  MapValueFactory<String>("button"));
         List<Map<String,Object>> dataList = dao.commonQueryAll("CM_PROGRAM_LOCATION");
-        List<ProduceItem> list = new ArrayList<>();
+        List<ProduceItem> list = new ArrayList<ProduceItem>();
         dataList.forEach(t->{
             ProduceItem item =  new ProduceItem(ObjectUtil.getString(t.get("id")), ObjectUtil.getString(t.get("program_name")),ObjectUtil.getString(t.get("program_location")));
             list.add(item);
         });
         List<Map<String, Object>> list2 = new ArrayList();
         list.forEach(a->{
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<String, Object>();
             map.put("id",a.id);
             map.put("produceName", a.produceName);
             map.put("produceUrl", a.produceUrl);

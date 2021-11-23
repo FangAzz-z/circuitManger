@@ -95,8 +95,13 @@ public class SystemUserRoleController implements Initializable {
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
         SystemUserRoleAddController  controller = loader.getController();
-        controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        SystemUserRoleAddController.setDialog(dialog);
+        SystemUserRoleAddController.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 

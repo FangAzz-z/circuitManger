@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class BaseSetInfoController implements Initializable {
 
@@ -93,7 +92,7 @@ public class BaseSetInfoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.status_id.setCellValueFactory(new MapValueFactory<String>("id"));
-        this.status_content.setCellValueFactory(new MapValueFactory<>("content"));
+        this.status_content.setCellValueFactory(new MapValueFactory<String>("content"));
 
         this.show_id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.show_content.setCellValueFactory(new MapValueFactory<String>("content"));
@@ -167,9 +166,9 @@ public class BaseSetInfoController implements Initializable {
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
             BaseSetInfoAddController controller = loader.getController();
-            controller.setDialog(dialog);
+            BaseSetInfoAddController.setDialog(dialog);
             controller.setBaseData("", label, "");
-            controller.setResultHandld(handle);
+            BaseSetInfoAddController.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
             logger.error("", e);
@@ -192,9 +191,9 @@ public class BaseSetInfoController implements Initializable {
             dialog.initOwner(Main.mainStage);
             dialog.centerOnScreen();
             BaseSetInfoAddController controller = loader.getController();
-            controller.setDialog(dialog);
+            BaseSetInfoAddController.setDialog(dialog);
             controller.setBaseDataV2(map.get("id") + "", (String)map.get("content"), (String) map.get("code"));
-            controller.setResultHandld(handle);
+            BaseSetInfoAddController.setResultHandld(handle);
             dialog.show();
         } catch (Exception e) {
             logger.error("", e);
@@ -247,14 +246,23 @@ public class BaseSetInfoController implements Initializable {
     }*/
 
     public void statusAdd(ActionEvent actionEvent) {
-        commonAdd(() -> {
-            refreshStatusData();
-        }, "维修产品状态");
+
+        commonAdd(
+            new Runnable() {
+                @Override
+                public void run() {
+                    refreshStatusData();
+                }
+            }, "维修产品状态");
+
     }
 
     public void statusModify(ActionEvent actionEvent) {
-        commonModify((Map) this.status_table.getSelectionModel().getSelectedItem(), () -> {
-            refreshStatusData();
+        commonModify((Map) this.status_table.getSelectionModel().getSelectedItem(),             new Runnable() {
+            @Override
+            public void run() {
+                refreshStatusData();
+            }
         }, "维修产品状态");
     }
 
@@ -294,14 +302,21 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void showAdd(ActionEvent actionEvent) {
-        commonAddV2(() -> {
-            refreshShowData();
+        commonAddV2(
+                new Runnable() {
+            @Override
+            public void run() {
+                refreshShowData();
+            }
         }, "故障现象");
     }
 
     public void showModify(ActionEvent actionEvent) {
-        commonModifyV2((Map) this.show_table.getSelectionModel().getSelectedItem(), () -> {
-            refreshShowData();
+        commonModifyV2((Map) this.show_table.getSelectionModel().getSelectedItem(),  new Runnable() {
+            @Override
+            public void run() {
+                refreshShowData();
+            }
         }, "故障现象");
     }
 
@@ -332,14 +347,21 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void methodAdd(ActionEvent actionEvent) {
-        commonAdd(() -> {
-            refreshMethodData();
+
+        commonAdd(        new Runnable() {
+            @Override
+            public void run() {
+                refreshMethodData();
+            }
         }, "维修措施");
     }
 
     public void methodModify(ActionEvent actionEvent) {
-        commonModify((Map) this.method_table.getSelectionModel().getSelectedItem(), () -> {
-            refreshMethodData();
+        commonModify((Map) this.method_table.getSelectionModel().getSelectedItem(),         new Runnable() {
+            @Override
+            public void run() {
+                refreshMethodData();
+            }
         }, "维修措施");
     }
 
@@ -368,14 +390,21 @@ public class BaseSetInfoController implements Initializable {
     }
 
     public void resultAdd(ActionEvent actionEvent) {
-        commonAdd(() -> {
-            refreshResultData();
+
+        commonAdd(        new Runnable() {
+            @Override
+            public void run() {
+                refreshResultData();
+            }
         }, "处理结果");
     }
 
     public void resultModify(ActionEvent actionEvent) {
-        commonModify((Map) this.result_table.getSelectionModel().getSelectedItem(), () -> {
-            refreshResultData();
+        commonModify((Map) this.result_table.getSelectionModel().getSelectedItem(),         new Runnable() {
+            @Override
+            public void run() {
+                refreshResultData();
+            }
         }, "处理结果");
     }
 

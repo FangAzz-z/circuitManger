@@ -167,7 +167,12 @@ public class CheckMaintainController implements Initializable {
         dialog.centerOnScreen();
         CheckMaintainAddController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         controller.createMaintainId();
         dialog.show();
     }
@@ -232,7 +237,12 @@ public class CheckMaintainController implements Initializable {
         dialog.centerOnScreen();
         CheckMaintainAddController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         controller.setBaseData(map);
         dialog.show();
     }

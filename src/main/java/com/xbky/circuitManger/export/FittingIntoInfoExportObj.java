@@ -111,7 +111,7 @@ public class FittingIntoInfoExportObj {
     }
 
     public static LinkedHashMap<String, String> getHeadMap() {
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("id", "ID");
         headMap.put("fittingNo", "配件编号");
         headMap.put("fittingName", "配件名称");
@@ -126,7 +126,7 @@ public class FittingIntoInfoExportObj {
     }
 
     public static LinkedHashMap<String, String> getHeadMapModel() {
-        LinkedHashMap<String, String> headMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headMap = new LinkedHashMap<String, String>();
         headMap.put("fittingNo", "配件编号");
         headMap.put("fittingName", "配件名称");
         headMap.put("fittingModel", "配件型号");

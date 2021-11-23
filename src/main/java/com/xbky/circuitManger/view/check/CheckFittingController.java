@@ -64,13 +64,13 @@ public class CheckFittingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.id.setCellValueFactory(new MapValueFactory<>("id") );
-        this.model.setCellValueFactory(new MapValueFactory<>("fitting_model"));
-        this.name.setCellValueFactory(new MapValueFactory<>("fitting_name"));
-        this.no.setCellValueFactory(new MapValueFactory<>("fitting_no"));
-        this.num.setCellValueFactory(new MapValueFactory<>("fitting_num"));
-        this.packaging.setCellValueFactory(new MapValueFactory<>("packaging"));
-        this.lowLimit.setCellValueFactory(new MapValueFactory<>("low_limit"));
+        this.id.setCellValueFactory(new MapValueFactory<String>("id") );
+        this.model.setCellValueFactory(new MapValueFactory<String>("fitting_model"));
+        this.name.setCellValueFactory(new MapValueFactory<String>("fitting_name"));
+        this.no.setCellValueFactory(new MapValueFactory<String>("fitting_no"));
+        this.num.setCellValueFactory(new MapValueFactory<String>("fitting_num"));
+        this.packaging.setCellValueFactory(new MapValueFactory<String>("packaging"));
+        this.lowLimit.setCellValueFactory(new MapValueFactory<String>("low_limit"));
         this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
         refreshData();
 
@@ -142,7 +142,12 @@ public class CheckFittingController implements Initializable {
         dialog.centerOnScreen();
         CheckFittingAddController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
@@ -164,7 +169,12 @@ public class CheckFittingController implements Initializable {
         dialog.centerOnScreen();
         CheckFittingAddController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         controller.setBaseData(map);
         dialog.show();
     }

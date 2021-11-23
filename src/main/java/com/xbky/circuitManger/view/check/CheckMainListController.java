@@ -57,7 +57,7 @@ public class CheckMainListController implements Initializable {
         String str11 = "维修结果:" + ObjectUtil.getString(map.get("wx_result"));
         String str12 = "维修记录:" + ObjectUtil.getString(map.get("maintain_desc"));
         String str13 = "维修配件:" + ObjectUtil.getString(map.get("maintain_fitting"));
-        List<String> strList = new ArrayList<>();
+        List<String> strList = new ArrayList<String>();
         strList.add(str);
         strList.add(str1);
         strList.add(str2);

@@ -26,7 +26,7 @@ public class SystemDataController  implements Initializable {
         this.id.setCellValueFactory(new MapValueFactory<String>("id"));
         this.dataSource.setCellValueFactory(new MapValueFactory<String>("dataSource"));
         this.button.setCellValueFactory(new  MapValueFactory<String>("button"));
-        List<DataItem> list =new ArrayList<>();
+        List<DataItem> list =new ArrayList<DataItem>();
         DataItem item1 = new DataItem("1","维修登记单");
         DataItem item2 = new DataItem("2","配件登记单");
         DataItem item3 = new DataItem("3","产品类别型号");
@@ -37,7 +37,7 @@ public class SystemDataController  implements Initializable {
         list.add(item4);
         List<Map<String, Object>> list2 = new ArrayList();
         list.forEach(a->{
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<String, Object>();
             map.put("id",a.id);
             map.put("dataSource", a.dataSource);
             map.put("button",a.button);

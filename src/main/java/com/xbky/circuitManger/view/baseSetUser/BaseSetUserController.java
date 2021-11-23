@@ -88,8 +88,13 @@ public class BaseSetUserController implements Initializable {
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
         BaseSetUserAddController controller = loader.getController();
-        controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        BaseSetUserAddController.setDialog(dialog);
+        BaseSetUserAddController.setResultHandle(        new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
     public TableView<Map<String,Object>> createPage(int pageIndex) {
@@ -131,9 +136,14 @@ public class BaseSetUserController implements Initializable {
         dialog.initOwner(Main.mainStage);
         dialog.centerOnScreen();
         BaseSetUserAddController  controller =  loader.getController();
-        controller.setDialog(dialog);
+        BaseSetUserAddController.setDialog(dialog);
         controller.setBaseData(new MaintainUser((Long)map.get("id"),(String)map.get("name"),(String)map.get("sex"),(String)map.get("department"),(String)map.get("job"),(String)map.get("phone")));
-        controller.setResultHandle(()->{refreshData();});
+        BaseSetUserAddController.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 

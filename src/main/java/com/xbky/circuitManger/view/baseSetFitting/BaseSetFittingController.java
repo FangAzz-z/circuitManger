@@ -140,7 +140,12 @@ public class BaseSetFittingController implements Initializable {
         dialog.centerOnScreen();
         BaseSetFittingAddController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
@@ -162,7 +167,12 @@ public class BaseSetFittingController implements Initializable {
         BaseSetFittingAddController  controller = loader.getController();
         controller.setDialog(dialog);
         controller.setBaseData(new FittingIntoInfo((Long)map.get("id"),(String)map.get("fitting_no"),(String)map.get("fitting_name"),(String)map.get("fitting_model"),(String)map.get("packaging"),(String)map.get("factory"),(String)map.get("unit")));
-        controller.setResultHandle(()->{refreshData();});
+        controller.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        });
         dialog.show();
     }
 
