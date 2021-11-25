@@ -1,5 +1,6 @@
 package com.xbky.circuitManger.view.check;
 
+import com.xbky.circuitManger.view.common.Function;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class CheckFittingClearController implements Initializable {
 

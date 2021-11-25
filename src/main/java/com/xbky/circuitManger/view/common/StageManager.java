@@ -1,6 +1,8 @@
 package com.xbky.circuitManger.view.common;
 
 import com.xbky.circuitManger.Main;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,12 +13,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.Optional;
 //import java.util.Objects;
 //import java.util.Optional;
 
@@ -58,6 +62,16 @@ public class StageManager {
     }
 
     public static void nullWarn(String title,String context,Stage stage) {
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(context));
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setContentText(context);
@@ -89,7 +103,6 @@ public class StageManager {
         Parent rootNode = null;
         try {
             rootNode = FXMLLoader.load(StageManager.class.getResource(fxmlFilePath));
-            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
         } catch (Exception exception) {
             log.info("", exception);
         }
@@ -97,7 +110,7 @@ public class StageManager {
     }
 
     public static void infoWarn(String msg) {
-        Stage window = new Stage();
+        final Stage window = new Stage();
         window.setTitle("信息");
                 window.setResizable(false);
         window.initOwner(Main.mainStage);
@@ -105,7 +118,12 @@ public class StageManager {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(300.0D);
         Button button = new Button("关闭");
-                button.setOnAction(e -> window.close());
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        window.close();
+                    }
+                });
         Label label = new Label(msg);
         Separator sp = new Separator();
         VBox layout = new VBox(5.0D);

@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class SystemUserAddController implements Initializable {
 

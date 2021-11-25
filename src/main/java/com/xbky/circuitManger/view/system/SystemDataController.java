@@ -36,13 +36,14 @@ public class SystemDataController  implements Initializable {
         list.add(item3);
         list.add(item4);
         List<Map<String, Object>> list2 = new ArrayList();
-        list.forEach(a->{
+        for (int i = 0; i < list.size(); i++) {
+            DataItem a = list.get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id",a.id);
             map.put("dataSource", a.dataSource);
             map.put("button",a.button);
             list2.add(map);
-        });
+        }
         ObservableList<Map<String,Object>> olist = FXCollections.observableArrayList();
         olist.addAll(list2);
         this.userTable.getSelectionModel().clearSelection();

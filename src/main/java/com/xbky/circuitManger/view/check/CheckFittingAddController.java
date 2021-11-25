@@ -4,6 +4,7 @@ import com.xbky.circuitManger.Main;
 import com.xbky.circuitManger.dao.CheckFittingRecordDao;
 import com.xbky.circuitManger.entity.CheckFittingRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.view.common.Function;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
@@ -149,14 +150,18 @@ public class CheckFittingAddController implements Initializable {
         dialog.centerOnScreen();
         CheckFittingChooseController controller = loader.getController();
         controller.setDialog(dialog);
-        controller.setResultHandle(a->{
-            Map<String,Object> map = (Map<String,Object>)a;
-            this.cbNo.setText(ObjectUtil.getString(map.get("fitting_no")));
-            this.cbName.setText(ObjectUtil.getString(map.get("fitting_name")));
-            this.cbModel.setText(ObjectUtil.getString(map.get("fitting_model")));
-            this.tfNum.setText(ObjectUtil.getString(map.get("num")));
-            return a;
-        });
+        controller.setResultHandle(new Function() {
+               @Override
+               public Object apply(Object a) {
+                   Map<String, Object> map = (Map<String, Object>) a;
+                   cbNo.setText(ObjectUtil.getString(map.get("fitting_no")));
+                   cbName.setText(ObjectUtil.getString(map.get("fitting_name")));
+                   cbModel.setText(ObjectUtil.getString(map.get("fitting_model")));
+                   tfNum.setText(ObjectUtil.getString(map.get("num")));
+                   return a;
+               }
+           }
+        );
         dialog.show();
     }
 

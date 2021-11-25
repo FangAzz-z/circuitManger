@@ -8,8 +8,11 @@ import com.xbky.circuitManger.dao.ProductTypeDao;
 import com.xbky.circuitManger.entity.CheckMaintainRecord;
 import com.xbky.circuitManger.utils.ObjectUtil;
 import com.xbky.circuitManger.utils.PrintUtil;
+import com.xbky.circuitManger.view.common.Function;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,14 +90,20 @@ public class CheckMaintainAddController implements Initializable {
         //类别 品牌 型号 联动
         List<String> category = ptDao.queryAllCategory();
         queryCategory.setItems(FXCollections.observableArrayList(category));
-        queryCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
-            queryBrand.setItems(FXCollections.observableArrayList(brand));
+        queryCategory.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
+                queryBrand.setItems(FXCollections.observableArrayList(brand));
+            }
         });
-        queryBrand.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
-                List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(), ObjectUtil.getString(newValue));
-                queryModel.setItems(FXCollections.observableArrayList(model));
+        queryBrand.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (CheckMaintainAddController.this.queryCategory.getSelectionModel().getSelectedItem() != null) {
+                    List<String> model = ptDao.queryModelByBrand(CheckMaintainAddController.this.queryCategory.getSelectionModel().getSelectedItem().toString(), ObjectUtil.getString(newValue));
+                    queryModel.setItems(FXCollections.observableArrayList(model));
+                }
             }
         });
         queryShow.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -180,9 +189,9 @@ public class CheckMaintainAddController implements Initializable {
         if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
             record.setMaintainCardCategory(this.queryCategory.getSelectionModel().getSelectedItem().toString());
         }
-        if(ObjectUtil.isNull(this.wxId.getText()))
+        if(ObjectUtil.isNull(this.wxId.getText())) {
             record.setMaintainId(ObjectUtil.getWxId());
-        else {
+        } else {
             record.setMaintainId(this.wxId.getText());
         }
         if(ObjectUtil.isNotNull(tfId.getText())) {
@@ -264,9 +273,9 @@ public class CheckMaintainAddController implements Initializable {
         if(this.queryCategory.getSelectionModel().getSelectedItem()!=null) {
             record.setMaintainCardCategory(this.queryCategory.getSelectionModel().getSelectedItem().toString());
         }
-        if(ObjectUtil.isNull(this.wxId.getText()))
+        if(ObjectUtil.isNull(this.wxId.getText())) {
             record.setMaintainId(ObjectUtil.getWxId());
-        else {
+        } else {
             record.setMaintainId(this.wxId.getText());
         }
         if(ObjectUtil.isNotNull(tfId.getText())) {
@@ -333,27 +342,31 @@ public class CheckMaintainAddController implements Initializable {
         choosedialog.centerOnScreen();
         CheckFittingChooseController controller = loader.getController();
         controller.setDialog(choosedialog);
-        controller.setResultHandle(a->{
-            Map<String,Object> map = (Map<String,Object>)a;
-            String desc0 = taMaintainFitting.getText();
-            if(ObjectUtil.isNotNull(desc0)&&desc0.contains(String.format(":%s,",ObjectUtil.getString(map.get("fitting_no"))))){
-                StageManager.nullWarn("该编号的配件已存在，若需修改请先清除！");
+        controller.setResultHandle(new Function() {
+            @Override
+            public Object apply(Object a) {
+                Map<String, Object> map = (Map<String, Object>) a;
+                String desc0 = taMaintainFitting.getText();
+                if (ObjectUtil.isNotNull(desc0) && desc0.contains(String.format(":%s,", ObjectUtil.getString(map.get("fitting_no"))))) {
+                    StageManager.nullWarn("该编号的配件已存在，若需修改请先清除！");
+                    return a;
+                }
+                String desc = String.format("%s,%s,%s,%s,%s%s",
+                        ObjectUtil.getString(map.get("fitting_no")), ObjectUtil.getString(map.get("fitting_name")), ObjectUtil.getString(map.get("fitting_model")),
+                        ObjectUtil.isNull(ObjectUtil.getString(map.get("packaging"))) ? "" : ObjectUtil.getString(map.get("packaging")), ObjectUtil.getString(map.get("num")), ObjectUtil.getString(map.get("unit")));
+                taMaintainFitting.setText(ObjectUtil.isNull(desc0) ?
+                        desc : (desc0 + "\n" + desc));
                 return a;
             }
-            String desc = String.format("%s,%s,%s,%s,%s%s",
-                    ObjectUtil.getString(map.get("fitting_no")),ObjectUtil.getString(map.get("fitting_name")),ObjectUtil.getString(map.get("fitting_model")),
-                    ObjectUtil.isNull(ObjectUtil.getString(map.get("packaging")))?"":ObjectUtil.getString(map.get("packaging")),ObjectUtil.getString(map.get("num")),ObjectUtil.getString(map.get("unit")));
-            taMaintainFitting.setText(ObjectUtil.isNull(desc0)?
-                    desc:(desc0+"\n"+desc));
-            return a;
         });
         choosedialog.show();
     }
 
     public void chooseClear(ActionEvent actionEvent) throws IOException {
-        String desc = taMaintainFitting.getText();
-        if(ObjectUtil.isNull(desc))
+        final String desc = taMaintainFitting.getText();
+        if(ObjectUtil.isNull(desc)) {
             return;
+        }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlView.CHECK_FITTING_CLEAR.fxml()));
         Parent root = loader.load();
@@ -368,14 +381,17 @@ public class CheckMaintainAddController implements Initializable {
         CheckFittingClearController controller = loader.getController();
         controller.setDialog(choosedialog);
 
-        controller.setResultHandle(a->{
-            String des0 = desc.replaceAll(a+"\n","");
-            String desc1 = des0.replaceAll((String)a,"");
-            if(ObjectUtil.isNotNull(desc1)&&desc1.endsWith("\n")){
-                desc1 = desc1.substring(0,desc1.length()-1);
+        controller.setResultHandle(new Function() {
+            @Override
+            public Object apply(Object a) {
+                String des0 = desc.replaceAll(a + "\n", "");
+                String desc1 = des0.replaceAll((String) a, "");
+                if (ObjectUtil.isNotNull(desc1) && desc1.endsWith("\n")) {
+                    desc1 = desc1.substring(0, desc1.length() - 1);
+                }
+                taMaintainFitting.setText(desc1);
+                return a;
             }
-            taMaintainFitting.setText(desc1);
-            return a;
         });
         List<String> listStr =Arrays.asList(desc.split("\n"));
         controller.setBaseData(listStr);

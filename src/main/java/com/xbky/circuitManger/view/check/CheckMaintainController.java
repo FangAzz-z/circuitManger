@@ -33,11 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class CheckMaintainController implements Initializable {
     Logger logger = LoggerFactory.getLogger(CheckMainListController.class);
@@ -113,44 +109,71 @@ public class CheckMaintainController implements Initializable {
         this.maintainCardNo.setCellValueFactory(new MapValueFactory<String>("maintain_card_no"));
         this.maintainCardModel.setCellValueFactory(new MapValueFactory<String>("maintain_card_model"));
         this.maintainCardBrand.setCellValueFactory(new MapValueFactory<String>("maintain_card_brand"));
-        this.maintainCardCategory.setCellValueFactory(new MapValueFactory<>("maintain_card_category"));
-        this.maintainUser.setCellValueFactory(new MapValueFactory<>("maintain_user"));
-        this.wxStatus.setCellValueFactory(new MapValueFactory<>("wx_status"));
-        this.wxShow.setCellValueFactory(new MapValueFactory<>("wx_show"));
-        this.wxMethod.setCellValueFactory(new MapValueFactory<>("wx_method"));
-        this.wxResult.setCellValueFactory(new MapValueFactory<>("wx_result"));
-        this.maintainDesc.setCellValueFactory(new MapValueFactory<>("maintain_desc"));
-        this.maintainFitting.setCellValueFactory(new MapValueFactory<>("maintain_fitting"));
-        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+        this.maintainCardCategory.setCellValueFactory(new MapValueFactory<String>("maintain_card_category"));
+        this.maintainUser.setCellValueFactory(new MapValueFactory<String>("maintain_user"));
+        this.wxStatus.setCellValueFactory(new MapValueFactory<String>("wx_status"));
+        this.wxShow.setCellValueFactory(new MapValueFactory<String>("wx_show"));
+        this.wxMethod.setCellValueFactory(new MapValueFactory<String>("wx_method"));
+        this.wxResult.setCellValueFactory(new MapValueFactory<String>("wx_result"));
+        this.maintainDesc.setCellValueFactory(new MapValueFactory<String>("maintain_desc"));
+        this.maintainFitting.setCellValueFactory(new MapValueFactory<String>("maintain_fitting"));
+        this.pageSet.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                return CheckMaintainController.this.createPage(pageIndex);
+            }
+        });
         refreshData();
 
-        List<String> statusList =  dao.commonQueryAll("CM_BASE_PT_STATUS").stream().map(a->((String)a.get("content"))).collect(Collectors.toList());
-        List<String> userName = dao.commonQueryAll("CM_MAINTAIN_USER").stream().map(a->(a.get("department")+((String)a.get("name")))).collect(Collectors.toList());
+        List<String> statusList = new ArrayList<String>();
+        List<Map<String,Object>> statusStrList = dao.commonQueryAll("CM_BASE_PT_STATUS");
+        for (int i = 0; i < statusStrList.size(); i++) {
+            statusList.add((String)statusStrList.get(i).get("content"));
+        }
+        List<String> userName = new ArrayList<String>();
+        List<Map<String,Object>> userNameList = dao.commonQueryAll("CM_MAINTAIN_USER");
+        for (int i = 0; i < userNameList.size(); i++) {
+            Map<String, Object> a = userNameList.get(i);
+            String str = a.get("department")+((String)a.get("name"));
+            userName.add(str);
+        }
         queryUser.setItems(FXCollections.observableArrayList(userName));
         queryStatus.setItems(FXCollections.observableArrayList(statusList));
 
         //类别 品牌 型号 联动
         List<String> category = ptDao.queryAllCategory();
         queryCategory.setItems(FXCollections.observableArrayList(category));
-        queryCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
-            queryBrand.setItems(FXCollections.observableArrayList(brand));
+        queryCategory.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                List<String> brand = ptDao.queryBrandByCategory(ObjectUtil.getString(newValue));
+                queryBrand.setItems(FXCollections.observableArrayList(brand));
+            }
         });
-        queryBrand.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                    List<String> model = ptDao.queryModelByBrand(this.queryCategory.getSelectionModel().getSelectedItem().toString(),ObjectUtil.getString(newValue));
-                    queryModel.setItems(FXCollections.observableArrayList(model));
+        queryBrand.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                List<String> model = ptDao.queryModelByBrand(CheckMaintainController.this.queryCategory.getSelectionModel().getSelectedItem().toString(), ObjectUtil.getString(newValue));
+                queryModel.setItems(FXCollections.observableArrayList(model));
+            }
         });
 
         //行选择事件
-        userTable.setRowFactory( tv -> {
-            TableRow<Map<String,Object>> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Map<String,Object> map = row.getItem();
-                    detailData(map);
-                }
-            });
-            return row ;
+        userTable.setRowFactory(new Callback() {
+            @Override
+            public Object call(Object tv) {
+                final TableRow<Map<String, Object>> row = new TableRow<Map<String, Object>>();
+                row.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                            Map<String, Object> map = row.getItem();
+                            CheckMaintainController.this.detailData(map);
+                        }
+                    }
+                });
+                return row;
+            }
         });
     }
 

@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -71,7 +72,12 @@ public class CheckFittingController implements Initializable {
         this.num.setCellValueFactory(new MapValueFactory<String>("fitting_num"));
         this.packaging.setCellValueFactory(new MapValueFactory<String>("packaging"));
         this.lowLimit.setCellValueFactory(new MapValueFactory<String>("low_limit"));
-        this.pageSet.setPageFactory(pageIndex -> createPage(pageIndex));
+        this.pageSet.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                return CheckFittingController.this.createPage(pageIndex);
+            }
+        });
         refreshData();
 
     }
@@ -86,20 +92,23 @@ public class CheckFittingController implements Initializable {
         this.userTable.setItems(list);
         this.userTable.refresh();
         this.pageSet.setCurrentPageIndex(0);
-        this.userTable.setRowFactory(tv->{
-            TableRow<Map<String,Object>> row = new TableRow<Map<String,Object>>(){
-                @Override
-                protected void updateItem(Map<String, Object> item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(!empty) {
-                        if (ObjectUtil.getInt(item.get("fitting_num")) < ObjectUtil.getInt(item.get("low_limit"))) {
-                            this.setStyle("-fx-font-weight:bold;-fx-background-color: #d2ab80");
+        this.userTable.setRowFactory(new Callback() {
+            @Override
+            public Object call(Object tv) {
+                TableRow<Map<String, Object>> row = new TableRow<Map<String, Object>>() {
+                    @Override
+                    protected void updateItem(Map<String, Object> item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!empty) {
+                            if (ObjectUtil.getInt(item.get("fitting_num")) < ObjectUtil.getInt(item.get("low_limit"))) {
+                                this.setStyle("-fx-font-weight:bold;-fx-background-color: #d2ab80");
+                            }
                         }
                     }
-                }
-            };
+                };
 
-            return row;
+                return row;
+            }
         });
     }
 

@@ -4,6 +4,7 @@ import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.application.Application;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,8 +41,11 @@ public class Main extends Application {
 //        int height = 768;
         Scene primarySence = new Scene(root, width, height); // 页面大小 初始 1800 900
         primaryStage.setScene( primarySence );
-        primaryStage.setOnCloseRequest(event -> {
-            closeAllPopups(event);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                closeAllPopups(event);
+            }
         });
         primaryStage.show();
     }

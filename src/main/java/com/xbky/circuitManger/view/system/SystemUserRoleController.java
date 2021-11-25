@@ -24,10 +24,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SystemUserRoleController implements Initializable {
@@ -56,8 +53,22 @@ public class SystemUserRoleController implements Initializable {
         this.userName.setCellValueFactory(new MapValueFactory<String>("user_name"));
         this.moduleName.setCellValueFactory(new MapValueFactory<String>("module_name"));
         refreshData();
-        List<String> user = dao.commonQueryAll("CM_SYSTEM_USER").stream().map(a->((String)a.get("user_name"))).filter(a->!"admin".equals(a)).collect(Collectors.toList());
-        List<String> module = Arrays.stream(ModuleEnum.values()).map(a->a.getName()).collect(Collectors.toList());
+
+        List<String> user = new ArrayList<String>();
+        List<Map<String,Object>> userList = dao.commonQueryAll("CM_SYSTEM_USER");
+        for (int i = 0; i < userList.size(); i++) {
+            Map<String, Object> a = userList.get(i);
+            String userStr = (String)a.get("user_name");
+            if(!"admin".equals(userStr)){
+                user.add(userStr);
+            }
+        }
+        List<String> module = new ArrayList<String>();
+        for (int i = 0; i < ModuleEnum.values().length; i++) {
+            ModuleEnum enums = ModuleEnum.values()[i];
+            module.add(enums.getName());
+        }
+
         comboUser.setItems(FXCollections.observableArrayList(user));
         comboModule.setItems(FXCollections.observableArrayList(module));
     }

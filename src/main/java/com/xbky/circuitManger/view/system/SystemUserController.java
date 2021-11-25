@@ -106,7 +106,12 @@ public class SystemUserController implements Initializable {
         SystemUserAddController  controller = loader.getController();
         SystemUserAddController.setDialog(dialog);
         controller.setBaseData(ObjectUtil.getString(map.get("id")),(String)map.get("user_name"),(String)map.get("user_password"));
-        SystemUserAddController.setResultHandle(()->{refreshData();});
+        SystemUserAddController.setResultHandle(new Runnable() {
+            @Override
+            public void run() {
+                SystemUserController.this.refreshData();
+            }
+        });
         dialog.show();
     }
 

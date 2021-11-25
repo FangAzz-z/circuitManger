@@ -3,10 +3,13 @@ package com.xbky.circuitManger.view.check;
 import com.xbky.circuitManger.dao.FittingIntoInfoDao;
 import com.xbky.circuitManger.entity.FittingIntoInfo;
 import com.xbky.circuitManger.utils.ObjectUtil;
+import com.xbky.circuitManger.view.common.Function;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -14,13 +17,14 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class CheckFittingChooseController  implements Initializable {
 
@@ -83,9 +87,11 @@ public class CheckFittingChooseController  implements Initializable {
         refreshData();
 
         //行选择事件
-        userTable.setRowFactory( tv -> {
-            TableRow<Map<String,Object>> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
+        userTable.setRowFactory(new Callback() {
+            @Override
+            public Object call(Object tv) {
+                final TableRow<Map<String, Object>> row = new TableRow<Map<String, Object>>();
+/*            row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Map<String,Object> map = row.getItem();
                     if(ObjectUtil.isNull(this.tfNum.getText())){
@@ -98,8 +104,27 @@ public class CheckFittingChooseController  implements Initializable {
                     map.put("num",ObjectUtil.getString(this.tfNum.getText()));
                     handleChoose(map);
                 }
-            });
-            return row ;
+            });*/
+                row.setOnMouseClicked(new EventHandler() {
+                    @Override
+                    public void handle(Event event) {
+                        MouseEvent mouseEvent = (MouseEvent) event;
+                        if (mouseEvent.getClickCount() == 2 && (!row.isEmpty())) {
+                            Map<String, Object> map = row.getItem();
+                            if (ObjectUtil.isNull(tfNum.getText())) {
+                                StageManager.nullWarn("配件数量不能为空");
+                                return;
+                            } else if (ObjectUtil.isNotInteger(tfNum.getText())) {
+                                StageManager.nullWarn("配件数量必须传入数字");
+                                return;
+                            }
+                            map.put("num", ObjectUtil.getString(tfNum.getText()));
+                            handleChoose(map);
+                        }
+                    }
+                });
+                return row;
+            }
         });
     }
 

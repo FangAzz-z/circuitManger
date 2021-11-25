@@ -12,6 +12,7 @@ import com.xbky.circuitManger.utils.PrintUtil;
 import com.xbky.circuitManger.view.common.FxmlView;
 import com.xbky.circuitManger.view.common.StageManager;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,7 +39,6 @@ import java.net.URL;
 import java.sql.Statement;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class MainController implements Initializable {
@@ -133,29 +133,39 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Button> buttonList = Arrays.asList(buWxManager,buCxDown,buTxConnect,buPrinter,buBkTest,buAppExit,buBaseChange,buWxCheck,buSystemSet,buGoBack);
-        buttonList.forEach(button->{
+        for (int i = 0; i < buttonList.size(); i++) {
+            final Button button = buttonList.get(i);
             //鼠标进入
-            button.setOnMouseEntered(event->{
-                button.setStyle("-fx-border-color: #e0e3e2;-fx-background-color: transparent;-fx-border-width:3;");
-                ((ImageView)button.getGraphic()).setFitWidth(160);
-                ((ImageView)button.getGraphic()).setFitHeight(160);
+            button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    button.setStyle("-fx-border-color: #e0e3e2;-fx-background-color: transparent;-fx-border-width:3;");
+                    ((ImageView) button.getGraphic()).setFitWidth(160);
+                    ((ImageView) button.getGraphic()).setFitHeight(160);
+                }
             });
             //鼠标退出
-            button.setOnMouseExited(event->{
-                button.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
-                ((ImageView)button.getGraphic()).setFitWidth(150);
-                ((ImageView)button.getGraphic()).setFitHeight(150);
+            button.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    button.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
+                    ((ImageView) button.getGraphic()).setFitWidth(150);
+                    ((ImageView) button.getGraphic()).setFitHeight(150);
+                }
             });
-            button.setOnMousePressed(event -> {
-                ((ImageView)button.getGraphic()).setFitWidth(140);
-                ((ImageView)button.getGraphic()).setFitHeight(140);
+            button.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    ((ImageView) button.getGraphic()).setFitWidth(140);
+                    ((ImageView) button.getGraphic()).setFitHeight(140);
 
+                }
             });
-        });
+        }
 
         if(!"admin".equals(LoginController.loginName)) {
             systemSet.setVisible(false);
-            Map<String, VBox> moduleMap = new HashMap<>();
+            Map<String, VBox> moduleMap = new HashMap<String, VBox>();
             moduleMap.put("维修管理", wxManager);
             moduleMap.put("程序下载", cxDown);
             moduleMap.put("通讯连接", txConnect);
@@ -167,10 +177,15 @@ public class MainController implements Initializable {
 
             List<Map<String, Object>> roleList = loginDao.getDataByUser(LoginController.loginName);
             if (ObjectUtil.isNotEmpty(roleList)) {
-                moduleMap.entrySet().forEach(a->a.getValue().setVisible(false));
-                roleList.forEach(a->{
+                Iterator iterators = moduleMap.entrySet().iterator();
+                while (iterators.hasNext()) {
+                    Map.Entry<String, VBox> a = (Map.Entry<String, VBox>) iterators.next();
+                    a.getValue().setVisible(false);
+                }
+                for (int i = 0; i < roleList.size(); i++) {
+                    Map<String, Object> a = roleList.get(i);
                     moduleMap.get(ObjectUtil.getString(a.get("module_name"))).setVisible(true);
-                });
+                }
             }
         }
 
@@ -217,7 +232,6 @@ public class MainController implements Initializable {
         Parent rootNode = null;
         try {
             rootNode = FXMLLoader.load(getClass().getResource(fxmlFilePath));
-            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
         } catch (Exception exception) {
             log.info("", exception);
         }
@@ -336,7 +350,7 @@ public class MainController implements Initializable {
 
     public void setModule(){
         if(!"admin".equals(LoginController.loginName)) {
-            Map<String, VBox> moduleMap = new HashMap<>();
+            Map<String, VBox> moduleMap = new HashMap<String, VBox>();
             moduleMap.put("维修管理", wxManager);
             moduleMap.put("程序下载", cxDown);
             moduleMap.put("通讯连接", txConnect);
@@ -348,10 +362,16 @@ public class MainController implements Initializable {
 
             List<Map<String, Object>> roleList = loginDao.getDataByModule(LoginController.loginName);
             if (ObjectUtil.isNotEmpty(roleList)) {
-                moduleMap.entrySet().forEach(a->a.getValue().setVisible(false));
-                roleList.forEach(a->{
+                Iterator iterators = moduleMap.entrySet().iterator();
+                while (iterators.hasNext()) {
+                    Map.Entry<String, VBox> a = (Map.Entry<String, VBox>) iterators.next();
+                    a.getValue().setVisible(false);
+                }
+
+                for (int i = 0; i < roleList.size(); i++) {
+                    Map<String, Object> a = roleList.get(i);
                     moduleMap.get(ObjectUtil.getString(a.get("module_name"))).setVisible(true);
-                });
+                }
             }
         }
     }
