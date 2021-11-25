@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.Optional;
-//import java.util.Objects;
-//import java.util.Optional;
 
 public class StageManager {
     private static Logger log = LoggerFactory.getLogger(StageManager.class);
@@ -62,15 +60,15 @@ public class StageManager {
     }
 
     public static void nullWarn(String title,String context,Stage stage) {
-
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stage);
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text(context));
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
+//
+//        final Stage dialog = new Stage();
+//        dialog.initModality(Modality.APPLICATION_MODAL);
+//        dialog.initOwner(stage);
+//        VBox dialogVbox = new VBox(20);
+//        dialogVbox.getChildren().add(new Text(context));
+//        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+//        dialog.setScene(dialogScene);
+//        dialog.show();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
