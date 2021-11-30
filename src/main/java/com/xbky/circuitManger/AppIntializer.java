@@ -160,6 +160,7 @@ public class AppIntializer {
             buildExe();
         }catch (SQLException e) {
             log.error("", e);
+            System.exit(0);
         }
     }
 
